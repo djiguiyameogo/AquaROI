@@ -17,7 +17,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--navy);overflow:hidden;}
- 
+
 /* HEADER */
 header{background:var(--navy);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;border-bottom:2px solid var(--water);flex-shrink:0;}
 .hd-left{display:flex;align-items:center;gap:10px;}
@@ -31,21 +31,21 @@ header{background:var(--navy);height:58px;display:flex;align-items:center;justif
 .lang-toggle{display:flex;gap:2px;background:rgba(255,255,255,0.06);border:1px solid #334155;border-radius:5px;padding:2px;}
 .lang-btn{font-family:'DM Mono',monospace;font-size:0.6rem;padding:3px 8px;border-radius:3px;border:none;cursor:pointer;background:transparent;color:#64748b;transition:all 0.15s;}
 .lang-btn.active{background:var(--water);color:white;}
- 
+
 /* LAYOUT */
 .app{display:grid;grid-template-columns:380px 1fr;height:calc(100vh - 58px);}
- 
+
 /* LEFT PANEL */
 .left{background:var(--panel);border-right:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;}
 .left-body{padding:1rem;display:flex;flex-direction:column;gap:0.85rem;flex:1;}
 .left-footer{padding:0.75rem 1rem;border-top:1px solid var(--border);background:var(--bg);}
- 
+
 /* SECTION HEADERS */
 .sec-head{display:flex;align-items:center;gap:6px;margin-bottom:0.4rem;}
 .sec-icon{font-size:13px;}
 .sec-label{font-family:'DM Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);}
 .divider{border:none;border-top:1px dashed var(--border);}
- 
+
 /* DATA STATUS BANNER */
 .data-status{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;font-size:0.68rem;font-family:'DM Mono',monospace;letter-spacing:0.5px;margin-bottom:4px;}
 .data-status.loading{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);color:#92400e;}
@@ -56,7 +56,7 @@ header{background:var(--navy);height:58px;display:flex;align-items:center;justif
 .status-dot.ready{background:#22c55e;}
 .status-dot.idle{background:#94a3b8;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
- 
+
 /* LIVE DATA CARDS */
 .live-data-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;}
 .live-card{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:7px 9px;}
@@ -65,7 +65,7 @@ header{background:var(--navy);height:58px;display:flex;align-items:center;justif
 .live-card-sub{font-size:0.6rem;color:var(--muted);margin-top:1px;}
 .live-card.highlight{border-color:rgba(59,130,246,0.3);background:rgba(59,130,246,0.04);}
 .live-card.highlight .live-card-value{color:var(--water);}
- 
+
 /* FORM ELEMENTS */
 .field{display:flex;flex-direction:column;gap:3px;}
 .field label{font-size:0.78rem;font-weight:500;color:var(--navy);}
@@ -78,7 +78,7 @@ header{background:var(--navy);height:58px;display:flex;align-items:center;justif
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--water);background:white;}
 .field textarea{resize:vertical;min-height:55px;}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
- 
+
 /* DATA TABS */
 .data-tabs{display:flex;gap:2px;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:3px;margin-bottom:8px;}
 .data-tab{flex:1;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.5px;padding:5px 4px;border:none;border-radius:5px;cursor:pointer;background:transparent;color:var(--muted);transition:all 0.15s;}
@@ -86,7 +86,7 @@ header{background:var(--navy);height:58px;display:flex;align-items:center;justif
 .data-tab.active{background:white;color:var(--navy);font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
 .data-tab-panel{animation:fadeIn 0.15s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(2px);}to{opacity:1;transform:translateY(0);}}
- 
+
 /* DATA CHIPS */
 .data-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
 .data-chip{display:flex;align-items:center;gap:5px;padding:5px 7px;border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:all 0.15s;background:var(--bg);}
@@ -97,7 +97,7 @@ header{background:var(--navy);height:58px;display:flex;align-items:center;justif
 .data-chip.active .chip-dot{background:var(--water);}
 .chip-label{font-size:0.72rem;color:var(--muted);}
 .data-chip.active .chip-label{color:var(--navy);}
- 
+
 /* UPLOAD */
 .upload-zone{border:1.5px dashed var(--border);border-radius:8px;padding:1.1rem 0.75rem;text-align:center;cursor:pointer;transition:all 0.15s;background:var(--bg);}
 .upload-zone:hover,.upload-zone.drag-over{border-color:var(--water);background:rgba(59,130,246,0.04);}
@@ -115,7 +115,7 @@ header{background:var(--navy);height:58px;display:flex;align-items:center;justif
 .file-status.ready{background:rgba(34,197,94,0.1);color:#166534;}
 .file-remove{cursor:pointer;color:var(--muted);font-size:12px;flex-shrink:0;opacity:0.6;}
 .file-remove:hover{opacity:1;color:#991b1b;}
- 
+
 /* SSP & HORIZON PILLS */
 .ssp-grid,.horizon-grid{display:flex;flex-wrap:wrap;gap:5px;}
 .ssp-pill,.horizon-pill{padding:4px 10px;border:1px solid var(--border);border-radius:999px;font-family:'DM Mono',monospace;font-size:0.6rem;cursor:pointer;transition:all 0.15s;background:var(--bg);color:var(--muted);}
@@ -124,7 +124,7 @@ header{background:var(--navy);height:58px;display:flex;align-items:center;justif
 .ssp-pill.active.ssp3{background:#c2410c;border-color:#c2410c;color:white;}
 .ssp-pill.active.ssp5{background:#991b1b;border-color:#991b1b;color:white;}
 .horizon-pill.active{background:var(--teal);border-color:var(--teal);color:white;}
- 
+
 /* MCDA */
 .mcda-pool{display:flex;flex-wrap:wrap;gap:5px;padding:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;min-height:46px;}
 .mcda-token{display:flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;font-size:0.7rem;cursor:pointer;transition:all 0.15s;border:1px solid transparent;user-select:none;}
@@ -148,12 +148,12 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 .weight-total{font-family:'DM Mono',monospace;font-size:0.63rem;text-align:right;padding:3px 8px;background:var(--bg);border-radius:4px;border:1px solid var(--border);margin-top:3px;}
 .weight-total.ok{color:#166534;border-color:#bbf7d0;}
 .weight-total.over{color:#991b1b;border-color:#fecaca;}
- 
+
 /* SECTOR */
 .sector-selected{display:flex;flex-wrap:wrap;gap:4px;padding:7px;background:var(--bg);border:1px solid var(--border);border-radius:8px;min-height:40px;}
 .sector-tag{display:flex;align-items:center;gap:3px;padding:3px 8px;background:rgba(13,148,136,0.1);border:1px solid rgba(13,148,136,0.25);border-radius:999px;font-size:0.68rem;color:#0f766e;cursor:pointer;}
 .sector-tag .rem{opacity:0.6;font-size:10px;}
- 
+
 /* MCDA COLORS */
 .tok-social{background:rgba(13,148,136,0.1);border-color:rgba(13,148,136,0.3);color:#0f766e;}
 .tok-economic{background:rgba(29,78,216,0.1);border-color:rgba(29,78,216,0.3);color:#1e40af;}
@@ -165,7 +165,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 .tok-carbon{background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.3);color:#065f46;}
 .tok-political{background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.3);color:#991b1b;}
 .tok-cofinancing{background:rgba(251,191,36,0.1);border-color:rgba(251,191,36,0.3);color:#78350f;}
- 
+
 /* ANALYZE BUTTON */
 .analyze-btn{background:var(--water);color:white;border:none;border-radius:8px;padding:11px;font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:1px;cursor:pointer;transition:all 0.2s;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;}
 .analyze-btn:hover:not(:disabled){background:#2563eb;transform:translateY(-1px);}
@@ -174,10 +174,10 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 .analyze-btn.loading .spinner{display:block;}
 .analyze-btn.loading .btn-text{opacity:0.7;}
 @keyframes spin{to{transform:rotate(360deg);}}
- 
+
 /* RIGHT PANEL */
 .right{overflow:hidden;display:flex;flex-direction:column;position:relative;}
- 
+
 /* RESULTS TABS */
 .results-tabs{display:flex;background:white;border-bottom:1px solid var(--border);flex-shrink:0;}
 .result-tab{padding:10px 16px;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:1px;cursor:pointer;border:none;background:transparent;color:var(--muted);border-bottom:2px solid transparent;transition:all 0.15s;text-transform:uppercase;}
@@ -185,10 +185,10 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 .result-tab.active{color:var(--water);border-bottom-color:var(--water);}
 .result-tab-panel{display:none;overflow-y:auto;flex:1;padding:1.5rem;flex-direction:column;gap:1.5rem;}
 .result-tab-panel.active{display:flex;}
- 
+
 /* MAP */
 #mapContainer{height:100%;min-height:400px;border-radius:0;}
- 
+
 /* SDG TAGS */
 .sdg-tag{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:999px;font-size:0.6rem;font-family:'DM Mono',monospace;font-weight:700;}
 .sdg-6{background:rgba(59,130,246,0.1);color:#1D4ED8;}
@@ -196,7 +196,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 .sdg-1{background:rgba(239,68,68,0.1);color:#991b1b;}
 .sdg-2{background:rgba(245,158,11,0.1);color:#92400e;}
 .sdg-3{background:rgba(139,92,246,0.1);color:#6d28d9;}
- 
+
 /* RESULTS CARDS */
 .results-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;}
 .results-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;}
@@ -206,7 +206,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 .r-badge.ssp{background:rgba(59,130,246,0.1);color:#1D4ED8;border:1px solid rgba(59,130,246,0.2);}
 .r-badge.hz{background:rgba(13,148,136,0.1);color:#0f766e;border:1px solid rgba(13,148,136,0.2);}
 .r-badge.live{background:rgba(34,197,94,0.1);color:#166534;border:1px solid rgba(34,197,94,0.2);}
- 
+
 .score-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:0.75rem;}
 .score-card{background:white;border:1px solid var(--border);border-radius:10px;padding:0.85rem;position:relative;overflow:hidden;}
 .score-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
@@ -217,7 +217,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 .score-lbl{font-family:'DM Mono',monospace;font-size:0.55rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:3px;}
 .score-val{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;line-height:1;}
 .score-sub{font-size:0.67rem;color:var(--muted);margin-top:2px;}
- 
+
 /* LIVE DATA RESULTS */
 .live-results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;}
 .live-result-card{background:white;border:1px solid var(--border);border-radius:10px;padding:0.9rem;}
@@ -225,16 +225,16 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 .lrc-value{font-size:1.3rem;font-weight:700;font-family:'Playfair Display',serif;line-height:1;margin-bottom:2px;}
 .lrc-label{font-size:0.7rem;color:var(--muted);}
 .lrc-period{font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--muted);margin-top:3px;opacity:0.7;}
- 
+
 .ai-block{background:white;border:1px solid var(--border);border-radius:10px;overflow:hidden;}
 .ai-head{background:var(--navy);color:white;padding:9px 13px;display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:1.5px;}
 .ai-pulse{width:6px;height:6px;background:var(--water-l);border-radius:50%;animation:pulse 1.5s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
 .ai-body{padding:1.1rem;font-size:0.83rem;line-height:1.85;white-space:pre-wrap;}
- 
+
 .ctx-wrap{display:flex;flex-wrap:wrap;gap:5px;}
 .ctx-chip{background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.2);color:#1D4ED8;font-size:0.63rem;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:4px;}
- 
+
 /* EXPORT BUTTONS */
 .export-bar{display:flex;gap:6px;flex-wrap:wrap;}
 .export-btn{display:flex;align-items:center;gap:5px;padding:6px 12px;border:1px solid var(--border);border-radius:6px;font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.5px;cursor:pointer;background:white;color:var(--navy);transition:all 0.15s;}
@@ -243,7 +243,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 .export-btn.pdf:hover{background:rgba(239,68,68,0.05);}
 .export-btn.excel{border-color:rgba(34,197,94,0.3);color:#166534;}
 .export-btn.excel:hover{background:rgba(34,197,94,0.05);}
- 
+
 .inv-block{background:white;border:1px solid var(--border);border-radius:10px;overflow:hidden;}
 .inv-head{padding:10px 13px;border-bottom:1px solid var(--border);font-family:'DM Mono',monospace;font-size:0.57rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);display:flex;justify-content:space-between;}
 .inv-table{width:100%;border-collapse:collapse;font-size:0.76rem;}
@@ -259,7 +259,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 .pri-HIGH{background:rgba(59,130,246,0.1);color:#1D4ED8;}
 .pri-MEDIUM{background:rgba(13,148,136,0.1);color:#0f766e;}
 .pri-LOW{background:rgba(100,116,139,0.1);color:var(--muted);}
- 
+
 .skeleton{background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:5px;}
 @keyframes shimmer{to{background-position:-200% 0;}}
 .sk-line{height:12px;margin-bottom:8px;}.sk-line.sh{width:50%;}.sk-line.sm{width:75%;}
@@ -298,12 +298,12 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
     <span class="hd-badge">AI WATER INVESTMENT PLANNER</span>
   </div>
 </header>
- 
+
 <div class="app">
   <!-- LEFT PANEL -->
   <div class="left">
     <div class="left-body">
- 
+
       <!-- LOCATION -->
       <div>
         <div class="sec-head"><span class="sec-icon">📍</span><span class="sec-label" data-i18n="location">Location</span></div>
@@ -372,9 +372,9 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
           </div>
         </div>
       </div>
- 
+
       <hr class="divider">
- 
+
       <!-- LIVE DATA PANEL -->
       <div>
         <div class="sec-head">
@@ -422,9 +422,9 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
           ET Phase 3: GLEAM · MOD16 · SSEBop
         </div>
       </div>
- 
+
       <hr class="divider">
- 
+
       <!-- CONTEXT -->
       <div>
         <div class="sec-head"><span class="sec-icon">👥</span><span class="sec-label" data-i18n="context">Context</span></div>
@@ -439,9 +439,9 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
           </div>
         </div>
       </div>
- 
+
       <hr class="divider">
- 
+
       <!-- DATA & DOCUMENTS -->
       <div>
         <div class="sec-head"><span class="sec-icon">📡</span><span class="sec-label" data-i18n="data_docs">Data & Documents</span></div>
@@ -477,9 +477,9 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
           </div>
         </div>
       </div>
- 
+
       <hr class="divider">
- 
+
       <!-- SSP PATHWAYS -->
       <div>
         <div class="sec-head"><span class="sec-icon">🌡️</span><span class="sec-label" data-i18n="ssp">SSP Pathways</span></div>
@@ -491,7 +491,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
           <div class="ssp-pill ssp5 active" onclick="togglePill(this)">SSP5-8.5</div>
         </div>
       </div>
- 
+
       <!-- PLANNING HORIZONS -->
       <div>
         <div class="sec-head"><span class="sec-icon">📅</span><span class="sec-label" data-i18n="horizons">Planning Horizons</span></div>
@@ -503,9 +503,9 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
           <div class="horizon-pill" onclick="togglePill(this)">2099</div>
         </div>
       </div>
- 
+
       <hr class="divider">
- 
+
       <!-- MCDA -->
       <div style="position:relative;">
         <div class="sec-head">
@@ -531,9 +531,9 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
         <div class="mcda-sliders" id="mcdaSliders"></div>
         <div class="weight-total" id="weightTotal">Total: 0 / 100</div>
       </div>
- 
+
       <hr class="divider">
- 
+
       <!-- SECTORS -->
       <div style="position:relative;">
         <div class="sec-head">
@@ -558,9 +558,9 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
           <option value="climate_infra">Climate adaptation infrastructure</option>
         </select>
       </div>
- 
+
       <hr class="divider">
- 
+
       <!-- CONTEXT NOTES -->
       <div>
         <div class="sec-head"><span class="sec-icon">💬</span><span class="sec-label" data-i18n="add_context">Additional Context</span></div>
@@ -568,7 +568,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
           <textarea id="extraContext" style="min-height:55px;" placeholder="Local constraints, partnerships, specific risks...">Rainfed agriculture, AES borehole network, zebu-cart vendor distribution. CRS partnership active since 2018.</textarea>
         </div>
       </div>
- 
+
     </div>
     <div class="left-footer">
       <button class="analyze-btn" id="analyzeBtn" onclick="runAnalysis()">
@@ -577,23 +577,36 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
       </button>
     </div>
   </div>
- 
+
   <!-- RIGHT PANEL -->
   <div class="right" id="rightPanel">
- 
+
     <!-- WELCOME -->
     <div id="welcomeState" style="position:relative;width:100%;height:100%;overflow:hidden;display:flex;align-items:flex-end;">
-      <img src="https://images.unsplash.com/photo-1695735717462-580b5e3ab198?w=1600&q=80&fit=crop" alt="Aerial view of arid landscape" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;" onerror="this.style.display='none';document.getElementById('fbg').style.display='block';"/>
-      <div id="fbg" style="display:none;position:absolute;inset:0;background:linear-gradient(160deg,#1a3a2e 0%,#0c2a4a 50%,#0c1a2e 100%);"></div>
-      <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(12,26,46,0.95) 0%, rgba(12,26,46,0.5) 40%, rgba(12,26,46,0.1) 100%);"></div>
+      <!-- Primary: real aerial dryland riverbed photo (Unsplash, free to use) -->
+      <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1800&q=85&fit=crop&crop=center" alt="Aerial view of African dryland landscape" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1800&q=85&fit=crop';"/>
+      <!-- Overlay — minimal, let the photo breathe -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(12,26,46,0.96) 0%, rgba(12,26,46,0.55) 38%, rgba(12,26,46,0.08) 100%);"></div>
       <div style="position:relative;z-index:2;width:100%;padding:2.5rem 3rem 3rem;">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:1.25rem;">
-          <svg width="28" height="28" viewBox="0 0 80 80" fill="none"><path d="M8 50 A32 32 0 0 1 72 50" fill="none" stroke="#93c5fd" stroke-width="1" stroke-linecap="round" opacity="0.3"/><path d="M14 43 A26 26 0 0 1 66 43" fill="none" stroke="#93c5fd" stroke-width="1.6" stroke-linecap="round" opacity="0.6"/><path d="M20 36 A20 20 0 0 1 60 36" fill="none" stroke="#93c5fd" stroke-width="3" stroke-linecap="round"/><text x="40" y="57" text-anchor="middle" font-family="Georgia,serif" font-size="28" font-weight="bold" fill="white">R</text><text x="55" y="28" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#93c5fd">IQ</text><circle cx="40" cy="62" r="3" fill="#3b82f6"/></svg>
-          <span style="font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:2px;color:#475569;">ResilienceIQ</span>
-          <span style="color:#334155;font-size:0.65rem;">›</span>
-          <span style="font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:2px;color:#93c5fd;">Wat-Intel</span>
+        <!-- BREADCRUMB — larger, readable, with separator lines -->
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.5rem;">
+          <svg width="38" height="38" viewBox="0 0 80 80" fill="none">
+            <path d="M8 50 A32 32 0 0 1 72 50" fill="none" stroke="#93c5fd" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+            <path d="M14 43 A26 26 0 0 1 66 43" fill="none" stroke="#93c5fd" stroke-width="1.6" stroke-linecap="round" opacity="0.6"/>
+            <path d="M20 36 A20 20 0 0 1 60 36" fill="none" stroke="#93c5fd" stroke-width="3" stroke-linecap="round"/>
+            <text x="40" y="57" text-anchor="middle" font-family="Georgia,serif" font-size="28" font-weight="bold" fill="white">R</text>
+            <text x="55" y="28" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#93c5fd">IQ</text>
+            <circle cx="40" cy="62" r="3" fill="#3b82f6"/>
+          </svg>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-family:'DM Mono',monospace;font-size:1rem;letter-spacing:2px;color:#94a3b8;font-weight:500;">ResilienceIQ</span>
+            <span style="color:#64748b;font-size:1.1rem;font-weight:300;">›</span>
+            <span style="font-family:'DM Mono',monospace;font-size:1rem;letter-spacing:2px;color:#93c5fd;font-weight:500;">Wat-Intel</span>
+            <span style="color:#64748b;font-size:1.1rem;font-weight:300;">›</span>
+            <span style="font-family:'DM Mono',monospace;font-size:1rem;letter-spacing:2px;color:white;font-weight:600;">NileLogic</span>
+          </div>
         </div>
-        <div style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:white;line-height:1.05;margin-bottom:0.5rem;">NileLogic</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:white;line-height:1.0;margin-bottom:0.4rem;letter-spacing:-1px;">NileLogic</div>
         <div style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:3px;color:#93c5fd;margin-bottom:1.25rem;" data-i18n="tagline">WATER INVESTMENT INTELLIGENCE</div>
         <div style="font-size:0.88rem;color:#94a3b8;line-height:1.8;max-width:520px;margin-bottom:1.5rem;" data-i18n="welcome_desc">AI-powered multi-criteria investment planning for <span style="color:#cbd5e1;font-weight:500;">data-scarce dryland regions</span>. Now with live CHIRPS rainfall, ERA5-based PET, and World Bank data.</div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.75rem;">
@@ -606,7 +619,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
         <div style="font-size:0.62rem;color:#334155;font-family:'DM Mono',monospace;">Built by D. David S. Yaméogo · ResilienceIQ</div>
       </div>
     </div>
- 
+
     <!-- RESULTS (hidden until analysis runs) -->
     <div id="resultsState" style="display:none;flex-direction:column;height:100%;">
       <div class="results-tabs" id="resultsTabs">
@@ -622,7 +635,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
       </div>
       <div id="tab-export" class="result-tab-panel"></div>
     </div>
- 
+
   </div>
 </div>
 <script>
@@ -664,7 +677,7 @@ const i18n = {
   }
 };
 let currentLang = 'en';
- 
+
 function setLang(lang, btn) {
   currentLang = lang;
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
@@ -674,7 +687,7 @@ function setLang(lang, btn) {
     if (i18n[lang][key]) el.textContent = i18n[lang][key];
   });
 }
- 
+
 // ── COUNTRY & COORDINATES ────────────────────────────────
 let countryLat = 0, countryLon = 0;
 const popEstimates = {
@@ -687,7 +700,7 @@ const popEstimates = {
   'Uzbekistan':4000000,'Tajikistan':2000000,'Bolivia':2500000,'Haiti':3000000,
   'Northeast Brazil':7000000,'Peru':4500000
 };
- 
+
 function onCountryChange() {
   const v = document.getElementById('country').value;
   if (!v) return;
@@ -702,7 +715,7 @@ function onCountryChange() {
   document.getElementById('liveDataGrid').style.display = 'none';
   setStatus('idle', i18n[currentLang].select_country_first || 'Click Fetch to load live data');
 }
- 
+
 // ── STATUS HELPERS ────────────────────────────────────────
 function setStatus(state, text) {
   const el = document.getElementById('dataStatus');
@@ -712,17 +725,17 @@ function setStatus(state, text) {
   dot.className = 'status-dot ' + state;
   txt.textContent = text;
 }
- 
+
 // ── LIVE DATA FETCHING ────────────────────────────────────
 let liveData = {};
- 
+
 async function fetchLiveData() {
   const country = document.getElementById('country').value;
   if (!country) { alert('Please select a country first.'); return; }
   const countryName = country.split('|')[0];
   setStatus('loading', 'Fetching CHIRPS + World Bank data...');
   liveData = {};
- 
+
   try {
     // 1. CHIRPS via ClimateSERV — annual rainfall for the country centroid
     await fetchCHIRPS(countryLat, countryLon);
@@ -730,7 +743,7 @@ async function fetchLiveData() {
     await fetchPET(countryLat, countryLon);
     // 3. World Bank
     await fetchWorldBank(countryName);
- 
+
     renderLiveData();
     setStatus('ready', `Live data loaded · CHIRPS + ERA5 + World Bank`);
     document.getElementById('liveDataGrid').style.display = 'grid';
@@ -740,7 +753,7 @@ async function fetchLiveData() {
     document.getElementById('liveDataGrid').style.display = 'grid';
   }
 }
- 
+
 async function fetchCHIRPS(lat, lon) {
   // ClimateSERV API — CHIRPS annual rainfall
   // datatype=0 = CHIRPS, operationtype=5 = mean
@@ -751,7 +764,7 @@ async function fetchCHIRPS(lat, lon) {
   const endDate = new Date(); endDate.setFullYear(endDate.getFullYear()-1);
   const startDate = new Date(endDate); startDate.setFullYear(startDate.getFullYear()-3);
   const fmt = d => `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${d.getFullYear()}`;
- 
+
   try {
     const submitUrl = `https://climateserv.servirglobal.net/api/submitDataRequest/?datatype=0&begintime=${fmt(startDate)}&endtime=${fmt(endDate)}&intervaltype=0&operationtype=5&callback=cb&dateType_Category=default&isZip_CurrentDataType=false&geometry=${encodeURIComponent(geom)}`;
     const subRes = await fetch(submitUrl);
@@ -759,7 +772,7 @@ async function fetchCHIRPS(lat, lon) {
     const idMatch = subText.match(/"([a-f0-9-]{36})"/);
     if (!idMatch) throw new Error('No job ID');
     const jobId = idMatch[1];
- 
+
     // Poll for result
     for (let i = 0; i < 12; i++) {
       await new Promise(r => setTimeout(r, 2000));
@@ -795,7 +808,7 @@ async function fetchCHIRPS(lat, lon) {
     } catch(e2) { liveData.rainfall = null; }
   }
 }
- 
+
 async function fetchPET(lat, lon) {
   // ERA5 proxy via Open-Meteo: use temperature + radiation to estimate PET
   // Hargreaves equation: PET ≈ 0.0023 * Ra * (Tmax-Tmin)^0.5 * (Tmean+17.8)
@@ -811,7 +824,7 @@ async function fetchPET(lat, lon) {
     }
   } catch(e) { liveData.pet = null; }
 }
- 
+
 async function fetchWorldBank(countryName) {
   // Country code mapping
   const codes = {
@@ -849,7 +862,7 @@ async function fetchWorldBank(countryName) {
     }
   } catch(e) { /* partial data fine */ }
 }
- 
+
 function renderLiveData() {
   const fmt = n => n ? n.toLocaleString() : '—';
   document.getElementById('ld-rainfall').textContent = liveData.rainfall ? liveData.rainfall + ' mm' : '—';
@@ -868,7 +881,7 @@ function renderLiveData() {
     document.getElementById('ld-aridity').textContent = '—';
   }
 }
- 
+
 // ── HELPERS ───────────────────────────────────────────────
 function toggleChip(el) {
   el.classList.toggle('active');
@@ -894,7 +907,7 @@ function switchResultTab(tab, btn) {
   document.getElementById('tab-' + tab).classList.add('active');
   if (tab === 'map' && window._mapResult) renderMap(window._mapResult);
 }
- 
+
 // ── FILE HANDLING ─────────────────────────────────────────
 const uploadedFiles = [];
 function handleDrop(e) { e.preventDefault(); document.getElementById('uploadZone').classList.remove('drag-over'); handleFiles(e.dataTransfer.files); }
@@ -943,7 +956,7 @@ function buildFileMessages() {
   });
   return content.length ? content : null;
 }
- 
+
 // ── MCDA ─────────────────────────────────────────────────
 const mcdaAll = {
   social:{label:'Social equity',cls:'tok-social',color:'#0f766e'},
@@ -959,7 +972,7 @@ const mcdaAll = {
 };
 const scoreFieldMap = {social:'social_score',economic:'econ_score',environmental:'env_score',climate:'climate_score',governance:'governance_score',gender:'gender_score',technology:'tech_score',carbon:'carbon_score',political:'political_score',cofinancing:'cofinancing_score'};
 let selectedCriteria = ['social','economic','environmental','climate'];
- 
+
 function renderMcdaSliders() {
   const c = document.getElementById('mcdaSliders');
   c.innerHTML = '';
@@ -1004,7 +1017,7 @@ function updateDropdownState() {
 function toggleMcdaDropdown(){document.getElementById('mcdaDropdown').classList.toggle('open');}
 function closeMcdaDropdown(){document.getElementById('mcdaDropdown').classList.remove('open');}
 document.addEventListener('click',e=>{if(!e.target.closest('#mcdaAddBtn')&&!e.target.closest('#mcdaDropdown'))closeMcdaDropdown();});
- 
+
 // ── SECTORS ───────────────────────────────────────────────
 const sectorLabels={water_supply:'Water supply & storage',wash:'Sanitation & WASH',irrigation:'Irrigation & agriculture',groundwater:'Groundwater & boreholes',nbs:'Nature-based solutions',flood:'Flood & drought management',governance_sector:'Governance & policy',climate_infra:'Climate adaptation infrastructure'};
 function getSelectedSectors(){return [...document.getElementById('sectorSelected').querySelectorAll('.sector-tag')].map(t=>t.dataset.key);}
@@ -1016,7 +1029,7 @@ function addSector(){
   document.getElementById('sectorSelected').appendChild(tag); sel.value='';
 }
 function removeSector(key){const t=document.querySelector(`#sectorSelected [data-key="${key}"]`);if(t)t.remove();}
- 
+
 // ── SDG MAPPING ───────────────────────────────────────────
 const sdgMap = {
   water_supply:['SDG 6','SDG 3'], wash:['SDG 6','SDG 3','SDG 1'],
@@ -1029,7 +1042,7 @@ function renderSDGTags(sectorKey) {
   const tags = sdgMap[sectorKey] || ['SDG 6'];
   return tags.map(t=>`<span class="sdg-tag ${sdgColors[t]||'sdg-6'}">${t}</span>`).join('');
 }
- 
+
 // ── PROMPT BUILDER ────────────────────────────────────────
 function buildPrompt() {
   const country = document.getElementById('country').value.split('|')[0] || 'Unknown';
@@ -1047,7 +1060,7 @@ function buildPrompt() {
   const fileCtx = uploadedFiles.filter(f=>f.status==='ready').map(f=>f.name).join(', ');
   let weights = '';
   selectedCriteria.forEach(key=>{const el=document.getElementById('w_'+key);if(el)weights+=`${mcdaAll[key].label}:${el.value}%, `;});
- 
+
   // Live data context
   let liveCtx = '';
   if (liveData.rainfall) liveCtx += `CHIRPS annual rainfall: ${liveData.rainfall}mm (${liveData.rainfallPeriod||'recent'}). `;
@@ -1057,9 +1070,9 @@ function buildPrompt() {
   if (liveData.stressLabel) liveCtx += `Water access: ${liveData.stressLabel}. `;
   if (notes) liveCtx += `User data notes: ${notes}. `;
   if (fileCtx) liveCtx += `Uploaded files: ${fileCtx}. `;
- 
+
   return `You are a senior water security investment advisor for data-scarce dryland regions. Generate a detailed, location-specific water investment portfolio analysis.
- 
+
 LOCATION: ${country} > ${region} > ${study}
 CLIMATE ZONE: ${climate}
 POPULATION: ${pop.toLocaleString()}
@@ -1071,9 +1084,9 @@ INVESTMENT SECTORS: ${sectors}
 MCDA WEIGHTS: ${weights}
 LIVE DATA: ${liveCtx || 'Not fetched'}
 ADDITIONAL CONTEXT: ${extra}
- 
+
 IMPORTANT: Reference the live data (rainfall, PET, aridity index) explicitly in your analysis. If rainfall < 400mm/yr, flag extreme aridity. If P/PET < 0.2, flag hyper-arid conditions.
- 
+
 Return ONLY valid JSON — no markdown, no preamble:
 {
   "summary": "3-4 sentences referencing actual rainfall and climate data",
@@ -1104,7 +1117,7 @@ Return ONLY valid JSON — no markdown, no preamble:
 }
 Provide 5-7 investments. Scores 0-100. lat_offset and lon_offset are small offsets from country center for map placement.`;
 }
- 
+
 // ── RUN ANALYSIS ──────────────────────────────────────────
 async function runAnalysis() {
   const country = document.getElementById('country').value;
@@ -1136,7 +1149,7 @@ async function runAnalysis() {
   }
   btn.classList.remove('loading'); btn.disabled = false;
 }
- 
+
 // ── RENDER ANALYSIS ───────────────────────────────────────
 function renderAnalysis(r) {
   const country = document.getElementById('country').value.split('|')[0];
@@ -1146,7 +1159,7 @@ function renderAnalysis(r) {
   const sorted = [...r.investments].sort((a,b)=>b.weighted_score-a.weighted_score);
   const barColors = ['#3b82f6','#1D4ED8','#0D9488','#8b5cf6','#f97316','#ef4444','#22c55e'];
   const liveTag = Object.keys(liveData).length ? '<span class="r-badge live">LIVE DATA</span>' : '';
- 
+
   document.getElementById('tab-analysis').innerHTML = `
     <div class="results-header">
       <div class="results-title">${study}</div>
@@ -1157,30 +1170,30 @@ function renderAnalysis(r) {
         ${liveTag}
       </div>
     </div>
- 
+
     <div class="score-grid">
       <div class="score-card sc1"><div class="score-lbl">Top score</div><div class="score-val" style="color:var(--water)">${sorted[0]?.weighted_score??'—'}</div><div class="score-sub">${(sorted[0]?.name||'').split(' ').slice(0,3).join(' ')}</div></div>
       <div class="score-card sc2"><div class="score-lbl">Options</div><div class="score-val" style="color:var(--blue)">${sorted.length}</div><div class="score-sub">ranked</div></div>
       <div class="score-card sc3"><div class="score-lbl">Rainfall</div><div class="score-val" style="color:var(--teal);font-size:${liveData.rainfall?'1.1rem':'1.7rem'}">${liveData.rainfall?liveData.rainfall+'mm':'—'}</div><div class="score-sub">CHIRPS annual</div></div>
       <div class="score-card sc4"><div class="score-lbl">P/PET ratio</div><div class="score-val" style="color:#8b5cf6;font-size:1.1rem">${liveData.rainfall&&liveData.pet?(liveData.rainfall/liveData.pet).toFixed(2):'—'}</div><div class="score-sub">aridity index</div></div>
     </div>
- 
+
     <div class="ai-block">
       <div class="ai-head"><div class="ai-pulse" style="animation:none;background:#5eead4"></div>STRATEGIC SUMMARY</div>
       <div class="ai-body">${r.summary}
- 
+
 <strong>Top recommendation:</strong> ${r.top_recommendation}
- 
+
 <strong>Scenario note:</strong> ${r.scenario_note}
- 
+
 <strong>Data strategy:</strong> ${r.data_strategy}
- 
+
 <strong>Financing:</strong> ${r.financing_note}</div>
     </div>
- 
+
     <div><div style="font-family:'DM Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:7px;">Regional constraints & opportunities</div>
     <div class="ctx-wrap">${(r.context_flags||[]).map(f=>`<span class="ctx-chip">${f}</span>`).join('')}</div></div>
- 
+
     <div class="inv-block">
       <div class="inv-head"><span>Ranked investment options</span><span>${sorted.length} options · ${selectedCriteria.length} criteria</span></div>
       <table class="inv-table">
@@ -1198,7 +1211,7 @@ function renderAnalysis(r) {
     </div>
     <div class="disclaimer">⚠️ NileLogic v2.1 is an AI-assisted planning tool. Rainfall from CHIRPS via ClimateSERV. PET from ERA5/Open-Meteo. Population & GDP from World Bank. Validate with local data before capital allocation.</div>`;
 }
- 
+
 // ── RENDER LIVE DATA TAB ──────────────────────────────────
 function renderDataTab(r) {
   const country = document.getElementById('country').value.split('|')[0];
@@ -1246,7 +1259,7 @@ function renderDataTab(r) {
       <strong style="color:var(--navy);">Phase 3 additions:</strong> GLEAM actual ET · MOD16 · SSEBop · GRACE groundwater · NDVI from MODIS · ESA WorldCover land use
     </div>`;
 }
- 
+
 // ── MAP ───────────────────────────────────────────────────
 function renderMap(r) {
   const mapDiv = document.getElementById('mapContainer');
@@ -1267,7 +1280,7 @@ function renderMap(r) {
     marker.bindPopup(`<strong>${inv.name}</strong><br>Score: ${inv.weighted_score}<br>${inv.cost_estimate}<br><span style="font-size:0.7rem;color:#666">${sectorLabels[inv.sector]||inv.sector}</span>`);
   });
 }
- 
+
 // ── EXPORT TAB ────────────────────────────────────────────
 function renderExportTab(r) {
   document.getElementById('tab-export').innerHTML = `
@@ -1283,7 +1296,7 @@ function renderExportTab(r) {
       <strong style="color:var(--navy);">Excel includes:</strong> Full scores for all criteria · Cost estimates · Implementation timeline · SSP sensitivity
     </div>`;
 }
- 
+
 function exportPDF() {
   const r = window._analysisResult; if (!r) return;
   const {jsPDF} = window.jspdf;
@@ -1291,7 +1304,7 @@ function exportPDF() {
   const country = document.getElementById('country').value.split('|')[0];
   const study = document.getElementById('studyarea').value || document.getElementById('region').value || country;
   const date = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
- 
+
   // Header
   doc.setFillColor(30,41,59); doc.rect(0,0,210,28,'F');
   doc.setTextColor(255,255,255); doc.setFontSize(16); doc.setFont('helvetica','bold');
@@ -1299,12 +1312,12 @@ function exportPDF() {
   doc.setFontSize(8); doc.setFont('helvetica','normal');
   doc.text(`ResilienceIQ · Wat-Intel · ${date}`,14,20);
   doc.text(`${country} > ${study}`,140,20);
- 
+
   // Title
   doc.setTextColor(30,41,59); doc.setFontSize(13); doc.setFont('helvetica','bold');
   doc.text(`Water Investment Portfolio: ${study}`,14,38);
   doc.setDrawColor(59,130,246); doc.setLineWidth(0.5); doc.line(14,40,196,40);
- 
+
   // Live data box
   doc.setFillColor(241,245,249); doc.rect(14,44,182,22,'F');
   doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(30,41,59);
@@ -1313,14 +1326,14 @@ function exportPDF() {
   const ldText = `Rainfall (CHIRPS): ${liveData.rainfall?liveData.rainfall+'mm/yr':'N/A'} · PET (ERA5): ${liveData.pet?liveData.pet+'mm/yr':'N/A'} · P/PET: ${liveData.rainfall&&liveData.pet?(liveData.rainfall/liveData.pet).toFixed(2):'N/A'} · GDP/cap: ${liveData.gdp?'$'+liveData.gdp.toLocaleString():'N/A'}`;
   doc.text(ldText,16,57);
   doc.setFontSize(7); doc.text('Sources: CHIRPS via ClimateSERV · ERA5/Open-Meteo · World Bank API',16,63);
- 
+
   // Summary
   doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.setTextColor(30,41,59);
   doc.text('EXECUTIVE SUMMARY',14,74);
   doc.setFont('helvetica','normal'); doc.setFontSize(8);
   const lines = doc.splitTextToSize(r.summary, 182);
   doc.text(lines,14,80);
- 
+
   // Table
   let y = 80 + lines.length * 4 + 8;
   doc.setFont('helvetica','bold'); doc.setFontSize(9);
@@ -1346,7 +1359,7 @@ function exportPDF() {
     y+=7;
     if(y>270){doc.addPage();y=20;}
   });
- 
+
   // Recommendations
   y+=8;
   doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(30,41,59);
@@ -1358,16 +1371,16 @@ function exportPDF() {
   doc.setFont('helvetica','normal');
   const finLines = doc.splitTextToSize(r.financing_note, 182);
   doc.text(finLines,14,y);
- 
+
   // Footer
   doc.setFillColor(30,41,59); doc.rect(0,285,210,12,'F');
   doc.setTextColor(148,163,184); doc.setFontSize(7);
   doc.text('NileLogic · Wat-Intel · ResilienceIQ · Built by D. David S. Yaméogo',14,292);
   doc.text('AI-assisted tool. Validate with local data before capital allocation.',140,292);
- 
+
   doc.save(`NileLogic_${study.replace(/[^a-z0-9]/gi,'_')}_${date.replace(/[^a-z0-9]/gi,'_')}.pdf`);
 }
- 
+
 function exportExcel() {
   const r = window._analysisResult; if (!r) return;
   const country = document.getElementById('country').value.split('|')[0];
@@ -1398,7 +1411,7 @@ function exportExcel() {
   XLSX.utils.book_append_sheet(wb, ws2, 'Summary');
   XLSX.writeFile(wb, `NileLogic_${country}_${new Date().toISOString().slice(0,10)}.xlsx`);
 }
- 
+
 function exportJSON() {
   const r = window._analysisResult; if (!r) return;
   const blob = new Blob([JSON.stringify({...r, liveData, metadata:{country:document.getElementById('country').value.split('|')[0],date:new Date().toISOString()}},null,2)], {type:'application/json'});
@@ -1406,7 +1419,7 @@ function exportJSON() {
   a.download = `NileLogic_${document.getElementById('country').value.split('|')[0]}_${new Date().toISOString().slice(0,10)}.json`;
   a.click();
 }
- 
+
 // ── INIT ──────────────────────────────────────────────────
 renderMcdaSliders();
 </script>
