@@ -9,6 +9,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
   --navy:#1E293B;--blue:#1D4ED8;--teal:#0D9488;--teal-l:#5eead4;
@@ -265,6 +266,47 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 .sk-line{height:12px;margin-bottom:8px;}.sk-line.sh{width:50%;}.sk-line.sm{width:75%;}
 .disclaimer{font-size:0.67rem;color:var(--muted);padding:9px 12px;background:var(--bg);border-radius:6px;border-left:3px solid var(--border);line-height:1.6;}
 .error-block{background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:0.9rem;font-size:0.8rem;color:#991b1b;}
+
+.auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;display:none;align-items:center;justify-content:center;}
+.auth-overlay.open{display:flex;}
+.auth-modal{background:white;border-radius:16px;padding:2rem;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.3);position:relative;}
+.auth-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--navy);margin-bottom:0.2rem;}
+.auth-sub{font-size:0.72rem;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:1.5rem;}
+.auth-field{display:flex;flex-direction:column;gap:4px;margin-bottom:0.8rem;}
+.auth-field label{font-size:0.78rem;font-weight:500;color:var(--navy);}
+.auth-field input{font-family:'DM Sans',sans-serif;font-size:0.82rem;border:1px solid var(--border);border-radius:6px;padding:8px 10px;outline:none;transition:border-color 0.15s;background:var(--bg);}
+.auth-field input:focus{border-color:var(--water);background:white;}
+.auth-submit{width:100%;background:var(--water);color:white;border:none;border-radius:8px;padding:11px;font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:1px;cursor:pointer;margin-top:0.5rem;}
+.auth-submit:hover{background:#2563eb;}
+.auth-switch{text-align:center;margin-top:1rem;font-size:0.78rem;color:var(--muted);}
+.auth-switch a{color:var(--water);cursor:pointer;font-weight:500;}
+.auth-error{border-radius:6px;padding:8px 10px;font-size:0.75rem;margin-bottom:0.75rem;display:none;}
+.auth-close{position:absolute;top:1rem;right:1rem;cursor:pointer;color:var(--muted);font-size:1.1rem;line-height:1;background:none;border:none;}
+.user-menu-wrap{position:relative;}
+.user-btn{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid #334155;border-radius:6px;padding:5px 10px;cursor:pointer;}
+.user-btn:hover{background:rgba(255,255,255,0.13);}
+.user-avatar{width:22px;height:22px;border-radius:50%;background:var(--water);display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700;color:white;flex-shrink:0;}
+.user-name{font-family:'DM Mono',monospace;font-size:0.6rem;color:#94a3b8;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.user-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:white;border:1px solid var(--border);border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.12);padding:4px;min-width:170px;display:none;z-index:100;}
+.user-dropdown.open{display:block;}
+.user-dd-item{padding:8px 12px;font-size:0.78rem;border-radius:5px;cursor:pointer;color:var(--navy);}
+.user-dd-item:hover{background:var(--bg);}
+.user-dd-item.danger{color:#991b1b;}
+.saved-panel{position:fixed;top:58px;right:0;bottom:0;width:340px;background:white;border-left:1px solid var(--border);z-index:150;transform:translateX(100%);transition:transform 0.25s ease;display:flex;flex-direction:column;}
+.saved-panel.open{transform:translateX(0);}
+.saved-header{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.saved-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;}
+.saved-list{overflow-y:auto;flex:1;padding:0.75rem;}
+.saved-item{padding:0.85rem;border:1px solid var(--border);border-radius:8px;margin-bottom:0.5rem;cursor:pointer;transition:all 0.15s;}
+.saved-item:hover{border-color:var(--water);background:rgba(59,130,246,0.03);}
+.saved-item-title{font-weight:500;font-size:0.82rem;margin-bottom:3px;}
+.saved-item-meta{font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--muted);}
+.saved-empty{text-align:center;padding:2rem;color:var(--muted);font-size:0.82rem;line-height:1.7;}
+.save-btn{display:flex;align-items:center;gap:5px;padding:6px 12px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:6px;font-family:'DM Mono',monospace;font-size:0.6rem;color:#166534;cursor:pointer;transition:all 0.15s;}
+.save-btn:hover{background:rgba(34,197,94,0.18);}
+.sign-in-btn{background:var(--water);color:white;border:none;border-radius:6px;padding:5px 14px;font-family:'DM Mono',monospace;font-size:0.62rem;cursor:pointer;}
+.sign-in-btn:hover{background:#2563eb;}
+
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
@@ -296,6 +338,10 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
     </div>
     <span class="hd-version">v2.1</span>
     <span class="hd-badge">WATER INVESTMENT INTELLIGENCE</span>
+    <div id="authArea"><button class="sign-in-btn" onclick="openAuth('login')">Sign in</button></div>
+    <div id="authArea">
+      <button class="sign-in-btn" onclick="openAuth('login')">Sign in</button>
+    </div>
   </div>
 </header>
 
@@ -656,6 +702,98 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
     </div>
 
   </div>
+
+<!-- AUTH MODAL -->
+<div class="auth-overlay" id="authOverlay" onclick="if(event.target===this)closeAuth()">
+  <div class="auth-modal">
+    <button class="auth-close" onclick="closeAuth()">✕</button>
+    <div class="auth-title" id="authTitle">Sign in</div>
+    <div class="auth-sub">RESILIENCEIQ · NILELOGIC</div>
+    <div class="auth-error" id="authError"></div>
+    <div id="authFormName" class="auth-field" style="display:none;"><label>Full name</label><input type="text" id="authName" placeholder="Your name"></div>
+    <div class="auth-field"><label>Email</label><input type="email" id="authEmail" placeholder="your@email.com" onkeydown="if(event.key==='Enter')submitAuth()"></div>
+    <div class="auth-field"><label>Password</label><input type="password" id="authPassword" placeholder="••••••••" onkeydown="if(event.key==='Enter')submitAuth()"></div>
+    <button class="auth-submit" id="authSubmit" onclick="submitAuth()">Sign in</button>
+    <div class="auth-switch" id="authSwitch">Don't have an account? <a onclick="switchAuthMode('signup')">Sign up free</a></div>
+  </div>
+</div>
+<!-- SAVED PANEL -->
+<div class="saved-panel" id="savedPanel">
+  <div class="saved-header"><div class="saved-title">My Analyses</div><span style="cursor:pointer;color:var(--muted)" onclick="closeSavedPanel()">✕</span></div>
+  <div class="saved-list" id="savedList"><div class="saved-empty">No saved analyses yet.<br>Run an analysis and click Save.</div></div>
+</div>
+<script>
+const _sb = supabase.createClient('https://givaedcvsccfcldkhvcr.supabase.co','sb_publishable_GAti6y9in39NeOs9jl1mUg_Jxi2z7DU');
+let currentUser=null, authMode='login';
+function openAuth(m){authMode=m||'login';const t=authMode==='login'?'Sign in':'Create account';document.getElementById('authTitle').textContent=t;document.getElementById('authSubmit').textContent=t;document.getElementById('authSwitch').innerHTML=authMode==='login'?"Don't have an account? <a onclick=\"switchAuthMode('signup')\">Sign up free</a>":"Already have an account? <a onclick=\"switchAuthMode('login')\">Sign in</a>";document.getElementById('authFormName').style.display=authMode==='signup'?'flex':'none';document.getElementById('authError').style.display='none';document.getElementById('authOverlay').classList.add('open');}
+function closeAuth(){document.getElementById('authOverlay').classList.remove('open');}
+function switchAuthMode(m){openAuth(m);}
+async function submitAuth(){
+  const email=document.getElementById('authEmail').value.trim();
+  const pass=document.getElementById('authPassword').value;
+  const name=document.getElementById('authName').value.trim();
+  const err=document.getElementById('authError');
+  err.style.display='none';
+  document.getElementById('authSubmit').textContent='Please wait...';
+  try{
+    if(authMode==='signup'){
+      const {error}=await _sb.auth.signUp({email,password:pass,options:{data:{full_name:name}}});
+      if(error)throw error;
+      err.style.cssText='display:block;background:rgba(34,197,94,0.08);border:1px solid #bbf7d0;color:#166534;border-radius:6px;padding:8px 10px;font-size:0.75rem;margin-bottom:0.75rem;';
+      err.textContent='Account created! Check your email to confirm, then sign in.';
+    }else{
+      const {data,error}=await _sb.auth.signInWithPassword({email,password:pass});
+      if(error)throw error;
+      currentUser=data.user;closeAuth();renderUserMenu(currentUser);loadSavedAnalyses();
+    }
+  }catch(e){
+    err.style.cssText='display:block;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:6px;padding:8px 10px;font-size:0.75rem;margin-bottom:0.75rem;';
+    err.textContent=e.message||'Something went wrong.';
+  }
+  document.getElementById('authSubmit').textContent=authMode==='login'?'Sign in':'Create account';
+}
+function renderUserMenu(user){
+  const name=user.user_metadata?.full_name||user.email.split('@')[0];
+  const ini=name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('authArea').innerHTML=`<div class="user-menu-wrap"><div class="user-btn" onclick="toggleUserMenu()"><div class="user-avatar">${ini}</div><span class="user-name">${name}</span><span style="color:#475569;font-size:0.6rem;">▾</span></div><div class="user-dropdown" id="userDropdown"><div class="user-dd-item" onclick="openSavedPanel()">📂 My analyses</div><hr style="border:none;border-top:1px solid var(--border);margin:3px 0"><div class="user-dd-item danger" onclick="signOut()">Sign out</div></div></div>`;
+}
+function toggleUserMenu(){document.getElementById('userDropdown')?.classList.toggle('open');}
+document.addEventListener('click',e=>{if(!e.target.closest('.user-menu-wrap'))document.getElementById('userDropdown')?.classList.remove('open');});
+async function signOut(){await _sb.auth.signOut();currentUser=null;document.getElementById('authArea').innerHTML='<button class="sign-in-btn" onclick="openAuth('login')">Sign in</button>';}
+async function saveAnalysis(){
+  if(!currentUser){openAuth('login');return;}
+  const r=window._analysisResult;if(!r)return;
+  const country=document.getElementById('country').value.split('|')[0];
+  const study=document.getElementById('studyarea').value||document.getElementById('region').value||country;
+  const {error}=await _sb.from('analyses').insert({user_id:currentUser.id,title:study+' · '+new Date().toLocaleDateString(),country,region:document.getElementById('region').value,study_area:document.getElementById('studyarea').value,climate_zone:document.getElementById('climate').value,ssp_pathways:getActivePills('sspGrid').join(', '),horizons:getActivePills('horizonGrid').join(', '),budget:parseInt(document.getElementById('budget').value)||0,population:parseInt(document.getElementById('population').value)||0,live_data:liveData,mcda_weights:Object.fromEntries(selectedCriteria.map(k=>[k,parseInt(document.getElementById('w_'+k)?.value||0)])),selected_criteria:selectedCriteria,selected_sectors:getSelectedSectors(),result:r,notes:document.getElementById('extraContext').value});
+  if(error){alert('Save failed: '+error.message);return;}
+  const btn=document.querySelector('.save-btn');
+  if(btn){btn.innerHTML='✓ Saved';setTimeout(()=>btn.innerHTML='💾 Save',2000);}
+  loadSavedAnalyses();
+}
+async function loadSavedAnalyses(){
+  if(!currentUser)return;
+  const {data}=await _sb.from('analyses').select('*').order('created_at',{ascending:false}).limit(50);
+  const list=document.getElementById('savedList');
+  if(!data?.length){list.innerHTML='<div class="saved-empty">No saved analyses yet.<br>Run an analysis and click Save.</div>';return;}
+  list.innerHTML=data.map(a=>`<div class="saved-item" onclick="loadAnalysis('${a.id}')"><div class="saved-item-title">${a.title||a.country}</div><div class="saved-item-meta">${a.country} · ${a.ssp_pathways||''} · ${new Date(a.created_at).toLocaleDateString()}</div></div>`).join('');
+}
+async function loadAnalysis(id){
+  const {data}=await _sb.from('analyses').select('*').eq('id',id).single();
+  if(!data)return;
+  document.getElementById('region').value=data.region||'';
+  document.getElementById('studyarea').value=data.study_area||'';
+  document.getElementById('budget').value=data.budget||'';
+  document.getElementById('population').value=data.population||'';
+  document.getElementById('extraContext').value=data.notes||'';
+  if(data.result&&Object.keys(data.result).length){window._analysisResult=data.result;window._mapResult=data.result;document.getElementById('welcomeState').style.display='none';document.getElementById('resultsState').style.display='flex';renderAnalysis(data.result);renderDataTab(data.result);renderExportTab(data.result);}
+  closeSavedPanel();
+}
+function openSavedPanel(){document.getElementById('savedPanel').classList.add('open');loadSavedAnalyses();document.getElementById('userDropdown')?.classList.remove('open');}
+function closeSavedPanel(){document.getElementById('savedPanel').classList.remove('open');}
+async function checkSession(){const {data}=await _sb.auth.getSession();if(data.session?.user){currentUser=data.session.user;renderUserMenu(currentUser);}}
+</script>
+
 </div>
 <script>
 // ── i18n ──────────────────────────────────────────────────
@@ -1178,6 +1316,7 @@ function renderAnalysis(r) {
   const sorted = [...r.investments].sort((a,b)=>b.weighted_score-a.weighted_score);
   const barColors = ['#3b82f6','#1D4ED8','#0D9488','#8b5cf6','#f97316','#ef4444','#22c55e'];
   const liveTag = Object.keys(liveData).length ? '<span class="r-badge live">LIVE DATA</span>' : '';
+  const saveBtn = '<button class="save-btn" onclick="saveAnalysis()">💾 Save</button>';
 
   document.getElementById('tab-analysis').innerHTML = `
     <div class="results-header">
@@ -1187,6 +1326,7 @@ function renderAnalysis(r) {
         <span class="r-badge ssp">${ssps}</span>
         <span class="r-badge hz">${horizons}</span>
         ${liveTag}
+      ${saveBtn}
       </div>
     </div>
 
@@ -1441,6 +1581,7 @@ function exportJSON() {
 
 // ── INIT ──────────────────────────────────────────────────
 renderMcdaSliders();
+checkSession();
 </script>
 </body>
 </html>
