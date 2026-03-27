@@ -410,7 +410,6 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
                 <option value="Timor-Leste|-8.0|126.0|Tropical Dry">Timor-Leste</option>
               </optgroup>
               <optgroup label="Caribbean & Central America">
-                <option value="Haiti|19.0|-72.0|Tropical Dry">Haiti</option>
                 <option value="Cuba|22.0|-80.0|Tropical Dry">Cuba</option>
                 <option value="Dominican Republic|19.0|-70.0|Tropical Dry">Dominican Republic</option>
                 <option value="Jamaica|18.0|-77.0|Tropical Dry">Jamaica</option>
@@ -522,14 +521,14 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
         </div>
         <div id="tab-flags" class="data-tab-panel">
           <div class="data-grid">
-            <label class="data-chip active" onclick="toggleChip(this)"><input type="checkbox" checked><div class="chip-dot"></div><span class="chip-label">Satellite RS</span></label>
-            <label class="data-chip" onclick="toggleChip(this)"><input type="checkbox"><div class="chip-dot"></div><span class="chip-label">Stream gauges</span></label>
-            <label class="data-chip active" onclick="toggleChip(this)"><input type="checkbox" checked><div class="chip-dot"></div><span class="chip-label">Climate reanalysis</span></label>
-            <label class="data-chip" onclick="toggleChip(this)"><input type="checkbox"><div class="chip-dot"></div><span class="chip-label">Census data</span></label>
-            <label class="data-chip active" onclick="toggleChip(this)"><input type="checkbox" checked><div class="chip-dot"></div><span class="chip-label">NGO / CRS reports</span></label>
-            <label class="data-chip" onclick="toggleChip(this)"><input type="checkbox"><div class="chip-dot"></div><span class="chip-label">Groundwater logs</span></label>
-            <label class="data-chip" onclick="toggleChip(this)"><input type="checkbox"><div class="chip-dot"></div><span class="chip-label">Household surveys</span></label>
-            <label class="data-chip" onclick="toggleChip(this)"><input type="checkbox"><div class="chip-dot"></div><span class="chip-label">GRACE satellite</span></label>
+            <div class="data-chip active" onclick="toggleChip(this)"><div class="chip-dot"></div><span class="chip-label">Satellite RS</span></div>
+            <div class="data-chip" onclick="toggleChip(this)"><div class="chip-dot"></div><span class="chip-label">Stream gauges</span></div>
+            <div class="data-chip active" onclick="toggleChip(this)"><div class="chip-dot"></div><span class="chip-label">Climate reanalysis</span></div>
+            <div class="data-chip" onclick="toggleChip(this)"><div class="chip-dot"></div><span class="chip-label">Census data</span></div>
+            <div class="data-chip active" onclick="toggleChip(this)"><div class="chip-dot"></div><span class="chip-label">NGO / CRS reports</span></div>
+            <div class="data-chip" onclick="toggleChip(this)"><div class="chip-dot"></div><span class="chip-label">Groundwater logs</span></div>
+            <div class="data-chip" onclick="toggleChip(this)"><div class="chip-dot"></div><span class="chip-label">Household surveys</span></div>
+            <div class="data-chip" onclick="toggleChip(this)"><div class="chip-dot"></div><span class="chip-label">GRACE satellite</span></div>
           </div>
         </div>
         <div id="tab-upload" class="data-tab-panel" style="display:none;">
@@ -854,7 +853,12 @@ const popEstimates = {
   'Pakistan':15000000,'Bangladesh':18000000,'India':30000000,'Nepal':3500000,'Afghanistan':5000000,
   'Yemen':6000000,'Iraq':7000000,'Jordan':2500000,'Morocco':5000000,
   'Uzbekistan':4000000,'Tajikistan':2000000,'Bolivia':2500000,'Haiti':3000000,
-  'Northeast Brazil':7000000,'Peru':4500000
+  'Northeast Brazil':7000000,'Peru':4500000,
+  'Myanmar':5500000,'Cambodia':3500000,'Laos':2000000,'Vietnam':8000000,
+  'Indonesia':15000000,'Philippines':12000000,'Papua New Guinea':2500000,'Timor-Leste':800000,
+  'Cuba':3500000,'Dominican Republic':4000000,'Jamaica':1200000,'Honduras':3000000,
+  'Guatemala':4500000,'Nicaragua':2500000,'Solomon Islands':350000,
+  'Vanuatu':150000,'Kiribati':60000,'Marshall Islands':40000
 };
 
 function onCountryChange() {
@@ -888,6 +892,7 @@ let liveData = {};
 async function fetchLiveData() {
   const country = document.getElementById('country').value;
   if (!country) { alert('Please select a country first.'); return; }
+  if (getActivePills('sspGrid').length === 0) { alert('Please select at least one SSP pathway.'); return; }
   const countryName = country.split('|')[0];
   setStatus('loading', 'Fetching CHIRPS + World Bank data...');
   liveData = {};
@@ -990,7 +995,12 @@ async function fetchWorldBank(countryName) {
     'DRC':'COD','Sudan':'SDN','Zambia':'ZMB','Pakistan':'PAK','Bangladesh':'BGD',
     'India':'IND','Nepal':'NPL','Afghanistan':'AFG','Yemen':'YEM','Iraq':'IRQ',
     'Jordan':'JOR','Morocco':'MAR','Uzbekistan':'UZB','Tajikistan':'TJK',
-    'Bolivia':'BOL','Haiti':'HTI','Peru':'PER','Northeast Brazil':'BRA'
+    'Bolivia':'BOL','Haiti':'HTI','Peru':'PER','Northeast Brazil':'BRA',
+    'Myanmar':'MMR','Cambodia':'KHM','Laos':'LAO','Vietnam':'VNM',
+    'Indonesia':'IDN','Philippines':'PHL','Papua New Guinea':'PNG','Timor-Leste':'TLS',
+    'Cuba':'CUB','Dominican Republic':'DOM','Jamaica':'JAM','Honduras':'HND',
+    'Guatemala':'GTM','Nicaragua':'NIC','Solomon Islands':'SLB',
+    'Vanuatu':'VUT','Kiribati':'KIR','Marshall Islands':'MHL'
   };
   const code = codes[countryName] || 'MDG';
   try {
@@ -1041,7 +1051,6 @@ function renderLiveData() {
 // ── HELPERS ───────────────────────────────────────────────
 function toggleChip(el) {
   el.classList.toggle('active');
-  el.querySelector('input').checked = el.classList.contains('active');
 }
 function togglePill(el) { el.classList.toggle('active'); }
 function getActivePills(groupId) {
