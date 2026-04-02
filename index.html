@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AquaROI — Wat-Intel · NileLogic</title>
+<title>AquaROI — Wat-Intel · Nilelogik</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -363,7 +363,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
     </svg>
     <div>
       <div class="hd-bc">
-        <span class="dim">NileLogic</span><span class="sep">›</span>
+        <span class="dim">Nilelogik</span><span class="sep">›</span>
         <span class="dim">Wat-Intel</span><span class="sep">›</span>
         <span class="active">AquaROI</span>
       </div>
@@ -739,7 +739,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
             <circle cx="118" cy="30" r="2.2" fill="#3b82f6"/>
           </svg>
           <div style="display:flex;align-items:center;gap:8px;">
-            <span style="font-family:'DM Mono',monospace;font-size:1rem;letter-spacing:2px;color:#94a3b8;font-weight:500;">NileLogic</span>
+            <span style="font-family:'DM Mono',monospace;font-size:1rem;letter-spacing:2px;color:#94a3b8;font-weight:500;">Nilelogik</span>
             <span style="color:#64748b;font-size:1.1rem;font-weight:300;">›</span>
             <span style="font-family:'DM Mono',monospace;font-size:1rem;letter-spacing:2px;color:#93c5fd;font-weight:500;">Wat-Intel</span>
             <span style="color:#64748b;font-size:1.1rem;font-weight:300;">›</span>
@@ -750,7 +750,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
         
         <div style="font-size:0.88rem;color:#94a3b8;line-height:1.8;max-width:520px;margin-bottom:2rem;" data-i18n="welcome_desc">Intelligence for <span style="color:#cbd5e1;font-weight:500;">smarter water investment decisions</span>.</div>
         
-        <div style="font-size:0.62rem;color:#93c5fd;font-family:'DM Mono',monospace;letter-spacing:1px;">Built by NileLogic · Wat-Intel</div>
+        <div style="font-size:0.62rem;color:#93c5fd;font-family:'DM Mono',monospace;letter-spacing:1px;">Built by Nilelogik · Wat-Intel</div>
       </div>
     </div>
 
@@ -777,7 +777,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
   <div class="auth-modal">
     <button class="auth-close" onclick="closeAuth()">✕</button>
     <div class="auth-title" id="authTitle">Sign in</div>
-    <div class="auth-sub">NILELOGIC · AQUAROI</div>
+    <div class="auth-sub">NILELOGIK · AQUAROI</div>
     <div class="auth-error" id="authError"></div>
     <div id="authFormName" class="auth-field" style="display:none;"><label>Full name</label><input type="text" id="authName" placeholder="Your name"></div>
     <div class="auth-field"><label>Email</label><input type="email" id="authEmail" placeholder="your@email.com" onkeydown="if(event.key==='Enter')submitAuth()"></div>
@@ -1655,7 +1655,7 @@ function renderAnalysis(r) {
         </tr>`).join('')}</tbody>
       </table>
     </div>
-    <div class="disclaimer">⚠️ AquaROI by NileLogic is an AI-assisted planning tool. Rainfall from CHIRPS via ClimateSERV. PET from ERA5/Open-Meteo. Population & GDP from World Bank. Validate with local data before capital allocation.</div>`;
+    <div class="disclaimer">⚠️ AquaROI by Nilelogik is an AI-assisted planning tool. Rainfall from CHIRPS via ClimateSERV. PET from ERA5/Open-Meteo. Population & GDP from World Bank. Validate with local data before capital allocation.</div>`;
 }
 
 // ── RENDER LIVE DATA TAB ──────────────────────────────────
@@ -1757,7 +1757,7 @@ function exportPDF() {
   doc.setTextColor(255,255,255); doc.setFontSize(16); doc.setFont('helvetica','bold');
   doc.text('AquaROI Investment Brief',14,12);
   doc.setFontSize(8); doc.setFont('helvetica','normal');
-  doc.text(`NileLogic · Wat-Intel · ${date}`,14,20);
+  doc.text(`Nilelogik · Wat-Intel · ${date}`,14,20);
   doc.text(`${country} > ${study}`,140,20);
 
   // Title
@@ -1822,7 +1822,7 @@ function exportPDF() {
   // Footer
   doc.setFillColor(30,41,59); doc.rect(0,285,210,12,'F');
   doc.setTextColor(148,163,184); doc.setFontSize(7);
-  doc.text('AquaROI · Wat-Intel · NileLogic · Built by D. David S. Yaméogo',14,292);
+  doc.text('AquaROI · Wat-Intel · Nilelogik · Built by D. David S. Yaméogo',14,292);
   doc.text('AI-assisted tool. Validate with local data before capital allocation.',140,292);
 
   doc.save(`AquaROI_${study.replace(/[^a-z0-9]/gi,'_')}_${date.replace(/[^a-z0-9]/gi,'_')}.pdf`);
