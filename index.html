@@ -307,7 +307,6 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 .sign-in-btn{background:var(--water);color:white;border:none;border-radius:6px;padding:5px 14px;font-family:'DM Mono',monospace;font-size:0.62rem;cursor:pointer;}
 .sign-in-btn:hover{background:#2563eb;}
 
-
 /* COORDINATES & GEOJSON */
 .coord-row{display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;margin-top:0.4rem;}
 .coord-field{display:flex;flex-direction:column;gap:2px;}
@@ -323,7 +322,6 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 .geo-status.loaded{background:rgba(13,148,136,0.08);border:1px solid rgba(13,148,136,0.2);color:#0f766e;display:flex;align-items:center;gap:5px;}
 .geo-status.error{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;display:flex;align-items:center;gap:5px;}
 .coord-source{font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--muted);margin-top:2px;text-align:right;}
-
 
 /* VALIDATION */
 .field-error{border-color:#ef4444 !important;background:#fef2f2 !important;}
@@ -343,21 +341,14 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 <header>
   <div class="hd-left">
     <svg width="36" height="36" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Eye almond -->
       <path d="M60 5 Q100 30 60 55 Q20 30 60 5Z" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linejoin="round"/>
-      <!-- Water drop inside -->
       <path d="M60 14 Q72 30 60 46 Q48 30 60 14Z" fill="#1d4ed8"/>
-      <!-- Glow -->
       <ellipse cx="60" cy="22" rx="4" ry="5" fill="#60a5fa" opacity="0.65"/>
-      <!-- Catchlight -->
       <circle cx="63" cy="19" r="2" fill="#e0f2fe"/>
-      <!-- Nile lines -->
       <line x1="20" y1="30" x2="48" y2="30" stroke="#3b82f6" stroke-width="1.2" opacity="0.55"/>
       <line x1="72" y1="30" x2="100" y2="30" stroke="#3b82f6" stroke-width="1.2" opacity="0.55"/>
-      <!-- Kohl tail left -->
       <path d="M20 30 Q8 25 2 30" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round"/>
       <circle cx="2" cy="30" r="2.2" fill="#3b82f6"/>
-      <!-- Kohl tail right -->
       <path d="M100 30 Q112 25 118 30" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round"/>
       <circle cx="118" cy="30" r="2.2" fill="#3b82f6"/>
     </svg>
@@ -375,18 +366,16 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
       <button class="lang-btn active" onclick="setLang('en',this)">EN</button>
       <button class="lang-btn" onclick="setLang('fr',this)">FR</button>
     </div>
-    <span class="hd-version">v3.0</span>
+    <span class="hd-version">v3.1</span>
     <span class="hd-badge">WATER INVESTMENT INTELLIGENCE</span>
     <div id="authArea" style="display:flex;gap:6px;align-items:center;"><button class="sign-in-btn" style="background:transparent;border:1px solid #334155;color:#94a3b8;" onclick="openAuth('login')">Log in</button><button class="sign-in-btn" onclick="openAuth('signup')">Sign up</button></div>
   </div>
 </header>
 
 <div class="app">
-  <!-- LEFT PANEL -->
   <div class="left">
     <div class="left-body">
 
-      <!-- LOCATION -->
       <div>
         <div class="sec-head"><span class="sec-icon">📍</span><span class="sec-label" data-i18n="location">Location</span></div>
         <div style="display:flex;flex-direction:column;gap:0.4rem;">
@@ -467,7 +456,6 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
             <div class="field"><label data-i18n="region">Region / Province</label><input type="text" id="region" placeholder="e.g. Androy"></div>
             <div class="field"><label data-i18n="study_area">Study Area</label><input type="text" id="studyarea" placeholder="e.g. Ambovombe"></div>
           </div>
-          <!-- COORDINATES -->
           <div class="coord-row">
             <div class="coord-field">
               <label>📍 Latitude<span class="req">*</span></label>
@@ -479,7 +467,6 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
             </div>
           </div>
           <div class="coord-source" id="coordSource">Using country centroid — enter study area coordinates or upload boundary</div>
-          <!-- GEOJSON / KML UPLOAD -->
           <label class="geo-upload" for="geoFileInput">
             <span class="geo-upload-icon">🗺️</span>
             <span class="geo-upload-text">Upload boundary file</span>
@@ -501,7 +488,6 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 
       <hr class="divider">
 
-      <!-- LIVE DATA PANEL -->
       <div>
         <div class="sec-head">
           <span class="sec-icon">🛰️</span>
@@ -513,62 +499,28 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
           <span id="statusText" data-i18n="select_country_first">Select a country and click Fetch to load live data</span>
         </div>
         <div class="live-data-grid" id="liveDataGrid" style="display:none;">
-          <div class="live-card highlight">
-            <div class="live-card-label">CHIRPS Rainfall</div>
-            <div class="live-card-value" id="ld-rainfall">—</div>
-            <div class="live-card-sub" id="ld-rainfall-period">mm/yr</div>
-          </div>
-          <div class="live-card highlight">
-            <div class="live-card-label">PET Estimate</div>
-            <div class="live-card-value" id="ld-pet">—</div>
-            <div class="live-card-sub">mm/yr (ERA5 proxy)</div>
-          </div>
-          <div class="live-card">
-            <div class="live-card-label">Water Stress</div>
-            <div class="live-card-value" id="ld-stress">—</div>
-            <div class="live-card-sub">World Bank</div>
-          </div>
-          <div class="live-card">
-            <div class="live-card-label">GDP per capita</div>
-            <div class="live-card-value" id="ld-gdp">—</div>
-            <div class="live-card-sub" id="ld-gdp-year">USD</div>
-          </div>
-          <div class="live-card">
-            <div class="live-card-label">Population</div>
-            <div class="live-card-value" id="ld-pop">—</div>
-            <div class="live-card-sub" id="ld-pop-year">World Bank</div>
-          </div>
-          <div class="live-card">
-            <div class="live-card-label">P/PET Ratio</div>
-            <div class="live-card-value" id="ld-aridity">—</div>
-            <div class="live-card-sub">Aridity index</div>
-          </div>
+          <div class="live-card highlight"><div class="live-card-label">CHIRPS Rainfall</div><div class="live-card-value" id="ld-rainfall">—</div><div class="live-card-sub" id="ld-rainfall-period">mm/yr</div></div>
+          <div class="live-card highlight"><div class="live-card-label">PET Estimate</div><div class="live-card-value" id="ld-pet">—</div><div class="live-card-sub">mm/yr (ERA5 proxy)</div></div>
+          <div class="live-card"><div class="live-card-label">Water Stress</div><div class="live-card-value" id="ld-stress">—</div><div class="live-card-sub">World Bank</div></div>
+          <div class="live-card"><div class="live-card-label">GDP per capita</div><div class="live-card-value" id="ld-gdp">—</div><div class="live-card-sub" id="ld-gdp-year">USD</div></div>
+          <div class="live-card"><div class="live-card-label">Population</div><div class="live-card-value" id="ld-pop">—</div><div class="live-card-sub" id="ld-pop-year">World Bank</div></div>
+          <div class="live-card"><div class="live-card-label">P/PET Ratio</div><div class="live-card-value" id="ld-aridity">—</div><div class="live-card-sub">Aridity index</div></div>
         </div>
-        <div style="font-size:0.6rem;color:#94a3b8;margin-top:4px;font-family:'DM Mono',monospace;">
-          ET Phase 3: GLEAM · MOD16 · SSEBop
-        </div>
+        <div style="font-size:0.6rem;color:#94a3b8;margin-top:4px;font-family:'DM Mono',monospace;">ET Phase 3: GLEAM · MOD16 · SSEBop</div>
       </div>
 
       <hr class="divider">
 
-      <!-- CONTEXT -->
       <div>
         <div class="sec-head"><span class="sec-icon">👥</span><span class="sec-label" data-i18n="context">Context</span></div>
         <div class="row2">
-          <div class="field">
-            <label data-i18n="population">Population<span class="req">*</span></label>
-            <input type="number" id="population" placeholder="auto-filled">
-          </div>
-          <div class="field">
-            <label data-i18n="budget">Budget (USD)<span class="req">*</span></label>
-            <input type="number" id="budget" value="2500000">
-          </div>
+          <div class="field"><label data-i18n="population">Population<span class="req">*</span></label><input type="number" id="population" placeholder="auto-filled"></div>
+          <div class="field"><label data-i18n="budget">Budget (USD)<span class="req">*</span></label><input type="number" id="budget" value="2500000"></div>
         </div>
       </div>
 
       <hr class="divider">
 
-      <!-- DATA & DOCUMENTS -->
       <div>
         <div class="sec-head"><span class="sec-icon">📡</span><span class="sec-label" data-i18n="data_docs">Data & Documents</span></div>
         <div class="data-tabs">
@@ -598,15 +550,12 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
           <div id="fileList" style="display:flex;flex-direction:column;gap:4px;margin-top:6px;"></div>
         </div>
         <div id="tab-notes" class="data-tab-panel" style="display:none;">
-          <div class="field">
-            <textarea id="dataNotes" style="min-height:80px;" placeholder="Paste key findings, statistics, or survey summaries..."></textarea>
-          </div>
+          <div class="field"><textarea id="dataNotes" style="min-height:80px;" placeholder="Paste key findings, statistics, or survey summaries..."></textarea></div>
         </div>
       </div>
 
       <hr class="divider">
 
-      <!-- SSP PATHWAYS -->
       <div>
         <div class="sec-head"><span class="sec-icon">🌡️</span><span class="sec-label" data-i18n="ssp">SSP Pathways</span><span class="req" style="font-size:0.65rem;margin-left:3px;">*</span></div>
         <div class="ssp-grid" id="sspGrid">
@@ -618,7 +567,6 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
         </div>
       </div>
 
-      <!-- PLANNING HORIZONS -->
       <div>
         <div class="sec-head"><span class="sec-icon">📅</span><span class="sec-label" data-i18n="horizons">Planning Horizons</span><span class="req" style="font-size:0.65rem;margin-left:3px;">*</span></div>
         <div class="horizon-grid" id="horizonGrid">
@@ -634,7 +582,6 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 
       <hr class="divider">
 
-      <!-- MCDA -->
       <div style="position:relative;">
         <div class="sec-head">
           <span class="sec-icon">⚖️</span>
@@ -662,7 +609,6 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 
       <hr class="divider">
 
-      <!-- SECTORS -->
       <div style="position:relative;">
         <div class="sec-head">
           <span class="sec-icon">🏗️</span>
@@ -689,7 +635,6 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 
       <hr class="divider">
 
-      <!-- CONTEXT NOTES -->
       <div>
         <div class="sec-head"><span class="sec-icon">💬</span><span class="sec-label" data-i18n="add_context">Additional Context</span></div>
         <div class="field">
@@ -707,34 +652,21 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
     </div>
   </div>
 
-  <!-- RIGHT PANEL -->
   <div class="right" id="rightPanel">
-
-    <!-- WELCOME -->
     <div id="welcomeState" style="position:relative;width:100%;height:100%;overflow:hidden;display:flex;align-items:flex-end;">
-      <!-- Primary: aerial river landscape photo (Unsplash, free to use) -->
-      <img src="https://images.pexels.com/photos/33629161/pexels-photo-33629161.jpeg?auto=compress&cs=tinysrgb&w=1800" alt="Aerial view of the Nile River and Cairo, Egypt" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;" onerror="this.onerror=null;this.src='https://images.pexels.com/photos/12607742/pexels-photo-12607742.jpeg?auto=compress&cs=tinysrgb&w=1800';"/>
-      <!-- Overlay — minimal, let the photo breathe -->
+      <img src="https://images.pexels.com/photos/33629161/pexels-photo-33629161.jpeg?auto=compress&cs=tinysrgb&w=1800" alt="Aerial river view" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;" onerror="this.onerror=null;this.src='https://images.pexels.com/photos/12607742/pexels-photo-12607742.jpeg?auto=compress&cs=tinysrgb&w=1800';"/>
       <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(12,26,46,0.96) 0%, rgba(12,26,46,0.55) 38%, rgba(12,26,46,0.08) 100%);"></div>
       <div style="position:relative;z-index:2;width:100%;padding:2.5rem 3rem 3rem;">
-        <!-- BREADCRUMB — larger, readable, with separator lines -->
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.5rem;">
           <svg width="38" height="38" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Eye almond -->
             <path d="M60 5 Q100 30 60 55 Q20 30 60 5Z" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linejoin="round"/>
-            <!-- Water drop inside -->
             <path d="M60 14 Q72 30 60 46 Q48 30 60 14Z" fill="#1d4ed8"/>
-            <!-- Glow -->
             <ellipse cx="60" cy="22" rx="4" ry="5" fill="#60a5fa" opacity="0.65"/>
-            <!-- Catchlight -->
             <circle cx="63" cy="19" r="2" fill="#e0f2fe"/>
-            <!-- Nile lines -->
             <line x1="20" y1="30" x2="48" y2="30" stroke="#3b82f6" stroke-width="1.2" opacity="0.55"/>
             <line x1="72" y1="30" x2="100" y2="30" stroke="#3b82f6" stroke-width="1.2" opacity="0.55"/>
-            <!-- Kohl tail left -->
             <path d="M20 30 Q8 25 2 30" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round"/>
             <circle cx="2" cy="30" r="2.2" fill="#3b82f6"/>
-            <!-- Kohl tail right -->
             <path d="M100 30 Q112 25 118 30" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round"/>
             <circle cx="118" cy="30" r="2.2" fill="#3b82f6"/>
           </svg>
@@ -747,14 +679,11 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
           </div>
         </div>
         <div style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:white;line-height:1.0;margin-bottom:0.4rem;letter-spacing:-1px;">AquaROI</div>
-        
         <div style="font-size:0.88rem;color:#94a3b8;line-height:1.8;max-width:520px;margin-bottom:2rem;" data-i18n="welcome_desc">Intelligence for <span style="color:#cbd5e1;font-weight:500;">smarter water investment decisions</span>.</div>
-        
         <div style="font-size:0.62rem;color:#93c5fd;font-family:'DM Mono',monospace;letter-spacing:1px;">Built by NileLogik · Wat-Intel</div>
       </div>
     </div>
 
-    <!-- RESULTS (hidden until analysis runs) -->
     <div id="resultsState" style="display:none;flex-direction:column;height:100%;">
       <div class="results-tabs" id="resultsTabs">
         <button class="result-tab active" onclick="switchResultTab('analysis',this)" data-i18n="analysis">Analysis</button>
@@ -764,13 +693,11 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
       </div>
       <div id="tab-analysis" class="result-tab-panel active"></div>
       <div id="tab-data" class="result-tab-panel"></div>
-      <div id="tab-map" class="result-tab-panel" style="padding:0;">
-        <div id="mapContainer"></div>
-      </div>
+      <div id="tab-map" class="result-tab-panel" style="padding:0;"><div id="mapContainer"></div></div>
       <div id="tab-export" class="result-tab-panel"></div>
     </div>
-
   </div>
+</div>
 
 <!-- AUTH MODAL -->
 <div class="auth-overlay" id="authOverlay" onclick="if(event.target===this)closeAuth()">
@@ -786,11 +713,19 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
     <div class="auth-switch" id="authSwitch">Don't have an account? <a onclick="switchAuthMode('signup')">Sign up free</a></div>
   </div>
 </div>
+
 <!-- SAVED PANEL -->
 <div class="saved-panel" id="savedPanel">
   <div class="saved-header"><div class="saved-title">My Analyses</div><span style="cursor:pointer;color:var(--muted)" onclick="closeSavedPanel()">✕</span></div>
   <div class="saved-list" id="savedList"><div class="saved-empty">No saved analyses yet.<br>Run an analysis and click Save.</div></div>
 </div>
+
+<!-- VALIDATION TOAST -->
+<div class="validation-toast" id="validationToast">
+  <div class="toast-title">⚠ REQUIRED FIELDS MISSING</div>
+  <div id="toastItems"></div>
+</div>
+
 <script>
 const _sb = supabase.createClient('https://givaedcvsccfcldkhvcr.supabase.co','sb_publishable_GAti6y9in39NeOs9jl1mUg_Jxi2z7DU');
 let currentUser=null, authMode='login';
@@ -863,568 +798,103 @@ function closeSavedPanel(){document.getElementById('savedPanel').classList.remov
 async function checkSession(){const {data}=await _sb.auth.getSession();if(data.session?.user){currentUser=data.session.user;renderUserMenu(currentUser);}}
 </script>
 
-</div>
 <script>
-// ── i18n ──────────────────────────────────────────────────
-const i18n = {
-  en: {
-    location:'Location', country:'Country', select_country:'— Select country —',
-    region:'Region / Province', study_area:'Study Area', climate_zone:'Climate Zone',
-    live_data:'Live Data', fetch:'Fetch', select_country_first:'Select a country and click Fetch',
-    context:'Context', population:'Population', budget:'Budget (USD)',
-    data_docs:'Data & Documents', data_flags:'Data flags', upload:'Upload files', notes:'Notes',
-    drag_drop:'Drag & drop files here', browse:'Browse files',
-    ssp:'SSP Pathways', horizons:'Planning Horizons',
-    priorities:'Investment Priorities', max_6:'Max 6', add_criterion:'Add criterion',
-    sectors:'Investment Sectors', add_sector:'+ Add sector...',
-    add_context:'Additional Context', generate:'⚡ GENERATE INVESTMENT PLAN',
-    tagline:'WATER INVESTMENT INTELLIGENCE',
-    welcome_desc:'Intelligence for smarter water investment decisions.',
-    analysis:'Analysis', live_data_tab:'Live Data', map:'Map', export_tab:'Export',
-    social:'Social equity', economic:'Economic viability', environmental:'Environmental impact',
-    climate_r:'Climate resilience'
-  },
-  fr: {
-    location:'Localisation', country:'Pays', select_country:'— Sélectionner un pays —',
-    region:'Région / Province', study_area:'Zone d\'étude', climate_zone:'Zone climatique',
-    live_data:'Données en direct', fetch:'Récupérer', select_country_first:'Sélectionnez un pays puis cliquez sur Récupérer',
-    context:'Contexte', population:'Population', budget:'Budget (USD)',
-    data_docs:'Données & Documents', data_flags:'Indicateurs', upload:'Télécharger', notes:'Notes',
-    drag_drop:'Glisser-déposer des fichiers ici', browse:'Parcourir',
-    ssp:'Scénarios SSP', horizons:'Horizons de planification',
-    priorities:'Priorités d\'investissement', max_6:'Max 6', add_criterion:'Ajouter un critère',
-    sectors:'Secteurs d\'investissement', add_sector:'+ Ajouter un secteur...',
-    add_context:'Contexte additionnel', generate:'⚡ GÉNÉRER LE PLAN D\'INVESTISSEMENT',
-    tagline:'INTELLIGENCE POUR L\'EAU',
-    welcome_desc:'Intelligence pour des décisions d\'investissement en eau plus intelligentes.',
-    analysis:'Analyse', live_data_tab:'Données', map:'Carte', export_tab:'Exporter',
-    social:'Équité sociale', economic:'Viabilité économique', environmental:'Impact environnemental',
-    climate_r:'Résilience climatique'
-  }
-};
-let currentLang = 'en';
+const i18n={en:{location:'Location',country:'Country',select_country:'— Select country —',region:'Region / Province',study_area:'Study Area',climate_zone:'Climate Zone',live_data:'Live Data',fetch:'Fetch',select_country_first:'Select a country and click Fetch',context:'Context',population:'Population',budget:'Budget (USD)',data_docs:'Data & Documents',data_flags:'Data flags',upload:'Upload files',notes:'Notes',drag_drop:'Drag & drop files here',browse:'Browse files',ssp:'SSP Pathways',horizons:'Planning Horizons',priorities:'Investment Priorities',max_6:'Max 6',add_criterion:'Add criterion',sectors:'Investment Sectors',add_sector:'+ Add sector...',add_context:'Additional Context',generate:'⚡ GENERATE INVESTMENT PLAN',tagline:'WATER INVESTMENT INTELLIGENCE',welcome_desc:'Intelligence for smarter water investment decisions.',analysis:'Analysis',live_data_tab:'Live Data',map:'Map',export_tab:'Export',social:'Social equity',economic:'Economic viability',environmental:'Environmental impact',climate_r:'Climate resilience'},fr:{location:'Localisation',country:'Pays',select_country:'— Sélectionner un pays —',region:'Région / Province',study_area:'Zone d\'étude',climate_zone:'Zone climatique',live_data:'Données en direct',fetch:'Récupérer',select_country_first:'Sélectionnez un pays puis cliquez sur Récupérer',context:'Contexte',population:'Population',budget:'Budget (USD)',data_docs:'Données & Documents',data_flags:'Indicateurs',upload:'Télécharger',notes:'Notes',drag_drop:'Glisser-déposer des fichiers ici',browse:'Parcourir',ssp:'Scénarios SSP',horizons:'Horizons de planification',priorities:'Priorités d\'investissement',max_6:'Max 6',add_criterion:'Ajouter un critère',sectors:'Secteurs d\'investissement',add_sector:'+ Ajouter un secteur...',add_context:'Contexte additionnel',generate:'⚡ GÉNÉRER LE PLAN D\'INVESTISSEMENT',tagline:'INTELLIGENCE POUR L\'EAU',welcome_desc:'Intelligence pour des décisions d\'investissement en eau plus intelligentes.',analysis:'Analyse',live_data_tab:'Données',map:'Carte',export_tab:'Exporter',social:'Équité sociale',economic:'Viabilité économique',environmental:'Impact environnemental',climate_r:'Résilience climatique'}};
+let currentLang='en';
+function setLang(lang,btn){currentLang=lang;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n');if(i18n[lang][key])el.textContent=i18n[lang][key];});}
 
-function setLang(lang, btn) {
-  currentLang = lang;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (i18n[lang][key]) el.textContent = i18n[lang][key];
-  });
-}
+let countryLat=0,countryLon=0,studyLat=0,studyLon=0;
+function onCoordChange(){const lat=parseFloat(document.getElementById('studyLat').value);const lon=parseFloat(document.getElementById('studyLon').value);if(!isNaN(lat)&&!isNaN(lon)){studyLat=lat;studyLon=lon;document.getElementById('coordSource').textContent=`Custom coordinates: ${lat.toFixed(4)}°, ${lon.toFixed(4)}° — live data will use this location`;document.getElementById('coordSource').style.color='var(--teal)';}}
 
-// ── COUNTRY & COORDINATES ────────────────────────────────
-let countryLat = 0, countryLon = 0;
-let studyLat = 0, studyLon = 0; // study area coordinates (more precise than country centroid)
+function handleGeoFile(file){if(!file)return;const status=document.getElementById('geoStatus');const ext=file.name.split('.').pop().toLowerCase();if(!['geojson','json','kml'].includes(ext)){status.className='geo-status error';status.textContent='✗ Unsupported format. Use GeoJSON or KML.';return;}const reader=new FileReader();reader.onload=(e)=>{try{let centroid=null;if(ext==='geojson'||ext==='json'){const gj=JSON.parse(e.target.result);centroid=computeGeoJSONCentroid(gj);}else if(ext==='kml'){centroid=computeKMLCentroid(e.target.result);}if(centroid){studyLat=centroid.lat;studyLon=centroid.lon;document.getElementById('studyLat').value=centroid.lat.toFixed(6);document.getElementById('studyLon').value=centroid.lon.toFixed(6);document.getElementById('coordSource').textContent=`Centroid from ${file.name}: ${centroid.lat.toFixed(4)}°, ${centroid.lon.toFixed(4)}°`;document.getElementById('coordSource').style.color='var(--teal)';status.className='geo-status loaded';status.innerHTML=`✓ ${file.name} · centroid computed · ${centroid.pointCount} vertices`;const nameField=document.getElementById('studyarea');if(!nameField.value)nameField.value=file.name.replace(/\.[^.]+$/,'').replace(/[_-]/g,' ');}else{throw new Error('Could not compute centroid');}}catch(err){status.className='geo-status error';status.textContent='✗ Could not read file: '+err.message;}};reader.readAsText(file);}
 
-function onCoordChange() {
-  const lat = parseFloat(document.getElementById('studyLat').value);
-  const lon = parseFloat(document.getElementById('studyLon').value);
-  if (!isNaN(lat) && !isNaN(lon)) {
-    studyLat = lat;
-    studyLon = lon;
-    document.getElementById('coordSource').textContent = `Custom coordinates: ${lat.toFixed(4)}°, ${lon.toFixed(4)}° — live data will use this location`;
-    document.getElementById('coordSource').style.color = 'var(--teal)';
-  }
-}
+function computeGeoJSONCentroid(gj){const coords=[];function extractCoords(obj){if(!obj)return;if(obj.type==='FeatureCollection')obj.features.forEach(f=>extractCoords(f));else if(obj.type==='Feature')extractCoords(obj.geometry);else if(obj.type==='Polygon')obj.coordinates.forEach(ring=>ring.forEach(c=>coords.push(c)));else if(obj.type==='MultiPolygon')obj.coordinates.forEach(poly=>poly.forEach(ring=>ring.forEach(c=>coords.push(c))));else if(obj.type==='Point')coords.push(obj.coordinates);else if(obj.type==='MultiPoint'||obj.type==='LineString')obj.coordinates.forEach(c=>coords.push(c));else if(obj.type==='MultiLineString')obj.coordinates.forEach(line=>line.forEach(c=>coords.push(c)));else if(obj.type==='GeometryCollection')obj.geometries.forEach(g=>extractCoords(g));}extractCoords(gj);if(!coords.length)throw new Error('No coordinates found');const lon=coords.reduce((s,c)=>s+c[0],0)/coords.length;const lat=coords.reduce((s,c)=>s+c[1],0)/coords.length;return{lat:parseFloat(lat.toFixed(6)),lon:parseFloat(lon.toFixed(6)),pointCount:coords.length};}
 
-function handleGeoFile(file) {
-  if (!file) return;
-  const status = document.getElementById('geoStatus');
-  const ext = file.name.split('.').pop().toLowerCase();
+function computeKMLCentroid(kmlText){const coordMatches=kmlText.match(/<coordinates[^>]*>([\s\S]*?)<\/coordinates>/gi)||[];const coords=[];coordMatches.forEach(block=>{const inner=block.replace(/<\/?coordinates[^>]*>/gi,'').trim();inner.split(/\s+/).forEach(tuple=>{const parts=tuple.split(',');if(parts.length>=2){const lon=parseFloat(parts[0]),lat=parseFloat(parts[1]);if(!isNaN(lat)&&!isNaN(lon))coords.push([lon,lat]);}});});if(!coords.length)throw new Error('No coordinates found in KML');const lon=coords.reduce((s,c)=>s+c[0],0)/coords.length;const lat=coords.reduce((s,c)=>s+c[1],0)/coords.length;return{lat:parseFloat(lat.toFixed(6)),lon:parseFloat(lon.toFixed(6)),pointCount:coords.length};}
 
-  if (!['geojson','json','kml'].includes(ext)) {
-    status.className = 'geo-status error';
-    status.textContent = '✗ Unsupported format. Use GeoJSON or KML.';
-    return;
-  }
+function getStudyCoords(){const lat=parseFloat(document.getElementById('studyLat')?.value);const lon=parseFloat(document.getElementById('studyLon')?.value);if(!isNaN(lat)&&!isNaN(lon)&&(lat!==0||lon!==0)){return{lat,lon};}return{lat:countryLat,lon:countryLon};}
 
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    try {
-      let centroid = null;
-      if (ext === 'geojson' || ext === 'json') {
-        const gj = JSON.parse(e.target.result);
-        centroid = computeGeoJSONCentroid(gj);
-      } else if (ext === 'kml') {
-        centroid = computeKMLCentroid(e.target.result);
-      }
-      if (centroid) {
-        studyLat = centroid.lat;
-        studyLon = centroid.lon;
-        document.getElementById('studyLat').value = centroid.lat.toFixed(6);
-        document.getElementById('studyLon').value = centroid.lon.toFixed(6);
-        document.getElementById('coordSource').textContent = `Centroid from ${file.name}: ${centroid.lat.toFixed(4)}°, ${centroid.lon.toFixed(4)}°`;
-        document.getElementById('coordSource').style.color = 'var(--teal)';
-        status.className = 'geo-status loaded';
-        status.innerHTML = `✓ ${file.name} · centroid computed · ${centroid.pointCount} vertices`;
-        // Auto-fill study area name from filename if empty
-        const nameField = document.getElementById('studyarea');
-        if (!nameField.value) nameField.value = file.name.replace(/\.[^.]+$/, '').replace(/[_-]/g, ' ');
-      } else {
-        throw new Error('Could not compute centroid');
-      }
-    } catch(err) {
-      status.className = 'geo-status error';
-      status.textContent = '✗ Could not read file: ' + err.message;
-    }
-  };
-  reader.readAsText(file);
-}
+const popEstimates={'Madagascar':1800000,'Mali':4000000,'Niger':3000000,'Ethiopia':12000000,'Somalia':2000000,'Chad':3500000,'Mozambique':6000000,'Zimbabwe':4500000,'Kenya':7000000,'Tanzania':6000000,'Senegal':2500000,'Burkina Faso':3000000,'Nigeria':20000000,'South Sudan':2000000,'DRC':8000000,'Sudan':5000000,'Zambia':4000000,'Pakistan':15000000,'Bangladesh':18000000,'India':30000000,'Nepal':3500000,'Afghanistan':5000000,'Yemen':6000000,'Iraq':7000000,'Jordan':2500000,'Morocco':5000000,'Uzbekistan':4000000,'Tajikistan':2000000,'Bolivia':2500000,'Haiti':3000000,'Northeast Brazil':7000000,'Peru':4500000,'Myanmar':5500000,'Cambodia':3500000,'Laos':2000000,'Vietnam':8000000,'Indonesia':15000000,'Philippines':12000000,'Papua New Guinea':2500000,'Timor-Leste':800000,'Cuba':3500000,'Dominican Republic':4000000,'Jamaica':1200000,'Honduras':3000000,'Guatemala':4500000,'Nicaragua':2500000,'Solomon Islands':350000,'Vanuatu':150000,'Kiribati':60000,'Marshall Islands':40000};
 
-function computeGeoJSONCentroid(gj) {
-  const coords = [];
-  function extractCoords(obj) {
-    if (!obj) return;
-    if (obj.type === 'FeatureCollection') obj.features.forEach(f => extractCoords(f));
-    else if (obj.type === 'Feature') extractCoords(obj.geometry);
-    else if (obj.type === 'Polygon') obj.coordinates.forEach(ring => ring.forEach(c => coords.push(c)));
-    else if (obj.type === 'MultiPolygon') obj.coordinates.forEach(poly => poly.forEach(ring => ring.forEach(c => coords.push(c))));
-    else if (obj.type === 'Point') coords.push(obj.coordinates);
-    else if (obj.type === 'MultiPoint' || obj.type === 'LineString') obj.coordinates.forEach(c => coords.push(c));
-    else if (obj.type === 'MultiLineString') obj.coordinates.forEach(line => line.forEach(c => coords.push(c)));
-    else if (obj.type === 'GeometryCollection') obj.geometries.forEach(g => extractCoords(g));
-  }
-  extractCoords(gj);
-  if (!coords.length) throw new Error('No coordinates found');
-  const lon = coords.reduce((s,c) => s + c[0], 0) / coords.length;
-  const lat = coords.reduce((s,c) => s + c[1], 0) / coords.length;
-  return { lat: parseFloat(lat.toFixed(6)), lon: parseFloat(lon.toFixed(6)), pointCount: coords.length };
-}
+function onCountryChange(){const v=document.getElementById('country').value;if(!v)return;const parts=v.split('|');const country=parts[0];countryLat=parseFloat(parts[1]);countryLon=parseFloat(parts[2]);document.getElementById('climate').value=parts[3];const pop=popEstimates[country];if(pop)document.getElementById('population').value=pop;document.getElementById('studyLat').value=countryLat.toFixed(4);document.getElementById('studyLon').value=countryLon.toFixed(4);studyLat=countryLat;studyLon=countryLon;document.getElementById('coordSource').textContent='Using country centroid — refine with study area coordinates or boundary file';document.getElementById('geoStatus').className='geo-status';document.getElementById('liveDataGrid').style.display='none';clearValidation();setStatus('idle',i18n[currentLang].select_country_first||'Click Fetch to load live data');}
 
-function computeKMLCentroid(kmlText) {
-  const coordMatches = kmlText.match(/<coordinates[^>]*>([\s\S]*?)<\/coordinates>/gi) || [];
-  const coords = [];
-  coordMatches.forEach(block => {
-    const inner = block.replace(/<\/?coordinates[^>]*>/gi, '').trim();
-    inner.split(/\s+/).forEach(tuple => {
-      const parts = tuple.split(',');
-      if (parts.length >= 2) {
-        const lon = parseFloat(parts[0]), lat = parseFloat(parts[1]);
-        if (!isNaN(lat) && !isNaN(lon)) coords.push([lon, lat]);
-      }
-    });
-  });
-  if (!coords.length) throw new Error('No coordinates found in KML');
-  const lon = coords.reduce((s,c) => s + c[0], 0) / coords.length;
-  const lat = coords.reduce((s,c) => s + c[1], 0) / coords.length;
-  return { lat: parseFloat(lat.toFixed(6)), lon: parseFloat(lon.toFixed(6)), pointCount: coords.length };
-}
+function setStatus(state,text){const el=document.getElementById('dataStatus');const dot=document.getElementById('statusDot');const txt=document.getElementById('statusText');el.className='data-status '+state;dot.className='status-dot '+state;txt.textContent=text;}
 
-function getStudyCoords() {
-  // Returns the best available coordinates — study area if set, else country centroid
-  const lat = parseFloat(document.getElementById('studyLat')?.value);
-  const lon = parseFloat(document.getElementById('studyLon')?.value);
-  if (!isNaN(lat) && !isNaN(lon) && (lat !== 0 || lon !== 0)) {
-    return { lat, lon };
-  }
-  return { lat: countryLat, lon: countryLon };
-}
-const popEstimates = {
-  'Madagascar':1800000,'Mali':4000000,'Niger':3000000,'Ethiopia':12000000,
-  'Somalia':2000000,'Chad':3500000,'Mozambique':6000000,'Zimbabwe':4500000,
-  'Kenya':7000000,'Tanzania':6000000,'Senegal':2500000,'Burkina Faso':3000000,
-  'Nigeria':20000000,'South Sudan':2000000,'DRC':8000000,'Sudan':5000000,'Zambia':4000000,
-  'Pakistan':15000000,'Bangladesh':18000000,'India':30000000,'Nepal':3500000,'Afghanistan':5000000,
-  'Yemen':6000000,'Iraq':7000000,'Jordan':2500000,'Morocco':5000000,
-  'Uzbekistan':4000000,'Tajikistan':2000000,'Bolivia':2500000,'Haiti':3000000,
-  'Northeast Brazil':7000000,'Peru':4500000,
-  'Myanmar':5500000,'Cambodia':3500000,'Laos':2000000,'Vietnam':8000000,
-  'Indonesia':15000000,'Philippines':12000000,'Papua New Guinea':2500000,'Timor-Leste':800000,
-  'Cuba':3500000,'Dominican Republic':4000000,'Jamaica':1200000,'Honduras':3000000,
-  'Guatemala':4500000,'Nicaragua':2500000,'Solomon Islands':350000,
-  'Vanuatu':150000,'Kiribati':60000,'Marshall Islands':40000
-};
+let liveData={};
+async function fetchLiveData(){const country=document.getElementById('country').value;if(!country){alert('Please select a country first.');return;}const countryName=country.split('|')[0];setStatus('loading','Fetching CHIRPS + World Bank data...');liveData={};try{const coords=getStudyCoords();await fetchCHIRPS(coords.lat,coords.lon);await fetchPET(coords.lat,coords.lon);await fetchWorldBank(countryName);renderLiveData();setStatus('ready','Live data loaded · CHIRPS + ERA5 + World Bank');document.getElementById('liveDataGrid').style.display='grid';}catch(e){setStatus('idle','Partial data loaded — some sources unavailable');renderLiveData();document.getElementById('liveDataGrid').style.display='grid';}}
 
-function onCountryChange() {
-  const v = document.getElementById('country').value;
-  if (!v) return;
-  const parts = v.split('|');
-  const country = parts[0];
-  countryLat = parseFloat(parts[1]);
-  countryLon = parseFloat(parts[2]);
-  document.getElementById('climate').value = parts[3];
-  const pop = popEstimates[country];
-  if (pop) document.getElementById('population').value = pop;
-  // Set coordinate fields to country centroid as default
-  document.getElementById('studyLat').value = countryLat.toFixed(4);
-  document.getElementById('studyLon').value = countryLon.toFixed(4);
-  studyLat = countryLat;
-  studyLon = countryLon;
-  document.getElementById('coordSource').textContent = 'Using country centroid — refine with study area coordinates or boundary file';
-  // Reset geo status
-  document.getElementById('geoStatus').className = 'geo-status';
-  // Reset live data
-  document.getElementById('liveDataGrid').style.display = 'none';
-  clearValidation();
-  setStatus('idle', i18n[currentLang].select_country_first || 'Click Fetch to load live data');
-}
+async function fetchCHIRPS(lat,lon){const geom=JSON.stringify({"type":"Polygon","coordinates":[[[lon-0.5,lat-0.5],[lon-0.5,lat+0.5],[lon+0.5,lat+0.5],[lon+0.5,lat-0.5],[lon-0.5,lat-0.5]]]});const endDate=new Date();endDate.setFullYear(endDate.getFullYear()-1);const startDate=new Date(endDate);startDate.setFullYear(startDate.getFullYear()-3);const fmt=d=>`${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${d.getFullYear()}`;try{const submitUrl=`https://climateserv.servirglobal.net/api/submitDataRequest/?datatype=0&begintime=${fmt(startDate)}&endtime=${fmt(endDate)}&intervaltype=0&operationtype=5&callback=cb&dateType_Category=default&isZip_CurrentDataType=false&geometry=${encodeURIComponent(geom)}`;const subRes=await fetch(submitUrl);const subText=await subRes.text();const idMatch=subText.match(/"([a-f0-9-]{36})"/);if(!idMatch)throw new Error('No job ID');const jobId=idMatch[1];for(let i=0;i<12;i++){await new Promise(r=>setTimeout(r,2000));const progRes=await fetch(`https://climateserv.servirglobal.net/api/getDataRequestProgress/?id=${jobId}`);const progText=await progRes.text();const prog=JSON.parse(progText.replace(/^cb\(/,'').replace(/\)$/,''));if(prog[0]?.progress===100){const dataRes=await fetch(`https://climateserv.servirglobal.net/api/getDataFromRequest/?id=${jobId}`);const dataText=await dataRes.text();const data=JSON.parse(dataText.replace(/^cb\(/,'').replace(/\)$/,''));if(data[0]?.data){const vals=data[0].data.map(d=>d.value).filter(v=>v>0);if(vals.length){const monthlyAvg=vals.reduce((a,b)=>a+b,0)/vals.length;liveData.rainfall=Math.round(monthlyAvg*12);liveData.rainfallPeriod=`${startDate.getFullYear()}–${endDate.getFullYear()}`; }}break;}}}catch(e){try{const yr=new Date().getFullYear()-2;const r=await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${yr}-01-01&end_date=${yr}-12-31&daily=precipitation_sum&timezone=UTC`);const d=await r.json();if(d.daily?.precipitation_sum){const annual=d.daily.precipitation_sum.filter(v=>v!==null).reduce((a,b)=>a+b,0);liveData.rainfall=Math.round(annual);liveData.rainfallPeriod=`${yr} (Open-Meteo)`;}}catch(e2){liveData.rainfall=null;}}}
 
-// ── STATUS HELPERS ────────────────────────────────────────
-function setStatus(state, text) {
-  const el = document.getElementById('dataStatus');
-  const dot = document.getElementById('statusDot');
-  const txt = document.getElementById('statusText');
-  el.className = 'data-status ' + state;
-  dot.className = 'status-dot ' + state;
-  txt.textContent = text;
-}
+async function fetchPET(lat,lon){try{const yr=new Date().getFullYear()-2;const r=await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${yr}-01-01&end_date=${yr}-12-31&daily=et0_fao_evapotranspiration&timezone=UTC`);const d=await r.json();if(d.daily?.et0_fao_evapotranspiration){const annual=d.daily.et0_fao_evapotranspiration.filter(v=>v!==null).reduce((a,b)=>a+b,0);liveData.pet=Math.round(annual);liveData.petYear=yr;}}catch(e){liveData.pet=null;}}
 
-// ── LIVE DATA FETCHING ────────────────────────────────────
-let liveData = {};
+async function fetchWorldBank(countryName){const codes={'Madagascar':'MDG','Mali':'MLI','Niger':'NER','Ethiopia':'ETH','Somalia':'SOM','Chad':'TCD','Mozambique':'MOZ','Zimbabwe':'ZWE','Kenya':'KEN','Tanzania':'TZA','Senegal':'SEN','Burkina Faso':'BFA','Nigeria':'NGA','South Sudan':'SSD','DRC':'COD','Sudan':'SDN','Zambia':'ZMB','Pakistan':'PAK','Bangladesh':'BGD','India':'IND','Nepal':'NPL','Afghanistan':'AFG','Yemen':'YEM','Iraq':'IRQ','Jordan':'JOR','Morocco':'MAR','Uzbekistan':'UZB','Tajikistan':'TJK','Bolivia':'BOL','Haiti':'HTI','Peru':'PER','Northeast Brazil':'BRA','Myanmar':'MMR','Cambodia':'KHM','Laos':'LAO','Vietnam':'VNM','Indonesia':'IDN','Philippines':'PHL','Papua New Guinea':'PNG','Timor-Leste':'TLS','Cuba':'CUB','Dominican Republic':'DOM','Jamaica':'JAM','Honduras':'HND','Guatemala':'GTM','Nicaragua':'NIC','Solomon Islands':'SLB','Vanuatu':'VUT','Kiribati':'KIR','Marshall Islands':'MHL'};const code=codes[countryName]||'MDG';try{const gdpR=await fetch(`https://api.worldbank.org/v2/country/${code}/indicator/NY.GDP.PCAP.CD?format=json&mrv=1`);const gdpD=await gdpR.json();if(gdpD[1]?.[0]?.value){liveData.gdp=Math.round(gdpD[1][0].value);liveData.gdpYear=gdpD[1][0].date;}const popR=await fetch(`https://api.worldbank.org/v2/country/${code}/indicator/SP.POP.TOTL?format=json&mrv=1`);const popD=await popR.json();if(popD[1]?.[0]?.value){liveData.wbPop=popD[1][0].value;liveData.popYear=popD[1][0].date;document.getElementById('population').value=Math.round(liveData.wbPop/100)*100;}const watR=await fetch(`https://api.worldbank.org/v2/country/${code}/indicator/SH.H2O.BASW.ZS?format=json&mrv=1`);const watD=await watR.json();if(watD[1]?.[0]?.value){liveData.waterAccess=Math.round(watD[1][0].value);liveData.stressLabel=`${100-liveData.waterAccess}% lack access`;}}catch(e){}}
 
-async function fetchLiveData() {
-  const country = document.getElementById('country').value;
-  if (!country) { alert('Please select a country first.'); return; }
-  const countryName = country.split('|')[0];
-  setStatus('loading', 'Fetching CHIRPS + World Bank data...');
-  liveData = {};
+function renderLiveData(){const fmt=n=>n?n.toLocaleString():'—';document.getElementById('ld-rainfall').textContent=liveData.rainfall?liveData.rainfall+' mm':'—';document.getElementById('ld-rainfall-period').textContent=liveData.rainfallPeriod||'mm/yr';document.getElementById('ld-pet').textContent=liveData.pet?liveData.pet+' mm':'—';document.getElementById('ld-gdp').textContent=liveData.gdp?'$'+fmt(liveData.gdp):'—';document.getElementById('ld-gdp-year').textContent=liveData.gdpYear?'USD · '+liveData.gdpYear:'USD';document.getElementById('ld-pop').textContent=liveData.wbPop?fmt(Math.round(liveData.wbPop/1000)*1000):'—';document.getElementById('ld-pop-year').textContent=liveData.popYear||'World Bank';document.getElementById('ld-stress').textContent=liveData.stressLabel||'—';if(liveData.rainfall&&liveData.pet){document.getElementById('ld-aridity').textContent=(liveData.rainfall/liveData.pet).toFixed(2);}else{document.getElementById('ld-aridity').textContent='—';}}
 
-  try {
-    // 1. CHIRPS via ClimateSERV — annual rainfall for the country centroid
-    const coords = getStudyCoords();
-    await fetchCHIRPS(coords.lat, coords.lon);
-    // 2. ERA5 PET proxy via Open-Meteo
-    await fetchPET(coords.lat, coords.lon);
-    // 3. World Bank
-    await fetchWorldBank(countryName);
+function toggleChip(el){el.classList.toggle('active');}
+function togglePill(el){el.classList.toggle('active');}
+function getActivePills(groupId){return[...document.getElementById(groupId).querySelectorAll('.active')].map(p=>p.textContent);}
+function getDataFlags(){return[...document.querySelectorAll('.data-chip.active .chip-label')].map(el=>el.textContent);}
+function switchDataTab(tab,btn){document.querySelectorAll('.data-tab').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.data-tab-panel').forEach(p=>p.style.display='none');btn.classList.add('active');document.getElementById('tab-'+tab).style.display='block';}
+function switchResultTab(tab,btn){document.querySelectorAll('.result-tab').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.result-tab-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('tab-'+tab).classList.add('active');if(tab==='map'&&window._mapResult)renderMap(window._mapResult);}
 
-    renderLiveData();
-    setStatus('ready', `Live data loaded · CHIRPS + ERA5 + World Bank`);
-    document.getElementById('liveDataGrid').style.display = 'grid';
-  } catch(e) {
-    setStatus('idle', 'Partial data loaded — some sources unavailable');
-    renderLiveData();
-    document.getElementById('liveDataGrid').style.display = 'grid';
-  }
-}
+const uploadedFiles=[];
+function handleDrop(e){e.preventDefault();document.getElementById('uploadZone').classList.remove('drag-over');handleFiles(e.dataTransfer.files);}
+function handleFiles(files){[...files].forEach(file=>{if(uploadedFiles.find(f=>f.name===file.name))return;const entry={name:file.name,size:file.size,type:file.type,content:null,status:'reading'};uploadedFiles.push(entry);renderFileList();const ext=file.name.split('.').pop().toLowerCase();const reader=new FileReader();reader.onload=(e)=>{if(['jpg','jpeg','png','pdf'].includes(ext)){entry.content=e.target.result.split(',')[1];entry.mediaType=ext==='pdf'?'application/pdf':'image/'+(ext==='jpg'?'jpeg':ext);entry.isBase64=true;}else{entry.content=e.target.result;entry.isBase64=false;}entry.status='ready';renderFileList();};reader.onerror=()=>{entry.status='error';renderFileList();};if(['jpg','jpeg','png','pdf'].includes(ext))reader.readAsDataURL(file);else reader.readAsText(file);});}
+function removeFile(name){const i=uploadedFiles.findIndex(f=>f.name===name);if(i>-1)uploadedFiles.splice(i,1);renderFileList();}
+function renderFileList(){const c=document.getElementById('fileList');const icons={pdf:'📄',csv:'📊',xlsx:'📊',xls:'📊',jpg:'🖼',jpeg:'🖼',png:'🖼'};c.innerHTML=uploadedFiles.map(f=>{const ext=f.name.split('.').pop().toLowerCase();return`<div class="file-item"><span class="file-icon">${icons[ext]||'📎'}</span><div class="file-info"><div class="file-name">${f.name}</div><div class="file-size">${(f.size/1024).toFixed(0)} KB</div></div><span class="file-status ${f.status}">${f.status==='reading'?'reading...':f.status==='ready'?'ready':'error'}</span><span class="file-remove" onclick="removeFile('${f.name}')">✕</span></div>`;}).join('');}
+function buildFileMessages(){const ready=uploadedFiles.filter(f=>f.status==='ready');if(!ready.length)return null;const content=[];ready.forEach(f=>{if(f.isBase64){if(f.mediaType.startsWith('image/'))content.push({type:'image',source:{type:'base64',media_type:f.mediaType,data:f.content}});else content.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:f.content}});}else{const preview=f.content.length>3000?f.content.slice(0,3000)+'...[truncated]':f.content;content.push({type:'text',text:`FILE: ${f.name}\n\n${preview}`});}});return content.length?content:null;}
 
-async function fetchCHIRPS(lat, lon) {
-  // ClimateSERV API — CHIRPS annual rainfall
-  // datatype=0 = CHIRPS, operationtype=5 = mean
-  const geom = JSON.stringify({
-    "type":"Polygon",
-    "coordinates":[[[lon-0.5,lat-0.5],[lon-0.5,lat+0.5],[lon+0.5,lat+0.5],[lon+0.5,lat-0.5],[lon-0.5,lat-0.5]]]
-  });
-  const endDate = new Date(); endDate.setFullYear(endDate.getFullYear()-1);
-  const startDate = new Date(endDate); startDate.setFullYear(startDate.getFullYear()-3);
-  const fmt = d => `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${d.getFullYear()}`;
+const mcdaAll={social:{label:'Social equity',cls:'tok-social',color:'#0f766e'},economic:{label:'Economic viability',cls:'tok-economic',color:'#1e40af'},environmental:{label:'Environmental impact',cls:'tok-environmental',color:'#166534'},climate:{label:'Climate resilience',cls:'tok-climate',color:'#1D4ED8'},governance:{label:'Governance & institutions',cls:'tok-governance',color:'#6d28d9'},gender:{label:'Gender & inclusion',cls:'tok-gender',color:'#9d174d'},technology:{label:'Technology appropriateness',cls:'tok-technology',color:'#92400e'},carbon:{label:'Carbon co-benefits',cls:'tok-carbon',color:'#065f46'},political:{label:'Political risk',cls:'tok-political',color:'#991b1b'},cofinancing:{label:'Co-financing potential',cls:'tok-cofinancing',color:'#78350f'}};
+const scoreFieldMap={social:'social_score',economic:'econ_score',environmental:'env_score',climate:'climate_score',governance:'governance_score',gender:'gender_score',technology:'tech_score',carbon:'carbon_score',political:'political_score',cofinancing:'cofinancing_score'};
+let selectedCriteria=['social','economic','environmental','climate'];
 
-  try {
-    const submitUrl = `https://climateserv.servirglobal.net/api/submitDataRequest/?datatype=0&begintime=${fmt(startDate)}&endtime=${fmt(endDate)}&intervaltype=0&operationtype=5&callback=cb&dateType_Category=default&isZip_CurrentDataType=false&geometry=${encodeURIComponent(geom)}`;
-    const subRes = await fetch(submitUrl);
-    const subText = await subRes.text();
-    const idMatch = subText.match(/"([a-f0-9-]{36})"/);
-    if (!idMatch) throw new Error('No job ID');
-    const jobId = idMatch[1];
-
-    // Poll for result
-    for (let i = 0; i < 12; i++) {
-      await new Promise(r => setTimeout(r, 2000));
-      const progRes = await fetch(`https://climateserv.servirglobal.net/api/getDataRequestProgress/?id=${jobId}`);
-      const progText = await progRes.text();
-      const prog = JSON.parse(progText.replace(/^cb\(/, '').replace(/\)$/, ''));
-      if (prog[0]?.progress === 100) {
-        const dataRes = await fetch(`https://climateserv.servirglobal.net/api/getDataFromRequest/?id=${jobId}`);
-        const dataText = await dataRes.text();
-        const data = JSON.parse(dataText.replace(/^cb\(/, '').replace(/\)$/, ''));
-        if (data[0]?.data) {
-          const vals = data[0].data.map(d => d.value).filter(v => v > 0);
-          if (vals.length) {
-            const monthlyAvg = vals.reduce((a,b) => a+b, 0) / vals.length;
-            liveData.rainfall = Math.round(monthlyAvg * 12); // monthly to annual
-            liveData.rainfallPeriod = `${startDate.getFullYear()}–${endDate.getFullYear()}`;
-          }
-        }
-        break;
-      }
-    }
-  } catch(e) {
-    // Fallback: use Open-Meteo historical precipitation
-    try {
-      const yr = new Date().getFullYear() - 2;
-      const r = await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${yr}-01-01&end_date=${yr}-12-31&daily=precipitation_sum&timezone=UTC`);
-      const d = await r.json();
-      if (d.daily?.precipitation_sum) {
-        const annual = d.daily.precipitation_sum.filter(v => v !== null).reduce((a,b) => a+b, 0);
-        liveData.rainfall = Math.round(annual);
-        liveData.rainfallPeriod = `${yr} (Open-Meteo)`;
-      }
-    } catch(e2) { liveData.rainfall = null; }
-  }
-}
-
-async function fetchPET(lat, lon) {
-  // ERA5 proxy via Open-Meteo: use temperature + radiation to estimate PET
-  // Hargreaves equation: PET ≈ 0.0023 * Ra * (Tmax-Tmin)^0.5 * (Tmean+17.8)
-  // We use et0_fao_evapotranspiration which is directly available
-  try {
-    const yr = new Date().getFullYear() - 2;
-    const r = await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${yr}-01-01&end_date=${yr}-12-31&daily=et0_fao_evapotranspiration&timezone=UTC`);
-    const d = await r.json();
-    if (d.daily?.et0_fao_evapotranspiration) {
-      const annual = d.daily.et0_fao_evapotranspiration.filter(v => v !== null).reduce((a,b) => a+b, 0);
-      liveData.pet = Math.round(annual);
-      liveData.petYear = yr;
-    }
-  } catch(e) { liveData.pet = null; }
-}
-
-async function fetchWorldBank(countryName) {
-  // Country code mapping
-  const codes = {
-    'Madagascar':'MDG','Mali':'MLI','Niger':'NER','Ethiopia':'ETH','Somalia':'SOM',
-    'Chad':'TCD','Mozambique':'MOZ','Zimbabwe':'ZWE','Kenya':'KEN','Tanzania':'TZA',
-    'Senegal':'SEN','Burkina Faso':'BFA','Nigeria':'NGA','South Sudan':'SSD',
-    'DRC':'COD','Sudan':'SDN','Zambia':'ZMB','Pakistan':'PAK','Bangladesh':'BGD',
-    'India':'IND','Nepal':'NPL','Afghanistan':'AFG','Yemen':'YEM','Iraq':'IRQ',
-    'Jordan':'JOR','Morocco':'MAR','Uzbekistan':'UZB','Tajikistan':'TJK',
-    'Bolivia':'BOL','Haiti':'HTI','Peru':'PER','Northeast Brazil':'BRA',
-    'Myanmar':'MMR','Cambodia':'KHM','Laos':'LAO','Vietnam':'VNM',
-    'Indonesia':'IDN','Philippines':'PHL','Papua New Guinea':'PNG','Timor-Leste':'TLS',
-    'Cuba':'CUB','Dominican Republic':'DOM','Jamaica':'JAM','Honduras':'HND',
-    'Guatemala':'GTM','Nicaragua':'NIC','Solomon Islands':'SLB',
-    'Vanuatu':'VUT','Kiribati':'KIR','Marshall Islands':'MHL'
-  };
-  const code = codes[countryName] || 'MDG';
-  try {
-    // GDP per capita
-    const gdpR = await fetch(`https://api.worldbank.org/v2/country/${code}/indicator/NY.GDP.PCAP.CD?format=json&mrv=1`);
-    const gdpD = await gdpR.json();
-    if (gdpD[1]?.[0]?.value) {
-      liveData.gdp = Math.round(gdpD[1][0].value);
-      liveData.gdpYear = gdpD[1][0].date;
-    }
-    // Population
-    const popR = await fetch(`https://api.worldbank.org/v2/country/${code}/indicator/SP.POP.TOTL?format=json&mrv=1`);
-    const popD = await popR.json();
-    if (popD[1]?.[0]?.value) {
-      liveData.wbPop = popD[1][0].value;
-      liveData.popYear = popD[1][0].date;
-      document.getElementById('population').value = Math.round(liveData.wbPop / 100) * 100;
-    }
-    // Water stress proxy — use access to basic water services
-    const watR = await fetch(`https://api.worldbank.org/v2/country/${code}/indicator/SH.H2O.BASW.ZS?format=json&mrv=1`);
-    const watD = await watR.json();
-    if (watD[1]?.[0]?.value) {
-      liveData.waterAccess = Math.round(watD[1][0].value);
-      liveData.stressLabel = `${100 - liveData.waterAccess}% lack access`;
-    }
-  } catch(e) { /* partial data fine */ }
-}
-
-function renderLiveData() {
-  const fmt = n => n ? n.toLocaleString() : '—';
-  document.getElementById('ld-rainfall').textContent = liveData.rainfall ? liveData.rainfall + ' mm' : '—';
-  document.getElementById('ld-rainfall-period').textContent = liveData.rainfallPeriod || 'mm/yr';
-  document.getElementById('ld-pet').textContent = liveData.pet ? liveData.pet + ' mm' : '—';
-  document.getElementById('ld-gdp').textContent = liveData.gdp ? '$' + fmt(liveData.gdp) : '—';
-  document.getElementById('ld-gdp-year').textContent = liveData.gdpYear ? 'USD · ' + liveData.gdpYear : 'USD';
-  document.getElementById('ld-pop').textContent = liveData.wbPop ? fmt(Math.round(liveData.wbPop / 1000) * 1000) : '—';
-  document.getElementById('ld-pop-year').textContent = liveData.popYear || 'World Bank';
-  document.getElementById('ld-stress').textContent = liveData.stressLabel || '—';
-  // Aridity index
-  if (liveData.rainfall && liveData.pet) {
-    const ai = (liveData.rainfall / liveData.pet).toFixed(2);
-    document.getElementById('ld-aridity').textContent = ai;
-  } else {
-    document.getElementById('ld-aridity').textContent = '—';
-  }
-}
-
-// ── HELPERS ───────────────────────────────────────────────
-function toggleChip(el) {
-  el.classList.toggle('active');
-}
-function togglePill(el) { el.classList.toggle('active'); }
-function getActivePills(groupId) {
-  return [...document.getElementById(groupId).querySelectorAll('.active')].map(p => p.textContent);
-}
-function getDataFlags() {
-  return [...document.querySelectorAll('.data-chip.active .chip-label')].map(el => el.textContent);
-}
-function switchDataTab(tab, btn) {
-  document.querySelectorAll('.data-tab').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.data-tab-panel').forEach(p => p.style.display = 'none');
-  btn.classList.add('active');
-  document.getElementById('tab-' + tab).style.display = 'block';
-}
-function switchResultTab(tab, btn) {
-  document.querySelectorAll('.result-tab').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.result-tab-panel').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('tab-' + tab).classList.add('active');
-  if (tab === 'map' && window._mapResult) renderMap(window._mapResult);
-}
-
-// ── FILE HANDLING ─────────────────────────────────────────
-const uploadedFiles = [];
-function handleDrop(e) { e.preventDefault(); document.getElementById('uploadZone').classList.remove('drag-over'); handleFiles(e.dataTransfer.files); }
-function handleFiles(files) {
-  [...files].forEach(file => {
-    if (uploadedFiles.find(f => f.name === file.name)) return;
-    const entry = { name: file.name, size: file.size, type: file.type, content: null, status: 'reading' };
-    uploadedFiles.push(entry);
-    renderFileList();
-    const ext = file.name.split('.').pop().toLowerCase();
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      if (['jpg','jpeg','png','pdf'].includes(ext)) {
-        entry.content = e.target.result.split(',')[1];
-        entry.mediaType = ext === 'pdf' ? 'application/pdf' : 'image/' + (ext === 'jpg' ? 'jpeg' : ext);
-        entry.isBase64 = true;
-      } else { entry.content = e.target.result; entry.isBase64 = false; }
-      entry.status = 'ready'; renderFileList();
-    };
-    reader.onerror = () => { entry.status = 'error'; renderFileList(); };
-    if (['jpg','jpeg','png','pdf'].includes(ext)) reader.readAsDataURL(file);
-    else reader.readAsText(file);
-  });
-}
-function removeFile(name) { const i = uploadedFiles.findIndex(f => f.name===name); if(i>-1) uploadedFiles.splice(i,1); renderFileList(); }
-function renderFileList() {
-  const c = document.getElementById('fileList');
-  const icons = {pdf:'📄',csv:'📊',xlsx:'📊',xls:'📊',jpg:'🖼',jpeg:'🖼',png:'🖼'};
-  c.innerHTML = uploadedFiles.map(f => {
-    const ext = f.name.split('.').pop().toLowerCase();
-    return `<div class="file-item"><span class="file-icon">${icons[ext]||'📎'}</span><div class="file-info"><div class="file-name">${f.name}</div><div class="file-size">${(f.size/1024).toFixed(0)} KB</div></div><span class="file-status ${f.status}">${f.status==='reading'?'reading...':f.status==='ready'?'ready':'error'}</span><span class="file-remove" onclick="removeFile('${f.name}')">✕</span></div>`;
-  }).join('');
-}
-function buildFileMessages() {
-  const ready = uploadedFiles.filter(f => f.status==='ready');
-  if (!ready.length) return null;
-  const content = [];
-  ready.forEach(f => {
-    if (f.isBase64) {
-      if (f.mediaType.startsWith('image/')) content.push({type:'image',source:{type:'base64',media_type:f.mediaType,data:f.content}});
-      else content.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:f.content}});
-    } else {
-      const preview = f.content.length > 3000 ? f.content.slice(0,3000)+'...[truncated]' : f.content;
-      content.push({type:'text',text:`FILE: ${f.name}\n\n${preview}`});
-    }
-  });
-  return content.length ? content : null;
-}
-
-// ── MCDA ─────────────────────────────────────────────────
-const mcdaAll = {
-  social:{label:'Social equity',cls:'tok-social',color:'#0f766e'},
-  economic:{label:'Economic viability',cls:'tok-economic',color:'#1e40af'},
-  environmental:{label:'Environmental impact',cls:'tok-environmental',color:'#166534'},
-  climate:{label:'Climate resilience',cls:'tok-climate',color:'#1D4ED8'},
-  governance:{label:'Governance & institutions',cls:'tok-governance',color:'#6d28d9'},
-  gender:{label:'Gender & inclusion',cls:'tok-gender',color:'#9d174d'},
-  technology:{label:'Technology appropriateness',cls:'tok-technology',color:'#92400e'},
-  carbon:{label:'Carbon co-benefits',cls:'tok-carbon',color:'#065f46'},
-  political:{label:'Political risk',cls:'tok-political',color:'#991b1b'},
-  cofinancing:{label:'Co-financing potential',cls:'tok-cofinancing',color:'#78350f'}
-};
-const scoreFieldMap = {social:'social_score',economic:'econ_score',environmental:'env_score',climate:'climate_score',governance:'governance_score',gender:'gender_score',technology:'tech_score',carbon:'carbon_score',political:'political_score',cofinancing:'cofinancing_score'};
-let selectedCriteria = ['social','economic','environmental','climate'];
-
-function renderMcdaSliders() {
-  const c = document.getElementById('mcdaSliders');
-  c.innerHTML = '';
-  const eq = Math.floor(100/selectedCriteria.length);
-  selectedCriteria.forEach((key,i) => {
-    const info = mcdaAll[key];
-    const v = i===selectedCriteria.length-1 ? 100-eq*(selectedCriteria.length-1) : eq;
-    const row = document.createElement('div'); row.className='mcda-row';
-    row.innerHTML=`<div class="mcda-row-head"><span class="mcda-row-label"><span class="mcda-dot" style="background:${info.color}"></span>${info.label}</span><span class="mcda-val" id="val_${key}" style="color:${info.color}">${v}</span></div><input type="range" min="0" max="100" value="${v}" id="w_${key}" oninput="updateWeights()">`;
-    c.appendChild(row);
-  });
-  updateWeights(); updateDropdownState();
-}
-function updateWeights() {
-  let total=0;
-  selectedCriteria.forEach(key => {
-    const el=document.getElementById('w_'+key); if(!el)return;
-    const v=parseInt(el.value);
-    document.getElementById('val_'+key).textContent=v; total+=v;
-  });
-  const el=document.getElementById('weightTotal');
-  el.textContent=`Total: ${total} / 100 ${total===100?'✓':''}`;
-  el.className='weight-total '+(total===100?'ok':'over');
-}
-function addCriteria(key,label,cls,color) {
-  if(selectedCriteria.length>=6||selectedCriteria.includes(key))return;
-  selectedCriteria.push(key);
-  const pool=document.getElementById('mcdaPool'); const addBtn=document.getElementById('mcdaAddBtn');
-  const tok=document.createElement('div'); tok.className=`mcda-token ${cls}`; tok.dataset.key=key; tok.draggable=true;
-  tok.innerHTML=`<span>${label}</span><span class="tok-remove" onclick="removeCriteria('${key}')">✕</span>`;
-  pool.insertBefore(tok,addBtn); renderMcdaSliders(); closeMcdaDropdown();
-}
-function removeCriteria(key) {
-  selectedCriteria=selectedCriteria.filter(k=>k!==key);
-  const tok=document.querySelector(`[data-key="${key}"].mcda-token`); if(tok)tok.remove();
-  renderMcdaSliders(); updateDropdownState();
-}
-function updateDropdownState() {
-  document.querySelectorAll('.mcda-opt').forEach(opt=>opt.classList.toggle('used',selectedCriteria.includes(opt.dataset.key)));
-  document.getElementById('mcdaAddBtn').style.display=selectedCriteria.length>=6?'none':'flex';
-}
+function renderMcdaSliders(){const c=document.getElementById('mcdaSliders');c.innerHTML='';const eq=Math.floor(100/selectedCriteria.length);selectedCriteria.forEach((key,i)=>{const info=mcdaAll[key];const v=i===selectedCriteria.length-1?100-eq*(selectedCriteria.length-1):eq;const row=document.createElement('div');row.className='mcda-row';row.innerHTML=`<div class="mcda-row-head"><span class="mcda-row-label"><span class="mcda-dot" style="background:${info.color}"></span>${info.label}</span><span class="mcda-val" id="val_${key}" style="color:${info.color}">${v}</span></div><input type="range" min="0" max="100" value="${v}" id="w_${key}" oninput="updateWeights()">`;c.appendChild(row);});updateWeights();updateDropdownState();}
+function updateWeights(){let total=0;selectedCriteria.forEach(key=>{const el=document.getElementById('w_'+key);if(!el)return;const v=parseInt(el.value);document.getElementById('val_'+key).textContent=v;total+=v;});const el=document.getElementById('weightTotal');el.textContent=`Total: ${total} / 100 ${total===100?'✓':''}`;el.className='weight-total '+(total===100?'ok':'over');}
+function addCriteria(key,label,cls,color){if(selectedCriteria.length>=6||selectedCriteria.includes(key))return;selectedCriteria.push(key);const pool=document.getElementById('mcdaPool');const addBtn=document.getElementById('mcdaAddBtn');const tok=document.createElement('div');tok.className=`mcda-token ${cls}`;tok.dataset.key=key;tok.draggable=true;tok.innerHTML=`<span>${label}</span><span class="tok-remove" onclick="removeCriteria('${key}')">✕</span>`;pool.insertBefore(tok,addBtn);renderMcdaSliders();closeMcdaDropdown();}
+function removeCriteria(key){selectedCriteria=selectedCriteria.filter(k=>k!==key);const tok=document.querySelector(`[data-key="${key}"].mcda-token`);if(tok)tok.remove();renderMcdaSliders();updateDropdownState();}
+function updateDropdownState(){document.querySelectorAll('.mcda-opt').forEach(opt=>opt.classList.toggle('used',selectedCriteria.includes(opt.dataset.key)));document.getElementById('mcdaAddBtn').style.display=selectedCriteria.length>=6?'none':'flex';}
 function toggleMcdaDropdown(){document.getElementById('mcdaDropdown').classList.toggle('open');}
 function closeMcdaDropdown(){document.getElementById('mcdaDropdown').classList.remove('open');}
 document.addEventListener('click',e=>{if(!e.target.closest('#mcdaAddBtn')&&!e.target.closest('#mcdaDropdown'))closeMcdaDropdown();});
 
-// ── SECTORS ───────────────────────────────────────────────
 const sectorLabels={water_supply:'Water supply & storage',wash:'Sanitation & WASH',irrigation:'Irrigation & agriculture',groundwater:'Groundwater & boreholes',nbs:'Nature-based solutions',flood:'Flood & drought management',governance_sector:'Governance & policy',climate_infra:'Climate adaptation infrastructure'};
-function getSelectedSectors(){return [...document.getElementById('sectorSelected').querySelectorAll('.sector-tag')].map(t=>t.dataset.key);}
-function addSector(){
-  const sel=document.getElementById('sectorDropdown'); const key=sel.value; if(!key)return;
-  const current=getSelectedSectors(); if(current.includes(key)||current.length>=6){sel.value='';return;}
-  const tag=document.createElement('span'); tag.className='sector-tag'; tag.dataset.key=key;
-  tag.innerHTML=`${sectorLabels[key]}<span class="rem" onclick="removeSector('${key}')">✕</span>`;
-  document.getElementById('sectorSelected').appendChild(tag); sel.value='';
-}
+function getSelectedSectors(){return[...document.getElementById('sectorSelected').querySelectorAll('.sector-tag')].map(t=>t.dataset.key);}
+function addSector(){const sel=document.getElementById('sectorDropdown');const key=sel.value;if(!key)return;const current=getSelectedSectors();if(current.includes(key)||current.length>=6){sel.value='';return;}const tag=document.createElement('span');tag.className='sector-tag';tag.dataset.key=key;tag.innerHTML=`${sectorLabels[key]}<span class="rem" onclick="removeSector('${key}')">✕</span>`;document.getElementById('sectorSelected').appendChild(tag);sel.value='';}
 function removeSector(key){const t=document.querySelector(`#sectorSelected [data-key="${key}"]`);if(t)t.remove();}
 
-// ── SDG MAPPING ───────────────────────────────────────────
-const sdgMap = {
-  water_supply:['SDG 6','SDG 3'], wash:['SDG 6','SDG 3','SDG 1'],
-  irrigation:['SDG 2','SDG 6'], groundwater:['SDG 6','SDG 13'],
-  nbs:['SDG 13','SDG 15','SDG 6'], flood:['SDG 13','SDG 11'],
-  governance_sector:['SDG 16','SDG 17'], climate_infra:['SDG 13','SDG 11']
-};
+const sdgMap={water_supply:['SDG 6','SDG 3'],wash:['SDG 6','SDG 3','SDG 1'],irrigation:['SDG 2','SDG 6'],groundwater:['SDG 6','SDG 13'],nbs:['SDG 13','SDG 15','SDG 6'],flood:['SDG 13','SDG 11'],governance_sector:['SDG 16','SDG 17'],climate_infra:['SDG 13','SDG 11']};
 const sdgColors={'SDG 6':'sdg-6','SDG 13':'sdg-13','SDG 1':'sdg-1','SDG 2':'sdg-2','SDG 3':'sdg-3','SDG 11':'sdg-6','SDG 15':'sdg-13','SDG 16':'sdg-2','SDG 17':'sdg-1'};
-function renderSDGTags(sectorKey) {
-  const tags = sdgMap[sectorKey] || ['SDG 6'];
-  return tags.map(t=>`<span class="sdg-tag ${sdgColors[t]||'sdg-6'}">${t}</span>`).join('');
-}
+function renderSDGTags(sectorKey){const tags=sdgMap[sectorKey]||['SDG 6'];return tags.map(t=>`<span class="sdg-tag ${sdgColors[t]||'sdg-6'}">${t}</span>`).join('');}
 
-// ── PROMPT BUILDER ────────────────────────────────────────
-function buildPrompt() {
-  const country = document.getElementById('country').value.split('|')[0] || 'Unknown';
-  const region = document.getElementById('region').value || '—';
-  const study = document.getElementById('studyarea').value || '—';
-  const climate = document.getElementById('climate').value;
-  const pop = parseInt(document.getElementById('population').value)||0;
-  const budget = parseInt(document.getElementById('budget').value)||0;
-  const ssps = getActivePills('sspGrid').join(', ') || 'SSP2-4.5, SSP5-8.5';
-  const horizons = getActivePills('horizonGrid').join(', ') || '2040, 2050';
-  const data = getDataFlags().join(', ') || 'Satellite RS';
-  const sectors = getSelectedSectors().map(k=>sectorLabels[k]).join(', ');
-  const notes = document.getElementById('dataNotes')?.value?.trim() || '';
-  const extra = document.getElementById('extraContext').value;
-  const fileCtx = uploadedFiles.filter(f=>f.status==='ready').map(f=>f.name).join(', ');
-  let weights = '';
+function buildPrompt(){
+  const country=document.getElementById('country').value.split('|')[0]||'Unknown';
+  const region=document.getElementById('region').value||'—';
+  const study=document.getElementById('studyarea').value||'—';
+  const climate=document.getElementById('climate').value;
+  const pop=parseInt(document.getElementById('population').value)||0;
+  const budget=parseInt(document.getElementById('budget').value)||0;
+  const ssps=getActivePills('sspGrid').join(', ')||'SSP2-4.5, SSP5-8.5';
+  const horizons=getActivePills('horizonGrid').join(', ')||'2040, 2050';
+  const data=getDataFlags().join(', ')||'Satellite RS';
+  const sectors=getSelectedSectors().map(k=>sectorLabels[k]).join(', ');
+  const notes=document.getElementById('dataNotes')?.value?.trim()||'';
+  const extra=document.getElementById('extraContext').value;
+  const fileCtx=uploadedFiles.filter(f=>f.status==='ready').map(f=>f.name).join(', ');
+  let weights='';
   selectedCriteria.forEach(key=>{const el=document.getElementById('w_'+key);if(el)weights+=`${mcdaAll[key].label}:${el.value}%, `;});
-
-  // Live data context
-  let liveCtx = '';
-  if (liveData.rainfall) liveCtx += `CHIRPS annual rainfall: ${liveData.rainfall}mm (${liveData.rainfallPeriod||'recent'}). `;
-  if (liveData.pet) liveCtx += `ERA5 PET estimate: ${liveData.pet}mm/yr. `;
-  if (liveData.rainfall && liveData.pet) liveCtx += `Aridity index (P/PET): ${(liveData.rainfall/liveData.pet).toFixed(2)}. `;
-  if (liveData.gdp) liveCtx += `GDP per capita: $${liveData.gdp.toLocaleString()} (${liveData.gdpYear}). `;
-  if (liveData.stressLabel) liveCtx += `Water access: ${liveData.stressLabel}. `;
-  if (notes) liveCtx += `User data notes: ${notes}. `;
-  if (fileCtx) liveCtx += `Uploaded files: ${fileCtx}. `;
-
+  let liveCtx='';
+  if(liveData.rainfall)liveCtx+=`CHIRPS annual rainfall: ${liveData.rainfall}mm (${liveData.rainfallPeriod||'recent'}). `;
+  if(liveData.pet)liveCtx+=`ERA5 PET estimate: ${liveData.pet}mm/yr. `;
+  if(liveData.rainfall&&liveData.pet)liveCtx+=`Aridity index (P/PET): ${(liveData.rainfall/liveData.pet).toFixed(2)}. `;
+  if(liveData.gdp)liveCtx+=`GDP per capita: $${liveData.gdp.toLocaleString()} (${liveData.gdpYear}). `;
+  if(liveData.stressLabel)liveCtx+=`Water access: ${liveData.stressLabel}. `;
+  if(notes)liveCtx+=`User data notes: ${notes}. `;
+  if(fileCtx)liveCtx+=`Uploaded files: ${fileCtx}. `;
   return `You are a senior water security investment advisor. You work across all regions — arid, tropical, highland, coastal, flood-prone, and data-scarce — wherever water investment decisions need to be made. Generate a detailed, location-specific water investment portfolio analysis.
 
 LOCATION: ${country} > ${region} > ${study}
-COORDINATES: ${getStudyCoords().lat.toFixed(4)}°, ${getStudyCoords().lon.toFixed(4)}° (${document.getElementById('coordSource')?.textContent?.includes('Custom') || document.getElementById('coordSource')?.textContent?.includes('Centroid') ? 'study area coordinates' : 'country centroid'})
+COORDINATES: ${getStudyCoords().lat.toFixed(4)}°, ${getStudyCoords().lon.toFixed(4)}°
 CLIMATE ZONE: ${climate}
 POPULATION: ${pop.toLocaleString()}
 BUDGET: $${budget.toLocaleString()} USD
@@ -1433,7 +903,7 @@ PLANNING HORIZONS: ${horizons}
 DATA AVAILABLE: ${data}
 INVESTMENT SECTORS: ${sectors}
 MCDA WEIGHTS: ${weights}
-LIVE DATA: ${liveCtx || 'Not fetched'}
+LIVE DATA: ${liveCtx||'Not fetched'}
 ADDITIONAL CONTEXT: ${extra}
 
 IMPORTANT: Reference the live data (rainfall, PET, aridity index) explicitly in your analysis. If rainfall < 400mm/yr, flag extreme aridity. If P/PET < 0.2, flag hyper-arid conditions.
@@ -1469,161 +939,83 @@ Return ONLY valid JSON — no markdown, no preamble:
 Provide 5-7 investments. Scores 0-100. lat_offset and lon_offset are small offsets from country center for map placement.`;
 }
 
-
-// ── VALIDATION ────────────────────────────────────────────
-function clearValidation() {
-  document.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
-}
-
-function showToast(errors) {
-  const toast = document.getElementById('validationToast');
-  document.getElementById('toastItems').innerHTML = errors.map(e => `<div class="toast-item">${e}</div>`).join('');
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 4000);
-}
-
-function validateForm() {
-  clearValidation();
-  const errors = [];
-
-  // 1. Country
-  const country = document.getElementById('country').value;
-  if (!country) {
-    errors.push('Country — select a country');
-    document.getElementById('country').classList.add('field-error');
-  }
-
-  // 2. Coordinates
-  const lat = parseFloat(document.getElementById('studyLat')?.value);
-  const lon = parseFloat(document.getElementById('studyLon')?.value);
-  if (isNaN(lat) || isNaN(lon) || (lat === 0 && lon === 0)) {
-    errors.push('Coordinates — select a country or enter lat/lon');
-    document.getElementById('studyLat')?.classList.add('field-error');
-    document.getElementById('studyLon')?.classList.add('field-error');
-  }
-
-  // 3. Population
-  const population = parseInt(document.getElementById('population').value);
-  if (!population || population <= 0) {
-    errors.push('Population — enter the study area population');
-    document.getElementById('population').classList.add('field-error');
-  }
-
-  // 4. Budget
-  const budget = parseInt(document.getElementById('budget').value);
-  if (!budget || budget <= 0) {
-    errors.push('Budget — enter a budget amount in USD');
-    document.getElementById('budget').classList.add('field-error');
-  }
-
-  // 5. Investment priorities (MCDA)
-  if (selectedCriteria.length === 0) {
-    errors.push('Investment Priorities — select at least one criterion');
-    document.getElementById('mcdaPool').style.outline = '2px solid #ef4444';
-    document.getElementById('mcdaPool').style.borderRadius = '8px';
-    setTimeout(() => { document.getElementById('mcdaPool').style.outline = ''; }, 4000);
-  }
-
-  // 6. SSP pathways
-  if (getActivePills('sspGrid').length === 0) {
-    errors.push('SSP Pathways — select at least one scenario');
-    document.getElementById('sspGrid').style.outline = '2px solid #ef4444';
-    document.getElementById('sspGrid').style.borderRadius = '8px';
-    setTimeout(() => { document.getElementById('sspGrid').style.outline = ''; }, 4000);
-  }
-
-  // 7. Investment sectors
-  if (getSelectedSectors().length === 0) {
-    errors.push('Investment Sectors — select at least one sector');
-    document.getElementById('sectorSelected').style.outline = '2px solid #ef4444';
-    document.getElementById('sectorSelected').style.borderRadius = '8px';
-    setTimeout(() => { document.getElementById('sectorSelected').style.outline = ''; }, 4000);
-  }
-
-  // 8. Planning horizons
-  if (getActivePills('horizonGrid').length === 0) {
-    errors.push('Planning Horizons — select at least one horizon');
-    document.getElementById('horizonGrid').style.outline = '2px solid #ef4444';
-    document.getElementById('horizonGrid').style.borderRadius = '8px';
-    setTimeout(() => { document.getElementById('horizonGrid').style.outline = ''; }, 4000);
-  }
-
-  if (errors.length > 0) {
-    showToast(errors);
-    return false;
-  }
+function clearValidation(){document.querySelectorAll('.field-error').forEach(el=>el.classList.remove('field-error'));}
+function showToast(errors){const toast=document.getElementById('validationToast');document.getElementById('toastItems').innerHTML=errors.map(e=>`<div class="toast-item">${e}</div>`).join('');toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),4000);}
+function validateForm(){
+  clearValidation();const errors=[];
+  const country=document.getElementById('country').value;
+  if(!country){errors.push('Country — select a country');document.getElementById('country').classList.add('field-error');}
+  const lat=parseFloat(document.getElementById('studyLat')?.value);const lon=parseFloat(document.getElementById('studyLon')?.value);
+  if(isNaN(lat)||isNaN(lon)||(lat===0&&lon===0)){errors.push('Coordinates — select a country or enter lat/lon');document.getElementById('studyLat')?.classList.add('field-error');document.getElementById('studyLon')?.classList.add('field-error');}
+  const population=parseInt(document.getElementById('population').value);
+  if(!population||population<=0){errors.push('Population — enter the study area population');document.getElementById('population').classList.add('field-error');}
+  const budget=parseInt(document.getElementById('budget').value);
+  if(!budget||budget<=0){errors.push('Budget — enter a budget amount in USD');document.getElementById('budget').classList.add('field-error');}
+  if(selectedCriteria.length===0){errors.push('Investment Priorities — select at least one criterion');document.getElementById('mcdaPool').style.outline='2px solid #ef4444';document.getElementById('mcdaPool').style.borderRadius='8px';setTimeout(()=>{document.getElementById('mcdaPool').style.outline='';},4000);}
+  if(getActivePills('sspGrid').length===0){errors.push('SSP Pathways — select at least one scenario');document.getElementById('sspGrid').style.outline='2px solid #ef4444';document.getElementById('sspGrid').style.borderRadius='8px';setTimeout(()=>{document.getElementById('sspGrid').style.outline='';},4000);}
+  if(getSelectedSectors().length===0){errors.push('Investment Sectors — select at least one sector');document.getElementById('sectorSelected').style.outline='2px solid #ef4444';document.getElementById('sectorSelected').style.borderRadius='8px';setTimeout(()=>{document.getElementById('sectorSelected').style.outline='';},4000);}
+  if(getActivePills('horizonGrid').length===0){errors.push('Planning Horizons — select at least one horizon');document.getElementById('horizonGrid').style.outline='2px solid #ef4444';document.getElementById('horizonGrid').style.borderRadius='8px';setTimeout(()=>{document.getElementById('horizonGrid').style.outline='';},4000);}
+  if(errors.length>0){showToast(errors);return false;}
   return true;
 }
 
-// ── RUN ANALYSIS ──────────────────────────────────────────
-async function runAnalysis() {
-  const country = document.getElementById('country').value;
-  if (!validateForm()) return;
-  const btn = document.getElementById('analyzeBtn');
-  btn.classList.add('loading'); btn.disabled = true;
-  document.getElementById('welcomeState').style.display = 'none';
-  const rs = document.getElementById('resultsState');
-  rs.style.display = 'flex';
-  // Show skeleton in analysis tab
-  document.getElementById('tab-analysis').innerHTML = `<div class="ai-block"><div class="ai-head"><div class="ai-pulse"></div>ANALYZING ${document.getElementById('studyarea').value||document.getElementById('region').value||country.split('|')[0].toUpperCase()}...</div><div class="ai-body"><div class="skeleton sk-line sm"></div><div class="skeleton sk-line"></div><div class="skeleton sk-line sh"></div><div class="skeleton sk-line sm" style="margin-top:12px"></div><div class="skeleton sk-line"></div><div class="skeleton sk-line sh"></div></div></div>`;
-  try {
-    const files = buildFileMessages();
-    const msgContent = files ? [...files, {type:'text',text:buildPrompt()}] : buildPrompt();
-    // Use CORS proxy to avoid browser CORS restrictions on GitHub Pages
-    const apiUrl = "https://corsproxy.io/?" + encodeURIComponent("https://api.anthropic.com/v1/messages");
-    const res = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": "",
-        "anthropic-version": "2023-06-01"
-      },
-      body: JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:2000,messages:[{role:"user",content:msgContent}]})
+// ── RUN ANALYSIS — now calls Groq via Cloudflare Worker ──
+async function runAnalysis(){
+  const country=document.getElementById('country').value;
+  if(!validateForm())return;
+  const btn=document.getElementById('analyzeBtn');
+  btn.classList.add('loading');btn.disabled=true;
+  document.getElementById('welcomeState').style.display='none';
+  const rs=document.getElementById('resultsState');
+  rs.style.display='flex';
+  document.getElementById('tab-analysis').innerHTML=`<div class="ai-block"><div class="ai-head"><div class="ai-pulse"></div>ANALYZING ${document.getElementById('studyarea').value||document.getElementById('region').value||country.split('|')[0].toUpperCase()}...</div><div class="ai-body"><div class="skeleton sk-line sm"></div><div class="skeleton sk-line"></div><div class="skeleton sk-line sh"></div><div class="skeleton sk-line sm" style="margin-top:12px"></div><div class="skeleton sk-line"></div><div class="skeleton sk-line sh"></div></div></div>`;
+  try{
+    const prompt=buildPrompt();
+    // ✅ Calls Cloudflare Worker → Groq (llama-3.3-70b-versatile) — free tier
+    const res=await fetch('https://nilelogic-proxy.yamstephe.workers.dev/',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:[{role:'user',content:prompt}]})
     });
-    const data = await res.json();
-    const raw = data.content.map(b=>b.text||'').join('');
-    const result = JSON.parse(raw.replace(/```json|```/g,'').trim());
-    window._analysisResult = result;
-    window._mapResult = result;
+    const data=await res.json();
+    const raw=data.content.map(b=>b.text||'').join('');
+    const result=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    window._analysisResult=result;
+    window._mapResult=result;
     renderAnalysis(result);
     renderDataTab(result);
     renderExportTab(result);
-  } catch(err) {
-    document.getElementById('tab-analysis').innerHTML = `<div class="error-block">⚠️ Analysis failed: ${err.message}</div>`;
+  }catch(err){
+    document.getElementById('tab-analysis').innerHTML=`<div class="error-block">⚠️ Analysis failed: ${err.message}</div>`;
   }
-  btn.classList.remove('loading'); btn.disabled = false;
+  btn.classList.remove('loading');btn.disabled=false;
 }
 
-// ── RENDER ANALYSIS ───────────────────────────────────────
-function renderAnalysis(r) {
-  const country = document.getElementById('country').value.split('|')[0];
-  const study = document.getElementById('studyarea').value || document.getElementById('region').value || country;
-  const ssps = getActivePills('sspGrid').join(', ');
-  const horizons = getActivePills('horizonGrid').join(', ');
-  const sorted = [...r.investments].sort((a,b)=>b.weighted_score-a.weighted_score);
-  const barColors = ['#3b82f6','#1D4ED8','#0D9488','#8b5cf6','#f97316','#ef4444','#22c55e'];
-  const liveTag = Object.keys(liveData).length ? '<span class="r-badge live">LIVE DATA</span>' : '';
-  const saveBtn = '<button class="save-btn" onclick="saveAnalysis()">💾 Save</button>';
-
-  document.getElementById('tab-analysis').innerHTML = `
+function renderAnalysis(r){
+  const country=document.getElementById('country').value.split('|')[0];
+  const study=document.getElementById('studyarea').value||document.getElementById('region').value||country;
+  const ssps=getActivePills('sspGrid').join(', ');
+  const horizons=getActivePills('horizonGrid').join(', ');
+  const sorted=[...r.investments].sort((a,b)=>b.weighted_score-a.weighted_score);
+  const barColors=['#3b82f6','#1D4ED8','#0D9488','#8b5cf6','#f97316','#ef4444','#22c55e'];
+  const liveTag=Object.keys(liveData).length?'<span class="r-badge live">LIVE DATA</span>':'';
+  const saveBtn='<button class="save-btn" onclick="saveAnalysis()">💾 Save</button>';
+  document.getElementById('tab-analysis').innerHTML=`
     <div class="results-header">
       <div class="results-title">${study}</div>
       <div class="r-badges">
         <span class="r-badge loc">${country.toUpperCase()}</span>
         <span class="r-badge ssp">${ssps}</span>
         <span class="r-badge hz">${horizons}</span>
-        ${liveTag}
-      ${saveBtn}
+        ${liveTag}${saveBtn}
       </div>
     </div>
-
     <div class="score-grid">
       <div class="score-card sc1"><div class="score-lbl">Top score</div><div class="score-val" style="color:var(--water)">${sorted[0]?.weighted_score??'—'}</div><div class="score-sub">${(sorted[0]?.name||'').split(' ').slice(0,3).join(' ')}</div></div>
       <div class="score-card sc2"><div class="score-lbl">Options</div><div class="score-val" style="color:var(--blue)">${sorted.length}</div><div class="score-sub">ranked</div></div>
       <div class="score-card sc3"><div class="score-lbl">Rainfall</div><div class="score-val" style="color:var(--teal);font-size:${liveData.rainfall?'1.1rem':'1.7rem'}">${liveData.rainfall?liveData.rainfall+'mm':'—'}</div><div class="score-sub">CHIRPS annual</div></div>
       <div class="score-card sc4"><div class="score-lbl">P/PET ratio</div><div class="score-val" style="color:#8b5cf6;font-size:1.1rem">${liveData.rainfall&&liveData.pet?(liveData.rainfall/liveData.pet).toFixed(2):'—'}</div><div class="score-sub">aridity index</div></div>
     </div>
-
     <div class="ai-block">
       <div class="ai-head"><div class="ai-pulse" style="animation:none;background:#5eead4"></div>STRATEGIC SUMMARY</div>
       <div class="ai-body">${r.summary}
@@ -1636,10 +1028,8 @@ function renderAnalysis(r) {
 
 <strong>Financing:</strong> ${r.financing_note}</div>
     </div>
-
     <div><div style="font-family:'DM Mono',monospace;font-size:0.58rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:7px;">Regional constraints & opportunities</div>
     <div class="ctx-wrap">${(r.context_flags||[]).map(f=>`<span class="ctx-chip">${f}</span>`).join('')}</div></div>
-
     <div class="inv-block">
       <div class="inv-head"><span>Ranked investment options</span><span>${sorted.length} options · ${selectedCriteria.length} criteria</span></div>
       <table class="inv-table">
@@ -1655,82 +1045,28 @@ function renderAnalysis(r) {
         </tr>`).join('')}</tbody>
       </table>
     </div>
-    <div class="disclaimer">⚠️ AquaROI by NileLogik is an AI-assisted planning tool. Rainfall from CHIRPS via ClimateSERV. PET from ERA5/Open-Meteo. Population & GDP from World Bank. Validate with local data before capital allocation.</div>`;
+    <div class="disclaimer">⚠️ AquaROI by NileLogik is an AI-assisted planning tool. Powered by Groq · Llama 3.3 70B. Rainfall from CHIRPS via ClimateSERV. PET from ERA5/Open-Meteo. Population & GDP from World Bank. Validate with local data before capital allocation.</div>`;
 }
 
-// ── RENDER LIVE DATA TAB ──────────────────────────────────
-function renderDataTab(r) {
-  const country = document.getElementById('country').value.split('|')[0];
-  document.getElementById('tab-data').innerHTML = `
+function renderDataTab(r){
+  const country=document.getElementById('country').value.split('|')[0];
+  document.getElementById('tab-data').innerHTML=`
     <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:1rem;">Live Data Summary — ${country}</div>
     <div class="live-results-grid">
-      <div class="live-result-card">
-        <div class="lrc-source">CHIRPS</div>
-        <div class="lrc-value" style="color:var(--water)">${liveData.rainfall ? liveData.rainfall+' mm' : 'Not fetched'}</div>
-        <div class="lrc-label">Annual rainfall</div>
-        <div class="lrc-period">${liveData.rainfallPeriod||'ClimateSERV API'}</div>
-      </div>
-      <div class="live-result-card">
-        <div class="lrc-source">ERA5 / Open-Meteo</div>
-        <div class="lrc-value" style="color:var(--teal)">${liveData.pet ? liveData.pet+' mm' : 'Not fetched'}</div>
-        <div class="lrc-label">Potential ET (FAO-56)</div>
-        <div class="lrc-period">${liveData.petYear||'Annual estimate'}</div>
-      </div>
-      <div class="live-result-card">
-        <div class="lrc-source">Derived</div>
-        <div class="lrc-value" style="color:#8b5cf6">${liveData.rainfall&&liveData.pet?(liveData.rainfall/liveData.pet).toFixed(2):'—'}</div>
-        <div class="lrc-label">Aridity index (P/PET)</div>
-        <div class="lrc-period">${liveData.rainfall&&liveData.pet?((liveData.rainfall/liveData.pet)<0.2?'Hyper-arid':(liveData.rainfall/liveData.pet)<0.5?'Arid':'Semi-arid'):''}</div>
-      </div>
-      <div class="live-result-card">
-        <div class="lrc-source">World Bank</div>
-        <div class="lrc-value" style="color:var(--blue)">${liveData.gdp ? '$'+liveData.gdp.toLocaleString() : '—'}</div>
-        <div class="lrc-label">GDP per capita</div>
-        <div class="lrc-period">${liveData.gdpYear||''}</div>
-      </div>
-      <div class="live-result-card">
-        <div class="lrc-source">World Bank</div>
-        <div class="lrc-value" style="color:var(--navy);font-size:1rem">${liveData.wbPop ? (liveData.wbPop/1e6).toFixed(1)+'M' : '—'}</div>
-        <div class="lrc-label">National population</div>
-        <div class="lrc-period">${liveData.popYear||''}</div>
-      </div>
-      <div class="live-result-card">
-        <div class="lrc-source">World Bank</div>
-        <div class="lrc-value" style="color:var(--teal);font-size:1rem">${liveData.stressLabel||'—'}</div>
-        <div class="lrc-label">Basic water access</div>
-        <div class="lrc-period">% without access</div>
-      </div>
+      <div class="live-result-card"><div class="lrc-source">CHIRPS</div><div class="lrc-value" style="color:var(--water)">${liveData.rainfall?liveData.rainfall+' mm':'Not fetched'}</div><div class="lrc-label">Annual rainfall</div><div class="lrc-period">${liveData.rainfallPeriod||'ClimateSERV API'}</div></div>
+      <div class="live-result-card"><div class="lrc-source">ERA5 / Open-Meteo</div><div class="lrc-value" style="color:var(--teal)">${liveData.pet?liveData.pet+' mm':'Not fetched'}</div><div class="lrc-label">Potential ET (FAO-56)</div><div class="lrc-period">${liveData.petYear||'Annual estimate'}</div></div>
+      <div class="live-result-card"><div class="lrc-source">Derived</div><div class="lrc-value" style="color:#8b5cf6">${liveData.rainfall&&liveData.pet?(liveData.rainfall/liveData.pet).toFixed(2):'—'}</div><div class="lrc-label">Aridity index (P/PET)</div><div class="lrc-period">${liveData.rainfall&&liveData.pet?((liveData.rainfall/liveData.pet)<0.2?'Hyper-arid':(liveData.rainfall/liveData.pet)<0.5?'Arid':'Semi-arid'):''}</div></div>
+      <div class="live-result-card"><div class="lrc-source">World Bank</div><div class="lrc-value" style="color:var(--blue)">${liveData.gdp?'$'+liveData.gdp.toLocaleString():'—'}</div><div class="lrc-label">GDP per capita</div><div class="lrc-period">${liveData.gdpYear||''}</div></div>
+      <div class="live-result-card"><div class="lrc-source">World Bank</div><div class="lrc-value" style="color:var(--navy);font-size:1rem">${liveData.wbPop?(liveData.wbPop/1e6).toFixed(1)+'M':'—'}</div><div class="lrc-label">National population</div><div class="lrc-period">${liveData.popYear||''}</div></div>
+      <div class="live-result-card"><div class="lrc-source">World Bank</div><div class="lrc-value" style="color:var(--teal);font-size:1rem">${liveData.stressLabel||'—'}</div><div class="lrc-label">Basic water access</div><div class="lrc-period">% without access</div></div>
     </div>
     <div style="margin-top:1rem;padding:0.75rem;background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.15);border-radius:8px;font-size:0.75rem;color:var(--muted);line-height:1.7;">
       <strong style="color:var(--navy);">Phase 3 additions:</strong> GLEAM actual ET · MOD16 · SSEBop · GRACE groundwater · NDVI from MODIS · ESA WorldCover land use
-    </div>`;
-}
+    </div>`;}
 
-// ── MAP ───────────────────────────────────────────────────
-function renderMap(r) {
-  const mapDiv = document.getElementById('mapContainer');
-  if (mapDiv._leaflet_id) return; // already initialized
-  const coords = getStudyCoords();
-  const lat = coords.lat || countryLat || 0;
-  const lon = coords.lon || countryLon || 0;
-  const map = L.map('mapContainer').setView([lat, lon], 6);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'© OpenStreetMap'}).addTo(map);
-  const colors = ['#3b82f6','#1D4ED8','#0D9488','#8b5cf6','#f97316','#ef4444','#22c55e'];
-  const sorted = [...r.investments].sort((a,b)=>b.weighted_score-a.weighted_score);
-  sorted.forEach((inv,i) => {
-    const iLat = lat + (inv.lat_offset||((i-sorted.length/2)*0.3));
-    const iLon = lon + (inv.lon_offset||((i-sorted.length/2)*0.3));
-    const marker = L.circleMarker([iLat,iLon], {
-      radius: 8 + (inv.weighted_score/20),
-      fillColor: colors[i]||'#64748b', color:'white', weight:2, opacity:1, fillOpacity:0.85
-    }).addTo(map);
-    marker.bindPopup(`<strong>${inv.name}</strong><br>Score: ${inv.weighted_score}<br>${inv.cost_estimate}<br><span style="font-size:0.7rem;color:#666">${sectorLabels[inv.sector]||inv.sector}</span>`);
-  });
-}
+function renderMap(r){const mapDiv=document.getElementById('mapContainer');if(mapDiv._leaflet_id)return;const coords=getStudyCoords();const lat=coords.lat||countryLat||0;const lon=coords.lon||countryLon||0;const map=L.map('mapContainer').setView([lat,lon],6);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);const colors=['#3b82f6','#1D4ED8','#0D9488','#8b5cf6','#f97316','#ef4444','#22c55e'];const sorted=[...r.investments].sort((a,b)=>b.weighted_score-a.weighted_score);sorted.forEach((inv,i)=>{const iLat=lat+(inv.lat_offset||((i-sorted.length/2)*0.3));const iLon=lon+(inv.lon_offset||((i-sorted.length/2)*0.3));const marker=L.circleMarker([iLat,iLon],{radius:8+(inv.weighted_score/20),fillColor:colors[i]||'#64748b',color:'white',weight:2,opacity:1,fillOpacity:0.85}).addTo(map);marker.bindPopup(`<strong>${inv.name}</strong><br>Score: ${inv.weighted_score}<br>${inv.cost_estimate}<br><span style="font-size:0.7rem;color:#666">${sectorLabels[inv.sector]||inv.sector}</span>`);});}
 
-// ── EXPORT TAB ────────────────────────────────────────────
-function renderExportTab(r) {
-  document.getElementById('tab-export').innerHTML = `
+function renderExportTab(r){document.getElementById('tab-export').innerHTML=`
     <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:0.5rem;">Export Results</div>
     <div style="font-size:0.82rem;color:var(--muted);margin-bottom:1.5rem;">Download your investment portfolio analysis in multiple formats.</div>
     <div class="export-bar">
@@ -1741,142 +1077,60 @@ function renderExportTab(r) {
     <div style="margin-top:1.5rem;padding:1rem;background:var(--bg);border:1px solid var(--border);border-radius:8px;font-size:0.75rem;color:var(--muted);line-height:1.8;">
       <strong style="color:var(--navy);">PDF Brief includes:</strong> Executive summary · Live data context · MCDA methodology · Ranked investment table · SDG alignment · Financing opportunities<br>
       <strong style="color:var(--navy);">Excel includes:</strong> Full scores for all criteria · Cost estimates · Implementation timeline · SSP sensitivity
-    </div>`;
-}
+    </div>`;}
 
-function exportPDF() {
-  const r = window._analysisResult; if (!r) return;
-  const {jsPDF} = window.jspdf;
-  const doc = new jsPDF();
-  const country = document.getElementById('country').value.split('|')[0];
-  const study = document.getElementById('studyarea').value || document.getElementById('region').value || country;
-  const date = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-
-  // Header
-  doc.setFillColor(30,41,59); doc.rect(0,0,210,28,'F');
-  doc.setTextColor(255,255,255); doc.setFontSize(16); doc.setFont('helvetica','bold');
+function exportPDF(){
+  const r=window._analysisResult;if(!r)return;
+  const {jsPDF}=window.jspdf;const doc=new jsPDF();
+  const country=document.getElementById('country').value.split('|')[0];
+  const study=document.getElementById('studyarea').value||document.getElementById('region').value||country;
+  const date=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  doc.setFillColor(30,41,59);doc.rect(0,0,210,28,'F');
+  doc.setTextColor(255,255,255);doc.setFontSize(16);doc.setFont('helvetica','bold');
   doc.text('AquaROI Investment Brief',14,12);
-  doc.setFontSize(8); doc.setFont('helvetica','normal');
-  doc.text(`NileLogik · Wat-Intel · ${date}`,14,20);
-  doc.text(`${country} > ${study}`,140,20);
-
-  // Title
-  doc.setTextColor(30,41,59); doc.setFontSize(13); doc.setFont('helvetica','bold');
+  doc.setFontSize(8);doc.setFont('helvetica','normal');
+  doc.text(`NileLogik · Wat-Intel · ${date}`,14,20);doc.text(`${country} > ${study}`,140,20);
+  doc.setTextColor(30,41,59);doc.setFontSize(13);doc.setFont('helvetica','bold');
   doc.text(`Water Investment Portfolio: ${study}`,14,38);
-  doc.setDrawColor(59,130,246); doc.setLineWidth(0.5); doc.line(14,40,196,40);
-
-  // Live data box
-  doc.setFillColor(241,245,249); doc.rect(14,44,182,22,'F');
-  doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(30,41,59);
+  doc.setDrawColor(59,130,246);doc.setLineWidth(0.5);doc.line(14,40,196,40);
+  doc.setFillColor(241,245,249);doc.rect(14,44,182,22,'F');
+  doc.setFontSize(8);doc.setFont('helvetica','bold');doc.setTextColor(30,41,59);
   doc.text('LIVE DATA CONTEXT',16,51);
-  doc.setFont('helvetica','normal'); doc.setTextColor(100,116,139);
-  const ldText = `Rainfall (CHIRPS): ${liveData.rainfall?liveData.rainfall+'mm/yr':'N/A'} · PET (ERA5): ${liveData.pet?liveData.pet+'mm/yr':'N/A'} · P/PET: ${liveData.rainfall&&liveData.pet?(liveData.rainfall/liveData.pet).toFixed(2):'N/A'} · GDP/cap: ${liveData.gdp?'$'+liveData.gdp.toLocaleString():'N/A'}`;
-  doc.text(ldText,16,57);
-  doc.setFontSize(7); doc.text('Sources: CHIRPS via ClimateSERV · ERA5/Open-Meteo · World Bank API',16,63);
-
-  // Summary
-  doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.setTextColor(30,41,59);
-  doc.text('EXECUTIVE SUMMARY',14,74);
-  doc.setFont('helvetica','normal'); doc.setFontSize(8);
-  const lines = doc.splitTextToSize(r.summary, 182);
-  doc.text(lines,14,80);
-
-  // Table
-  let y = 80 + lines.length * 4 + 8;
-  doc.setFont('helvetica','bold'); doc.setFontSize(9);
-  doc.text('RANKED INVESTMENT OPTIONS',14,y); y+=6;
-  doc.setFillColor(30,41,59); doc.rect(14,y,182,6,'F');
-  doc.setTextColor(255,255,255); doc.setFontSize(7);
-  doc.text('#',16,y+4); doc.text('Investment',24,y+4); doc.text('Score',128,y+4);
-  doc.text('Cost',148,y+4); doc.text('Priority',168,y+4); doc.text('SDGs',185,y+4);
-  y+=6;
-  const sorted = [...r.investments].sort((a,b)=>b.weighted_score-a.weighted_score);
-  sorted.forEach((inv,i) => {
-    doc.setFillColor(i%2===0?248:255,i%2===0?250:255,i%2===0?252:255);
-    doc.rect(14,y,182,7,'F');
-    doc.setTextColor(30,41,59); doc.setFontSize(7);
-    doc.text(String(i+1),16,y+4.5);
-    doc.setFont('helvetica','bold');
-    doc.text(inv.name.slice(0,38),24,y+4.5);
-    doc.setFont('helvetica','normal');
-    doc.text(String(inv.weighted_score),128,y+4.5);
-    doc.text(inv.cost_estimate,148,y+4.5);
-    doc.text(inv.priority,168,y+4.5);
-    doc.text((sdgMap[inv.sector]||['SDG 6']).join(', '),185,y+4.5);
-    y+=7;
-    if(y>270){doc.addPage();y=20;}
-  });
-
-  // Recommendations
-  y+=8;
-  doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(30,41,59);
-  doc.text('TOP RECOMMENDATION',14,y); y+=5;
-  doc.setFont('helvetica','normal'); doc.setFontSize(8);
-  const recLines = doc.splitTextToSize(r.top_recommendation, 182);
-  doc.text(recLines,14,y); y+=recLines.length*4+4;
-  doc.setFont('helvetica','bold'); doc.text('FINANCING NOTE',14,y); y+=5;
-  doc.setFont('helvetica','normal');
-  const finLines = doc.splitTextToSize(r.financing_note, 182);
-  doc.text(finLines,14,y);
-
-  // Footer
-  doc.setFillColor(30,41,59); doc.rect(0,285,210,12,'F');
-  doc.setTextColor(148,163,184); doc.setFontSize(7);
+  doc.setFont('helvetica','normal');doc.setTextColor(100,116,139);
+  const ldText=`Rainfall (CHIRPS): ${liveData.rainfall?liveData.rainfall+'mm/yr':'N/A'} · PET (ERA5): ${liveData.pet?liveData.pet+'mm/yr':'N/A'} · P/PET: ${liveData.rainfall&&liveData.pet?(liveData.rainfall/liveData.pet).toFixed(2):'N/A'} · GDP/cap: ${liveData.gdp?'$'+liveData.gdp.toLocaleString():'N/A'}`;
+  doc.text(ldText,16,57);doc.setFontSize(7);doc.text('Sources: CHIRPS via ClimateSERV · ERA5/Open-Meteo · World Bank API · AI: Groq Llama 3.3 70B',16,63);
+  doc.setFontSize(9);doc.setFont('helvetica','bold');doc.setTextColor(30,41,59);
+  doc.text('EXECUTIVE SUMMARY',14,74);doc.setFont('helvetica','normal');doc.setFontSize(8);
+  const lines=doc.splitTextToSize(r.summary,182);doc.text(lines,14,80);
+  let y=80+lines.length*4+8;
+  doc.setFont('helvetica','bold');doc.setFontSize(9);doc.text('RANKED INVESTMENT OPTIONS',14,y);y+=6;
+  doc.setFillColor(30,41,59);doc.rect(14,y,182,6,'F');doc.setTextColor(255,255,255);doc.setFontSize(7);
+  doc.text('#',16,y+4);doc.text('Investment',24,y+4);doc.text('Score',128,y+4);doc.text('Cost',148,y+4);doc.text('Priority',168,y+4);doc.text('SDGs',185,y+4);y+=6;
+  const sorted=[...r.investments].sort((a,b)=>b.weighted_score-a.weighted_score);
+  sorted.forEach((inv,i)=>{doc.setFillColor(i%2===0?248:255,i%2===0?250:255,i%2===0?252:255);doc.rect(14,y,182,7,'F');doc.setTextColor(30,41,59);doc.setFontSize(7);doc.text(String(i+1),16,y+4.5);doc.setFont('helvetica','bold');doc.text(inv.name.slice(0,38),24,y+4.5);doc.setFont('helvetica','normal');doc.text(String(inv.weighted_score),128,y+4.5);doc.text(inv.cost_estimate,148,y+4.5);doc.text(inv.priority,168,y+4.5);doc.text((sdgMap[inv.sector]||['SDG 6']).join(', '),185,y+4.5);y+=7;if(y>270){doc.addPage();y=20;}});
+  y+=8;doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(30,41,59);
+  doc.text('TOP RECOMMENDATION',14,y);y+=5;doc.setFont('helvetica','normal');doc.setFontSize(8);
+  const recLines=doc.splitTextToSize(r.top_recommendation,182);doc.text(recLines,14,y);y+=recLines.length*4+4;
+  doc.setFont('helvetica','bold');doc.text('FINANCING NOTE',14,y);y+=5;doc.setFont('helvetica','normal');
+  const finLines=doc.splitTextToSize(r.financing_note,182);doc.text(finLines,14,y);
+  doc.setFillColor(30,41,59);doc.rect(0,285,210,12,'F');doc.setTextColor(148,163,184);doc.setFontSize(7);
   doc.text('AquaROI · Wat-Intel · NileLogik · Built by D. David S. Yaméogo',14,292);
   doc.text('AI-assisted tool. Validate with local data before capital allocation.',140,292);
+  doc.save(`AquaROI_${study.replace(/[^a-z0-9]/gi,'_')}_${date.replace(/[^a-z0-9]/gi,'_')}.pdf`);}
 
-  doc.save(`AquaROI_${study.replace(/[^a-z0-9]/gi,'_')}_${date.replace(/[^a-z0-9]/gi,'_')}.pdf`);
-}
+function exportExcel(){
+  const r=window._analysisResult;if(!r)return;
+  const country=document.getElementById('country').value.split('|')[0];
+  const sorted=[...r.investments].sort((a,b)=>b.weighted_score-a.weighted_score);
+  const wsData=[['AquaROI Investment Analysis','','','','','','','','','','','',''],['Country',country,'Region',document.getElementById('region').value,'Study area',document.getElementById('studyarea').value,'','','','','','',''],['SSP Pathways',getActivePills('sspGrid').join(', '),'Horizons',getActivePills('horizonGrid').join(', '),'','','','','','','','',''],['Rainfall (CHIRPS)',liveData.rainfall?liveData.rainfall+'mm':'N/A','PET (ERA5)',liveData.pet?liveData.pet+'mm':'N/A','P/PET',liveData.rainfall&&liveData.pet?(liveData.rainfall/liveData.pet).toFixed(2):'N/A','','','','','','',''],[],['Rank','Investment','Sector','Weighted Score','Social','Economic','Environmental','Climate','Cost Estimate','Implementation','Priority','SSP Sensitivity','SDGs'],...sorted.map((inv,i)=>[i+1,inv.name,sectorLabels[inv.sector]||inv.sector,inv.weighted_score,inv.social_score,inv.econ_score,inv.env_score,inv.climate_score,inv.cost_estimate,inv.implementation,inv.priority,inv.ssp_sensitivity||'—',(sdgMap[inv.sector]||['SDG 6']).join(', ')])];
+  const ws=XLSX.utils.aoa_to_sheet(wsData);const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Investment Portfolio');
+  const ws2=XLSX.utils.aoa_to_sheet([['Summary',''],['Top Recommendation',r.top_recommendation],['Scenario Note',r.scenario_note],['Financing',r.financing_note],['Data Strategy',r.data_strategy]]);
+  XLSX.utils.book_append_sheet(wb,ws2,'Summary');XLSX.writeFile(wb,`AquaROI_${country}_${new Date().toISOString().slice(0,10)}.xlsx`);}
 
-function exportExcel() {
-  const r = window._analysisResult; if (!r) return;
-  const country = document.getElementById('country').value.split('|')[0];
-  const sorted = [...r.investments].sort((a,b)=>b.weighted_score-a.weighted_score);
-  const wsData = [
-    ['AquaROI Investment Analysis','','','','','','','','','','','',''],
-    ['Country',country,'Region',document.getElementById('region').value,'Study area',document.getElementById('studyarea').value,'','','','','','',''],
-    ['SSP Pathways',getActivePills('sspGrid').join(', '),'Horizons',getActivePills('horizonGrid').join(', '),'','','','','','','','',''],
-    ['Rainfall (CHIRPS)',liveData.rainfall?liveData.rainfall+'mm':'N/A','PET (ERA5)',liveData.pet?liveData.pet+'mm':'N/A','P/PET',liveData.rainfall&&liveData.pet?(liveData.rainfall/liveData.pet).toFixed(2):'N/A','','','','','','',''],
-    [],
-    ['Rank','Investment','Sector','Weighted Score','Social','Economic','Environmental','Climate','Cost Estimate','Implementation','Priority','SSP Sensitivity','SDGs'],
-    ...sorted.map((inv,i) => [
-      i+1, inv.name, sectorLabels[inv.sector]||inv.sector, inv.weighted_score,
-      inv.social_score, inv.econ_score, inv.env_score, inv.climate_score,
-      inv.cost_estimate, inv.implementation, inv.priority, inv.ssp_sensitivity||'—',
-      (sdgMap[inv.sector]||['SDG 6']).join(', ')
-    ])
-  ];
-  const ws = XLSX.utils.aoa_to_sheet(wsData);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Investment Portfolio');
-  // Summary sheet
-  const ws2 = XLSX.utils.aoa_to_sheet([
-    ['Summary',''],['Top Recommendation',r.top_recommendation],
-    ['Scenario Note',r.scenario_note],['Financing',r.financing_note],
-    ['Data Strategy',r.data_strategy]
-  ]);
-  XLSX.utils.book_append_sheet(wb, ws2, 'Summary');
-  XLSX.writeFile(wb, `AquaROI_${country}_${new Date().toISOString().slice(0,10)}.xlsx`);
-}
+function exportJSON(){const r=window._analysisResult;if(!r)return;const blob=new Blob([JSON.stringify({...r,liveData,metadata:{country:document.getElementById('country').value.split('|')[0],date:new Date().toISOString()}},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`AquaROI_${document.getElementById('country').value.split('|')[0]}_${new Date().toISOString().slice(0,10)}.json`;a.click();}
 
-function exportJSON() {
-  const r = window._analysisResult; if (!r) return;
-  const blob = new Blob([JSON.stringify({...r, liveData, metadata:{country:document.getElementById('country').value.split('|')[0],date:new Date().toISOString()}},null,2)], {type:'application/json'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-  a.download = `AquaROI_${document.getElementById('country').value.split('|')[0]}_${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
-}
-
-// ── INIT ──────────────────────────────────────────────────
 renderMcdaSliders();
 checkSession();
 </script>
-
-<!-- VALIDATION TOAST -->
-<div class="validation-toast" id="validationToast">
-  <div class="toast-title">⚠ REQUIRED FIELDS MISSING</div>
-  <div id="toastItems"></div>
-</div>
-
 </body>
 </html>
