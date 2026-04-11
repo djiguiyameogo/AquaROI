@@ -432,13 +432,13 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
           </div>
           <div class="row2">
             <div class="field"><label>Region / Province</label><input type="text" id="region" placeholder="e.g. Androy"></div>
-            <div class="field"><label>Study Area</label><input type="text" id="studyarea" placeholder="e.g. Ambovombe"></div>
+            <div class="field"><label>Study Area</label><input type="text" id="studyarea" placeholder="e.g. Ambovombe" onchange="geocodeStudyArea()"></div>
           </div>
           <div class="coord-row">
             <div class="coord-field"><label>Latitude<span class="req">*</span></label><input type="number" id="studyLat" placeholder="-25.17" step="0.0001" onchange="onCoordChange()"></div>
             <div class="coord-field"><label>Longitude<span class="req">*</span></label><input type="number" id="studyLon" placeholder="46.08" step="0.0001" onchange="onCoordChange()"></div>
           </div>
-          <div class="coord-source" id="coordSource">Select a country to auto-fill</div>
+          <div class="coord-source" id="coordSource">Select a country to auto-fill coordinates</div>
           <label class="geo-upload" for="geoFileInput">
             <span class="geo-upload-icon">🗺️</span>
             <span class="geo-upload-text">Upload boundary file</span>
@@ -745,23 +745,7 @@ input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;hei
 </div>
 
 <script>
-const _sb=supabase.createClient('https://givaedcvsccfcldkhvcr.supabase.co','sb_publishable_GAti6y9in39NeOs9jl1mUg_Jxi2z7DU');
-let currentUser=null,authMode='login';
-function openAuth(m){authMode=m||'login';const title=authMode==='login'?t('signin'):t('create_account');document.getElementById('authTitle').textContent=title;document.getElementById('authSubmit').textContent=title;document.getElementById('authSwitch').innerHTML=authMode==='login'?`${t('dont_have')} <a onclick="switchAuthMode('signup')">${t('signup_free')}</a>`:`${t('already_have')} <a onclick="switchAuthMode('login')">${t('signin_link')}</a>`;document.getElementById('authFormName').style.display=authMode==='signup'?'flex':'none';document.getElementById('authError').style.display='none';document.getElementById('authOverlay').classList.add('open');}
-function closeAuth(){document.getElementById('authOverlay').classList.remove('open');}
-function switchAuthMode(m){openAuth(m);}
-async function submitAuth(){const email=document.getElementById('authEmail').value.trim();const pass=document.getElementById('authPassword').value;const name=document.getElementById('authName').value.trim();const err=document.getElementById('authError');err.style.display='none';document.getElementById('authSubmit').textContent=t('please_wait');try{if(authMode==='signup'){const{error}=await _sb.auth.signUp({email,password:pass,options:{data:{full_name:name}}});if(error)throw error;err.style.cssText='display:block;background:rgba(34,197,94,0.08);border:1px solid #bbf7d0;color:#166534;border-radius:6px;padding:8px 10px;font-size:0.75rem;margin-bottom:0.75rem;';err.textContent=t('check_email');}else{const{data,error}=await _sb.auth.signInWithPassword({email,password:pass});if(error)throw error;currentUser=data.user;closeAuth();renderUserMenu(currentUser);loadSavedAnalyses();}}catch(e){err.style.cssText='display:block;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:6px;padding:8px 10px;font-size:0.75rem;margin-bottom:0.75rem;';err.textContent=e.message||t('went_wrong');}document.getElementById('authSubmit').textContent=authMode==='login'?'Sign in':'Create account';}
-function renderUserMenu(user){const name=user.user_metadata?.full_name||user.email.split('@')[0];const ini=name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);document.getElementById('authArea').innerHTML=`<div class="user-menu-wrap"><div class="user-btn" onclick="toggleUserMenu()"><div class="user-avatar">${ini}</div><span class="user-name">${name}</span><span style="color:#475569;font-size:0.6rem;">▾</span></div><div class="user-dropdown" id="userDropdown"><div class="user-dd-item" onclick="openSavedPanel()">📂 My analyses</div><hr style="border:none;border-top:1px solid var(--border);margin:3px 0"><div class="user-dd-item danger" onclick="signOut()">Sign out</div></div></div>`;}
-function toggleUserMenu(){document.getElementById('userDropdown')?.classList.toggle('open');}
-document.addEventListener('click',e=>{if(!e.target.closest('.user-menu-wrap'))document.getElementById('userDropdown')?.classList.remove('open');});
-async function signOut(){await _sb.auth.signOut();currentUser=null;document.getElementById('authArea').innerHTML='<div style="display:flex;gap:6px;align-items:center;"><button class="sign-in-btn" style="background:transparent;border:1px solid #334155;color:#94a3b8;" onclick="openAuth(\'login\')">Log in</button><button class="sign-in-btn" onclick="openAuth(\'signup\')">Sign up</button></div>';}
-async function saveAnalysis(){if(!currentUser){openAuth('login');return;}const r=window._analysisResult;if(!r)return;const country=document.getElementById('country').value.split('|')[0];const study=document.getElementById('studyarea').value||document.getElementById('region').value||country;const{error}=await _sb.from('analyses').insert({user_id:currentUser.id,title:study+' · '+new Date().toLocaleDateString(),country,region:document.getElementById('region').value,study_area:document.getElementById('studyarea').value,climate_zone:document.getElementById('climate').value,ssp_pathways:getActivePills('sspGrid').join(', '),horizons:getActivePills('horizonGrid').join(', '),budget:parseInt(document.getElementById('budget').value)||0,population:parseInt(document.getElementById('population').value)||0,live_data:liveData,result:r,notes:document.getElementById('extraContext').value});if(error){alert(t('save_failed')+error.message);return;}const btn=document.querySelector('.save-btn');if(btn){btn.innerHTML=t('saved');setTimeout(()=>btn.innerHTML=t('save'),2000);}loadSavedAnalyses();}
-async function loadSavedAnalyses(){if(!currentUser)return;const{data}=await _sb.from('analyses').select('*').order('created_at',{ascending:false}).limit(50);const list=document.getElementById('savedList');if(!data?.length){list.innerHTML=t('no_analyses');return;}list.innerHTML=data.map(a=>`<div class="saved-item" onclick="loadAnalysis('${a.id}')"><div class="saved-item-title">${a.title||a.country}</div><div class="saved-item-meta">${a.country} · ${new Date(a.created_at).toLocaleDateString()}</div></div>`).join('');}
-async function loadAnalysis(id){const{data}=await _sb.from('analyses').select('*').eq('id',id).single();if(!data)return;document.getElementById('region').value=data.region||'';document.getElementById('studyarea').value=data.study_area||'';document.getElementById('budget').value=data.budget||'';document.getElementById('population').value=data.population||'';document.getElementById('extraContext').value=data.notes||'';if(data.result&&Object.keys(data.result).length){window._analysisResult=data.result;window._mapResult=data.result;showResults(data.result);}closeSavedPanel();}
-function openSavedPanel(){document.getElementById('savedPanel').classList.add('open');loadSavedAnalyses();document.getElementById('userDropdown')?.classList.remove('open');}
-function closeSavedPanel(){document.getElementById('savedPanel').classList.remove('open');}
-async function checkSession(){const{data}=await _sb.auth.getSession();if(data.session?.user){currentUser=data.session.user;renderUserMenu(currentUser);}}
-
+window.onerror=function(msg,src,line,col,err){console.error("GLOBAL ERROR:",msg,"\nFile:",src,"\nLine:",line,"Col:",col,"\nStack:",err&&err.stack);return false;};
 let currentLang='en';
 const i18n={
   en:{
@@ -777,7 +761,7 @@ const i18n={
     context_ph:'Local constraints, partnerships, specific risks...',
     // Coord source messages
     coord_default:'Select a country to auto-fill',
-    coord_centroid:'Country centroid — enter precise study area coordinates below',
+    coord_centroid:'⚠️ Country centroid used — type study area name above to auto-update',
     coord_custom:'Custom study area coordinates',
     coord_geo:'Centroid from boundary file',
     // Status
@@ -807,12 +791,12 @@ const i18n={
     no_analyses:'No saved analyses yet.',
     save:'💾 Save',
     saved:'✓ Saved',
-    please_wait:t('please_wait'),
+    please_wait:'Please wait...',
     dont_have:'Don\'t have an account?',
     already_have:'Already have an account?',
     signup_free:'Sign up free',
     signin_link:'Sign in',
-    check_email:t('check_email'),
+    check_email:'Account created! Check your email then sign in.',
     went_wrong:'Something went wrong.',
     save_failed:'Save failed: ',
     // Section labels
@@ -937,7 +921,7 @@ const i18n={
     context_ph:'Contraintes locales, partenariats, risques spécifiques...',
     // Coord source messages
     coord_default:'Sélectionner un pays pour remplir automatiquement',
-    coord_centroid:'Centroïde du pays — entrez les coordonnées précises de la zone d\'étude',
+    coord_centroid:'⚠️ Centroïde du pays — saisissez le nom de la zone d\'étude pour mise à jour auto',
     coord_custom:'Coordonnées personnalisées de la zone d\'étude',
     coord_geo:'Centroïde du fichier de délimitation',
     // Status
@@ -1088,7 +1072,7 @@ const i18n={
 
 function t(key){return (i18n[currentLang]||i18n.en)[key]||i18n.en[key]||key;}
 
-function applyAllTranslations(){
+function applyAllTranslations(){try{
   const lang=currentLang;
   // ── SELECT PLACEHOLDERS ──
   const countryEl=document.getElementById('country');
@@ -1133,7 +1117,7 @@ function applyAllTranslations(){
   // ── ANALYZE BUTTON ──
   const ab=document.querySelector('.btn-text');if(ab)ab.textContent=t('btn_analyze');
   // ── FOOTER NOTE ──
-  const fn=document.querySelector('.left-footer>div:first-child');
+  const fn=document.querySelector('.left-footer div:first-child');
   if(fn)fn.innerHTML=`<span style="color:#ef4444;">*</span> ${t('footer_note')}`;
   // ── SECTION LABELS ──
   const secOrder=['sec_location','sec_livedata','sec_context','sec_datadocs','sec_ssp','sec_horizons','sec_priorities','sec_sectors','sec_institution','sec_context2'];
@@ -1218,7 +1202,7 @@ function applyAllTranslations(){
   });
   // ── CLIMATE ZONE AUTO LABEL ──
   document.querySelectorAll('.field label span').forEach(el=>{if(el.textContent.includes('auto'))el.textContent=t('climate_auto');});
-}
+}catch(e){console.warn('i18n error:',e.message,e.stack);}}
 
 function setLang(lang,btn){
   currentLang=lang;
@@ -1226,14 +1210,63 @@ function setLang(lang,btn){
   btn.classList.add('active');
   applyAllTranslations();
 }
-function onCoordChange(){const lat=parseFloat(document.getElementById('studyLat').value);const lon=parseFloat(document.getElementById('studyLon').value);if(!isNaN(lat)&&!isNaN(lon)){studyLat=lat;studyLon=lon;document.getElementById('coordSource').textContent=`${t('coord_custom')}: ${lat.toFixed(4)}°, ${lon.toFixed(4)}°`;document.getElementById('coordSource').style.color='var(--teal)';}}
+
+const _sb=supabase.createClient('https://givaedcvsccfcldkhvcr.supabase.co','sb_publishable_GAti6y9in39NeOs9jl1mUg_Jxi2z7DU');
+let currentUser=null,authMode='login';
+function openAuth(m){authMode=m||'login';const title=authMode==='login'?t('signin'):t('create_account');document.getElementById('authTitle').textContent=title;document.getElementById('authSubmit').textContent=title;document.getElementById('authSwitch').innerHTML=authMode==='login'?`${t('dont_have')} <a onclick="switchAuthMode('signup')">${t('signup_free')}</a>`:`${t('already_have')} <a onclick="switchAuthMode('login')">${t('signin_link')}</a>`;document.getElementById('authFormName').style.display=authMode==='signup'?'flex':'none';document.getElementById('authError').style.display='none';document.getElementById('authOverlay').classList.add('open');}
+function closeAuth(){document.getElementById('authOverlay').classList.remove('open');}
+function switchAuthMode(m){openAuth(m);}
+async function submitAuth(){const email=document.getElementById('authEmail').value.trim();const pass=document.getElementById('authPassword').value;const name=document.getElementById('authName').value.trim();const err=document.getElementById('authError');err.style.display='none';document.getElementById('authSubmit').textContent=t('please_wait');try{if(authMode==='signup'){const{error}=await _sb.auth.signUp({email,password:pass,options:{data:{full_name:name}}});if(error)throw error;err.style.cssText='display:block;background:rgba(34,197,94,0.08);border:1px solid #bbf7d0;color:#166534;border-radius:6px;padding:8px 10px;font-size:0.75rem;margin-bottom:0.75rem;';err.textContent=t('check_email');}else{const{data,error}=await _sb.auth.signInWithPassword({email,password:pass});if(error)throw error;currentUser=data.user;closeAuth();renderUserMenu(currentUser);loadSavedAnalyses();}}catch(e){err.style.cssText='display:block;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:6px;padding:8px 10px;font-size:0.75rem;margin-bottom:0.75rem;';err.textContent=e.message||t('went_wrong');}document.getElementById('authSubmit').textContent=authMode==='login'?'Sign in':'Create account';}
+function renderUserMenu(user){const name=user.user_metadata?.full_name||user.email.split('@')[0];const ini=name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);document.getElementById('authArea').innerHTML=`<div class="user-menu-wrap"><div class="user-btn" onclick="toggleUserMenu()"><div class="user-avatar">${ini}</div><span class="user-name">${name}</span><span style="color:#475569;font-size:0.6rem;">▾</span></div><div class="user-dropdown" id="userDropdown"><div class="user-dd-item" onclick="openSavedPanel()">📂 My analyses</div><hr style="border:none;border-top:1px solid var(--border);margin:3px 0"><div class="user-dd-item danger" onclick="signOut()">Sign out</div></div></div>`;}
+function toggleUserMenu(){document.getElementById('userDropdown')?.classList.toggle('open');}
+document.addEventListener('click',e=>{if(!e.target.closest('.user-menu-wrap'))document.getElementById('userDropdown')?.classList.remove('open');});
+async function signOut(){await _sb.auth.signOut();currentUser=null;document.getElementById('authArea').innerHTML='<div style="display:flex;gap:6px;align-items:center;"><button class="sign-in-btn" style="background:transparent;border:1px solid #334155;color:#94a3b8;" onclick="openAuth(\'login\')">Log in</button><button class="sign-in-btn" onclick="openAuth(\'signup\')">Sign up</button></div>';}
+async function saveAnalysis(){if(!currentUser){openAuth('login');return;}const r=window._analysisResult;if(!r)return;const country=document.getElementById('country').value.split('|')[0];const study=document.getElementById('studyarea').value||document.getElementById('region').value||country;const{error}=await _sb.from('analyses').insert({user_id:currentUser.id,title:study+' · '+new Date().toLocaleDateString(),country,region:document.getElementById('region').value,study_area:document.getElementById('studyarea').value,climate_zone:document.getElementById('climate').value,ssp_pathways:getActivePills('sspGrid').join(', '),horizons:getActivePills('horizonGrid').join(', '),budget:parseInt(document.getElementById('budget').value)||0,population:parseInt(document.getElementById('population').value)||0,live_data:liveData,result:r,notes:document.getElementById('extraContext').value});if(error){alert(t('save_failed')+error.message);return;}const btn=document.querySelector('.save-btn');if(btn){btn.innerHTML=t('saved');setTimeout(()=>btn.innerHTML=t('save'),2000);}loadSavedAnalyses();}
+async function loadSavedAnalyses(){if(!currentUser)return;const{data}=await _sb.from('analyses').select('*').order('created_at',{ascending:false}).limit(50);const list=document.getElementById('savedList');if(!data?.length){list.innerHTML=t('no_analyses');return;}list.innerHTML=data.map(a=>`<div class="saved-item" onclick="loadAnalysis('${a.id}')"><div class="saved-item-title">${a.title||a.country}</div><div class="saved-item-meta">${a.country} · ${new Date(a.created_at).toLocaleDateString()}</div></div>`).join('');}
+async function loadAnalysis(id){const{data}=await _sb.from('analyses').select('*').eq('id',id).single();if(!data)return;document.getElementById('region').value=data.region||'';document.getElementById('studyarea').value=data.study_area||'';document.getElementById('budget').value=data.budget||'';document.getElementById('population').value=data.population||'';document.getElementById('extraContext').value=data.notes||'';if(data.result&&Object.keys(data.result).length){window._analysisResult=data.result;window._mapResult=data.result;showResults(data.result);}closeSavedPanel();}
+function openSavedPanel(){document.getElementById('savedPanel').classList.add('open');loadSavedAnalyses();document.getElementById('userDropdown')?.classList.remove('open');}
+function closeSavedPanel(){document.getElementById('savedPanel').classList.remove('open');}
+async function checkSession(){const{data}=await _sb.auth.getSession();if(data.session?.user){currentUser=data.session.user;renderUserMenu(currentUser);}}
+
+function onCoordChange(){const lat=parseFloat(document.getElementById('studyLat').value);const lon=parseFloat(document.getElementById('studyLon').value);if(!isNaN(lat)&&!isNaN(lon)){studyLat=lat;studyLon=lon;document.getElementById('coordSource').textContent=`📍 Custom: ${lat.toFixed(4)}°, ${lon.toFixed(4)}°`;document.getElementById('coordSource').style.color='var(--teal)';}}
+
+async function geocodeStudyArea(){
+  const study=document.getElementById('studyarea').value.trim();
+  const country=document.getElementById('country').value.split('|')[0]||'';
+  if(!study||study.length<3)return;
+  const cs=document.getElementById('coordSource');
+  cs.textContent='🔍 Looking up coordinates...';
+  cs.style.color='var(--muted)';
+  try{
+    const query=encodeURIComponent(study+(country?', '+country:''));
+    const res=await fetch(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`,{headers:{'Accept-Language':'en'}});
+    const data=await res.json();
+    if(data&&data.length>0){
+      const lat=parseFloat(data[0].lat);
+      const lon=parseFloat(data[0].lon);
+      studyLat=lat;
+      studyLon=lon;
+      document.getElementById('studyLat').value=lat.toFixed(4);
+      document.getElementById('studyLon').value=lon.toFixed(4);
+      cs.textContent=`📍 ${study}: ${lat.toFixed(4)}°, ${lon.toFixed(4)}°`;
+      cs.style.color='var(--teal)';
+    } else {
+      cs.textContent=`⚠️ "${study}" not found — enter coordinates manually`;
+      cs.style.color='var(--amber)';
+    }
+  }catch(e){
+    cs.textContent='Enter coordinates manually in the fields below';
+    cs.style.color='var(--muted)';
+  }
+}
+
 function handleGeoFile(file){if(!file)return;const status=document.getElementById('geoStatus');const ext=file.name.split('.').pop().toLowerCase();if(!['geojson','json','kml'].includes(ext)){status.className='geo-status error';status.textContent='✗ Unsupported format';return;}const reader=new FileReader();reader.onload=(e)=>{try{let c=null;if(ext!=='kml'){const gj=JSON.parse(e.target.result);c=computeGeoJSONCentroid(gj);}else{c=computeKMLCentroid(e.target.result);}if(c){studyLat=c.lat;studyLon=c.lon;document.getElementById('studyLat').value=c.lat.toFixed(6);document.getElementById('studyLon').value=c.lon.toFixed(6);document.getElementById('coordSource').textContent=`${t('coord_geo')}: ${c.lat.toFixed(4)}°, ${c.lon.toFixed(4)}° (${file.name})`;document.getElementById('coordSource').style.color='var(--teal)';status.className='geo-status loaded';status.innerHTML=`✓ ${file.name} · ${c.pointCount} vertices`;}}catch(err){status.className='geo-status error';status.textContent='✗ '+err.message;}};reader.readAsText(file);}
 function computeGeoJSONCentroid(gj){const coords=[];function ex(obj){if(!obj)return;if(obj.type==='FeatureCollection')obj.features.forEach(f=>ex(f));else if(obj.type==='Feature')ex(obj.geometry);else if(obj.type==='Polygon')obj.coordinates.forEach(r=>r.forEach(c=>coords.push(c)));else if(obj.type==='MultiPolygon')obj.coordinates.forEach(p=>p.forEach(r=>r.forEach(c=>coords.push(c))));else if(obj.type==='Point')coords.push(obj.coordinates);}ex(gj);if(!coords.length)throw new Error('No coordinates');const lon=coords.reduce((s,c)=>s+c[0],0)/coords.length;const lat=coords.reduce((s,c)=>s+c[1],0)/coords.length;return{lat:parseFloat(lat.toFixed(6)),lon:parseFloat(lon.toFixed(6)),pointCount:coords.length};}
 function computeKMLCentroid(kmlText){const matches=kmlText.match(/<coordinates[^>]*>([\s\S]*?)<\/coordinates>/gi)||[];const coords=[];matches.forEach(b=>{b.replace(/<\/?coordinates[^>]*>/gi,'').trim().split(/\s+/).forEach(t=>{const p=t.split(',');if(p.length>=2){const lon=parseFloat(p[0]),lat=parseFloat(p[1]);if(!isNaN(lat)&&!isNaN(lon))coords.push([lon,lat]);}});});if(!coords.length)throw new Error('No KML coords');const lon=coords.reduce((s,c)=>s+c[0],0)/coords.length;const lat=coords.reduce((s,c)=>s+c[1],0)/coords.length;return{lat:parseFloat(lat.toFixed(6)),lon:parseFloat(lon.toFixed(6)),pointCount:coords.length};}
 function getStudyCoords(){const lat=parseFloat(document.getElementById('studyLat')?.value);const lon=parseFloat(document.getElementById('studyLon')?.value);if(!isNaN(lat)&&!isNaN(lon)&&(lat!==0||lon!==0))return{lat,lon};return{lat:countryLat,lon:countryLon};}
 
 const popEstimates={'Madagascar':1800000,'Mali':4000000,'Niger':3000000,'Ethiopia':12000000,'Somalia':2000000,'Chad':3500000,'Mozambique':6000000,'Zimbabwe':4500000,'Kenya':7000000,'Tanzania':6000000,'Senegal':2500000,'Burkina Faso':3000000,'Nigeria':20000000,'South Sudan':2000000,'DRC':8000000,'Sudan':5000000,'Zambia':4000000,'Pakistan':15000000,'Bangladesh':18000000,'India':30000000,'Nepal':3500000,'Afghanistan':5000000,'Yemen':6000000,'Iraq':7000000,'Jordan':2500000,'Morocco':5000000,'Bolivia':2500000,'Haiti':3000000,'Northeast Brazil':7000000,'Peru':4500000,'Myanmar':5500000,'Cambodia':3500000,'Vietnam':8000000,'Indonesia':15000000,'Philippines':12000000,'Timor-Leste':800000};
-function onCountryChange(){const v=document.getElementById('country').value;if(!v)return;const parts=v.split('|');const country=parts[0];countryLat=parseFloat(parts[1]);countryLon=parseFloat(parts[2]);countryCode=parts[4]||'';document.getElementById('climate').value=parts[3];const pop=popEstimates[country];if(pop)document.getElementById('population').value=pop;document.getElementById('studyLat').value=countryLat.toFixed(4);document.getElementById('studyLon').value=countryLon.toFixed(4);studyLat=countryLat;studyLon=countryLon;document.getElementById('coordSource').textContent=t('coord_centroid');document.getElementById('coordSource').style.color='var(--muted)';document.getElementById('geoStatus').className='geo-status';document.getElementById('liveDataGrid').style.display='none';clearValidation();setStatus('idle',t('status_idle'));}
+function onCountryChange(){const v=document.getElementById('country').value;if(!v)return;const parts=v.split('|');const country=parts[0];countryLat=parseFloat(parts[1]);countryLon=parseFloat(parts[2]);countryCode=parts[4]||'';document.getElementById('climate').value=parts[3];const pop=popEstimates[country];if(pop)document.getElementById('population').value=pop;document.getElementById('studyLat').value=countryLat.toFixed(4);document.getElementById('studyLon').value=countryLon.toFixed(4);studyLat=countryLat;studyLon=countryLon;document.getElementById('coordSource').textContent='⚠️ Country centroid used — type your study area name above to auto-update coordinates';document.getElementById('coordSource').style.color='#92400e';document.getElementById('geoStatus').className='geo-status';document.getElementById('liveDataGrid').style.display='none';clearValidation();setStatus('idle',t('status_idle'));}
 
 function setStatus(state,text){const el=document.getElementById('dataStatus');const dot=document.getElementById('statusDot');const txt=document.getElementById('statusText');el.className='data-status '+state;dot.className='status-dot '+state;txt.textContent=text;}
 
@@ -1280,7 +1313,7 @@ function renderFileList(){const c=document.getElementById('fileList');const icon
 const mcdaAll={social:{label:'Social equity',cls:'tok-social',color:'#0f766e'},economic:{label:'Economic viability',cls:'tok-economic',color:'#1e40af'},environmental:{label:'Environmental impact',cls:'tok-environmental',color:'#166534'},climate:{label:'Climate resilience',cls:'tok-climate',color:'#1D4ED8'},governance:{label:'Governance',cls:'tok-governance',color:'#6d28d9'},gender:{label:'Gender & inclusion',cls:'tok-gender',color:'#9d174d'},technology:{label:'Technology',cls:'tok-technology',color:'#92400e'},carbon:{label:'Carbon co-benefits',cls:'tok-carbon',color:'#065f46'},political:{label:'Political risk',cls:'tok-political',color:'#991b1b'},cofinancing:{label:'Co-financing',cls:'tok-cofinancing',color:'#78350f'}};
 const scoreFieldMap={social:'social_score',economic:'econ_score',environmental:'env_score',climate:'climate_score',governance:'governance_score',gender:'gender_score',technology:'tech_score',carbon:'carbon_score',political:'political_score',cofinancing:'cofinancing_score'};
 let selectedCriteria=['social','economic','environmental','climate'];
-function renderMcdaSliders(){const c=document.getElementById('mcdaSliders');c.innerHTML='';const eq=Math.floor(100/selectedCriteria.length);selectedCriteria.forEach((key,i)=>{const info=mcdaAll[key];const v=i===selectedCriteria.length-1?100-eq*(selectedCriteria.length-1):eq;const row=document.createElement('div');row.className='mcda-row';row.innerHTML=`<div class="mcda-row-head"><span class="mcda-row-label"><span class="mcda-dot" style="background:${info.color}"></span>${info.label}</span><span class="mcda-val" id="val_${key}" style="color:${info.color}">${v}</span></div><input type="range" min="0" max="100" value="${v}" id="w_${key}" oninput="updateWeights()">`;c.appendChild(row);});updateWeights();updateDropdownState();}
+function renderMcdaSliders(){const c=document.getElementById('mcdaSliders');if(!c)return;c.innerHTML='';const eq=Math.floor(100/selectedCriteria.length);selectedCriteria.forEach((key,i)=>{const info=mcdaAll[key];const v=i===selectedCriteria.length-1?100-eq*(selectedCriteria.length-1):eq;const row=document.createElement('div');row.className='mcda-row';row.innerHTML=`<div class="mcda-row-head"><span class="mcda-row-label"><span class="mcda-dot" style="background:${info.color}"></span>${info.label}</span><span class="mcda-val" id="val_${key}" style="color:${info.color}">${v}</span></div><input type="range" min="0" max="100" value="${v}" id="w_${key}" oninput="updateWeights()">`;c.appendChild(row);});updateWeights();updateDropdownState();}
 function updateWeights(){let total=0;selectedCriteria.forEach(key=>{const el=document.getElementById('w_'+key);if(!el)return;const v=parseInt(el.value);document.getElementById('val_'+key).textContent=v;total+=v;});const el=document.getElementById('weightTotal');el.textContent=`Total: ${total} / 100 ${total===100?'✓':''}`;el.className='weight-total '+(total===100?'ok':'over');}
 function addCriteria(key,label,cls,color){if(selectedCriteria.length>=6||selectedCriteria.includes(key))return;selectedCriteria.push(key);const pool=document.getElementById('mcdaPool');const addBtn=document.getElementById('mcdaAddBtn');const tok=document.createElement('div');tok.className=`mcda-token ${cls}`;tok.dataset.key=key;tok.innerHTML=`<span>${label}</span><span class="tok-remove" onclick="removeCriteria('${key}')">✕</span>`;pool.insertBefore(tok,addBtn);renderMcdaSliders();closeMcdaDropdown();}
 function removeCriteria(key){selectedCriteria=selectedCriteria.filter(k=>k!==key);const tok=document.querySelector(`[data-key="${key}"].mcda-token`);if(tok)tok.remove();renderMcdaSliders();updateDropdownState();}
@@ -1310,24 +1343,19 @@ function buildPrompt(){
   const userType=document.getElementById('userType').value;
   const extra=document.getElementById('extraContext').value;
   const notes=document.getElementById('dataNotes')?.value?.trim()||'';
-  let weights='';selectedCriteria.forEach(key=>{const el=document.getElementById('w_'+key);if(el)weights+=`${mcdaAll[key].label}:${el.value}%, `;});
+  let weights='';selectedCriteria.forEach(key=>{const el=document.getElementById('w_'+key);if(el)weights+=mcdaAll[key].label+':'+el.value+'%, ';});
   let ctx='';
-  if(liveData.rainfall)ctx+=`Rainfall:${liveData.rainfall}mm/yr. `;
-  if(liveData.pet)ctx+=`PET:${liveData.pet}mm/yr. `;
-  if(liveData.rainfall&&liveData.pet)ctx+=`P/PET:${(liveData.rainfall/liveData.pet).toFixed(2)}. `;
-  if(liveData.gdp)ctx+=`GDP/cap:$${liveData.gdp}. `;
-  if(liveData.stressLabel)ctx+=`WaterAccess:${liveData.stressLabel}. `;
-  if(liveData.gwStatus)ctx+=`GW:${liveData.gwStatus}. `;
-  if(liveData.conflictScore)ctx+=`Conflict:${liveData.conflictScore}. `;
-  if(liveData.waterBalance)ctx+=`Supply:${liveData.waterBalance.supply}m3/yr,Demand:${liveData.waterBalance.demand}m3/yr,Gap:${liveData.waterBalance.gap}m3/yr. `;
-  if(weapData)ctx+=`WEAP:${weapData.filename}(${weapData.rowCount}rows). `;
-  if(notes)ctx+=`Notes:${notes}. `;
-  return `You are a senior water investment advisor for a ${userType} institution. Generate Phase 2 water investment analysis for ${country}>${region}>${study}.
-Location:${getStudyCoords().lat.toFixed(4)},${getStudyCoords().lon.toFixed(4)} Climate:${climate} Pop:${pop} Budget:$${budget} SSP:${ssps} Horizons:${horizons} Sectors:${sectors} Weights:${weights} Data:${ctx||'none'} Context:${extra}
-
-Return ONLY valid compact JSON (no markdown, no extra spaces):
-{"summary":"3 sentences with data","context_flags":["f1","f2","f3","f4","f5"],"water_balance":{"annual_supply_m3":5000000,"annual_demand_m3":8000000,"deficit_m3":3000000,"deficit_pct":37,"per_capita_supply_lpd":45,"per_capita_demand_lpd":75,"groundwater_dependency_pct":60,"note":"brief note"},"investments":[{"rank":1,"name":"name","sector":"water_supply","description":"2 sentences","social_score":75,"econ_score":60,"env_score":80,"climate_score":85,"governance_score":70,"gender_score":65,"tech_score":72,"carbon_score":68,"political_score":55,"cofinancing_score":78,"weighted_score":76,"cost_estimate":"$2-4M","cost_usd":3000000,"implementation":"SHORT","priority":"HIGH","ssp_sensitivity":"High","horizon_note":"critical by 2040","gap_addressed_m3":500000,"confidence_interval":"+-8","carbon_tco2_avoided":1200,"lat_offset":0.1,"lon_offset":-0.2}],"scenario_note":"SSP impact","data_strategy":"gaps","financing_note":"GCF AfDB","top_recommendation":"action","financing_gap":{"total_needed_usd":15000000,"budget_available_usd":2500000,"gap_usd":12500000,"oda_potential_pct":40,"blended_finance_pct":35,"dfi_potential_pct":25,"gcf_eligible":true,"afdb_eligible":true,"world_bank_ida_eligible":true,"note":"mix"},"implementation_phases":[{"phase":1,"label":"Quick wins","duration_months":12,"start_month":0,"cost_usd":1000000,"color":"#3b82f6"},{"phase":2,"label":"Core infra","duration_months":24,"start_month":12,"cost_usd":5000000,"color":"#0D9488"},{"phase":3,"label":"Scale","duration_months":36,"start_month":36,"cost_usd":9000000,"color":"#8b5cf6"}],"sdg_indicators":[{"sdg":"SDG 6.1","target":"Safe water","baseline":"42%","target_value":"80% by 2030","indicator":"Basic water coverage","monitoring_freq":"Annual"},{"sdg":"SDG 6.4","target":"Water efficiency","baseline":"High stress","target_value":"20% reduction","indicator":"Water stress index","monitoring_freq":"Biannual"},{"sdg":"SDG 13.1","target":"Climate resilience","baseline":"Low capacity","target_value":"Climate WASH 80%","indicator":"Vulnerability index","monitoring_freq":"Annual"}],"portfolio_combos":[{"label":"Max impact","investments":[1,2,3],"total_cost_usd":4500000,"combined_score":82,"gap_addressed_pct":45,"note":"Best within budget"},{"label":"Climate focus","investments":[1,3,5],"total_cost_usd":5200000,"combined_score":79,"gap_addressed_pct":38,"note":"SSP5 resilient"},{"label":"Quick wins","investments":[1,2],"total_cost_usd":2200000,"combined_score":76,"gap_addressed_pct":28,"note":"Under budget"}]}
-Provide exactly 5 investments. Keep JSON compact.`;
+  if(liveData.rainfall)ctx+='Rainfall:'+liveData.rainfall+'mm/yr. ';
+  if(liveData.pet)ctx+='PET:'+liveData.pet+'mm/yr. ';
+  if(liveData.rainfall&&liveData.pet)ctx+='P/PET:'+(liveData.rainfall/liveData.pet).toFixed(2)+'. ';
+  if(liveData.gdp)ctx+='GDP/cap:$'+liveData.gdp+'. ';
+  if(liveData.stressLabel)ctx+='WaterAccess:'+liveData.stressLabel+'. ';
+  if(liveData.gwStatus)ctx+='GW:'+liveData.gwStatus+'. ';
+  if(liveData.conflictScore)ctx+='Conflict:'+liveData.conflictScore+'. ';
+  if(liveData.waterBalance)ctx+='Supply:'+liveData.waterBalance.supply+'m3,Demand:'+liveData.waterBalance.demand+'m3,Gap:'+liveData.waterBalance.gap+'m3. ';
+  if(weapData)ctx+='WEAP:'+weapData.filename+'. ';
+  if(notes)ctx+='Notes:'+notes+'. ';
+  return 'You are a senior water investment advisor for a '+userType+' institution. Analyze water investment options for '+country+' > '+region+' > '+study+'. Climate: '+climate+'. Population: '+pop+'. Budget: $'+budget+' USD. SSP: '+ssps+'. Horizons: '+horizons+'. Sectors: '+sectors+'. MCDA weights: '+weights+'. Live data: '+(ctx||'none')+'. Context: '+extra+'.\n\nReturn ONLY valid JSON with NO markdown, NO explanation before or after:\n{"summary":"3-4 sentences referencing live data","context_flags":["c1","c2","c3","c4","c5"],"water_balance":{"annual_supply_m3":5000000,"annual_demand_m3":8000000,"deficit_m3":3000000,"deficit_pct":37,"per_capita_supply_lpd":45,"per_capita_demand_lpd":75,"groundwater_dependency_pct":60,"note":"brief"},"investments":[{"rank":1,"name":"Investment name","sector":"water_supply","description":"2 sentences","social_score":75,"econ_score":60,"env_score":80,"climate_score":85,"governance_score":70,"gender_score":65,"tech_score":72,"carbon_score":68,"political_score":55,"cofinancing_score":78,"weighted_score":76,"cost_estimate":"$2-4M","cost_usd":3000000,"implementation":"SHORT","priority":"HIGH","ssp_sensitivity":"High","horizon_note":"by 2040","gap_addressed_m3":500000,"confidence_interval":"+-8","carbon_tco2_avoided":1200,"lat_offset":0.1,"lon_offset":-0.2}],"scenario_note":"one sentence","data_strategy":"one sentence","financing_note":"one sentence","top_recommendation":"one sentence","financing_gap":{"total_needed_usd":15000000,"budget_available_usd":2500000,"gap_usd":12500000,"oda_potential_pct":40,"blended_finance_pct":35,"dfi_potential_pct":25,"gcf_eligible":true,"afdb_eligible":true,"world_bank_ida_eligible":true,"note":"one sentence"},"implementation_phases":[{"phase":1,"label":"Quick wins","duration_months":12,"start_month":0,"cost_usd":1000000,"color":"#3b82f6"},{"phase":2,"label":"Core infrastructure","duration_months":24,"start_month":12,"cost_usd":5000000,"color":"#0D9488"},{"phase":3,"label":"Scale","duration_months":36,"start_month":36,"cost_usd":9000000,"color":"#8b5cf6"}],"sdg_indicators":[{"sdg":"SDG 6.1","target":"Safe water","baseline":"42%","target_value":"80% by 2030","indicator":"Water coverage","monitoring_freq":"Annual"},{"sdg":"SDG 6.4","target":"Efficiency","baseline":"High stress","target_value":"20% reduction","indicator":"Stress index","monitoring_freq":"Biannual"},{"sdg":"SDG 13.1","target":"Resilience","baseline":"Low","target_value":"80% resilient","indicator":"Vulnerability","monitoring_freq":"Annual"}],"portfolio_combos":[{"label":"Max impact","investments":[1,2,3],"total_cost_usd":4500000,"combined_score":82,"gap_addressed_pct":45,"note":"Best within budget"},{"label":"Climate focus","investments":[1,3,5],"total_cost_usd":5200000,"combined_score":79,"gap_addressed_pct":38,"note":"SSP5 optimized"},{"label":"Quick wins","investments":[1,2],"total_cost_usd":2200000,"combined_score":76,"gap_addressed_pct":28,"note":"Under budget"}]}\nGenerate exactly 5 investments. All scores 0-100. Sector must be one of: water_supply, wash, irrigation, groundwater, nbs, flood, governance_sector, climate_infra.';
 }
 
 function clearValidation(){document.querySelectorAll('.field-error').forEach(el=>el.classList.remove('field-error'));}
@@ -1678,10 +1706,11 @@ function exportJSON(){const r=window._analysisResult;if(!r)return;const blob=new
 function clearValidation(){document.querySelectorAll('.field-error').forEach(el=>el.classList.remove('field-error'));}
 function showToast(errors){const toast=document.getElementById('validationToast');document.getElementById('toastItems').innerHTML=errors.map(e=>`<div class="toast-item">${e}</div>`).join('');toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),4000);}
 
-renderMcdaSliders();
-checkSession();
-applyAllTranslations();
-applyAllTranslations();
+// Init
+try { renderMcdaSliders(); } catch(e) { console.error('renderMcdaSliders error:', e); }
+try { checkSession(); } catch(e) { console.error('checkSession error:', e); }
+// Apply translations only if not English (default)
+// applyAllTranslations() is called by setLang() when user switches language
 </script>
 </body>
 </html>
